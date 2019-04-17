@@ -3,26 +3,25 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const formidableMiddleware = require('express-formidable');
-
+const fs = require(`fs`);
+global.fs=fs;
 const events = require(`events`);
 const eventEmitter = new events.EventEmitter();
 const mongo = require("../mongodb/mongodb");
-console.clear();
 console.dir(mongo)
 var getDB=mongo;
+const {parse, stringify} = require('flatted/cjs');
 process.env.NODE_ENV = 'production';
 const express = require('express');
 const app = express();
-app.use(function(req, res, next) {
-    console.dir(res);
-    next();
+app.use(function (req,res) {
+    require("fs").appendFileSync(`logs/express_${new Date().toDateString()}`,stringify([req,res],null,4));
 });
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(formidableMiddleware())
 
-const fs = require(`fs`);
 var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
 app.use(logger('dev',{stream:accessLogStream}));
 app.use(express.json());
@@ -54,7 +53,7 @@ app.use(async function (req, res, next) {
 });
 
 // tests module
-require(`./src/tests/init`)(app);
+//require(`./src/tests/init`)(app);
 app.post('/tests/meta',async function (request,response) {
     let type = request.fields.test_type ;
     let test_meta = await request.app.get("db").collection(`tests_meta`).findOne({test_name:type}).limit(1).toArray();
@@ -65,9 +64,16 @@ app.post(`/tests/BMTI/getQuestions`,async function (req,res) {
    res.json({success:true,questions})
 });
 app.post(`/tests/BMTI/submitTest`,async function(req,res) {
+    let inc=JSON.parse(req.fields.answerdata);
+    let questionIds=[];
+    inc.forEach(e=>{
+        questionIds.push(e._id);
+    });
+    let questionsStore = await req.app.get(`db`).collection(`BMTI`).find({_id:{$in:questionIds}}).toArray();
+    questionsStore.every(function (item) {
 
+    });
 });
-
 app.listen(
     3000,
     () =>
