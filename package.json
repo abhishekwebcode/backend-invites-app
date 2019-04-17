@@ -6,6 +6,7 @@
     "start": "nodemon --inspect ./src/main/start.js"
   },
   "dependencies": {
+    "@coolgk/facebook-sign-in": "^1.0.3",
     "@paralect/node-mongo": "^1.0.0",
     "api-mongodb": "*",
     "cookie-parser": "~1.4.3",
@@ -24,6 +25,7 @@
     "promised-mongo": "^1.2.0"
   },
   "devDependencies": {
-    "nodemon": "*"
+    "nodemon": "*",
+    "@types/express": "*"
   }
 }
