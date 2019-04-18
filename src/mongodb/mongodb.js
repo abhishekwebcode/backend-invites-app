@@ -23,6 +23,7 @@ var db;
 MongoClient.connect(uri, options, function (err, client) {
     if (err) throw err;
     db = client.db(`test`);
+    console.log(`MONGODB CONNECTED NOW`);
 });
 
 /**

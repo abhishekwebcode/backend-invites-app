@@ -55,9 +55,10 @@ var googleSignIn = async function (request,response,existing_one) {
     });
 };
 var userLogIn = async function (request,response) {
+    console.log(arguments);
     let username=request.fields.username;
     let password=request.fields.password;
-    let res = await request.app.get('db').collection('users').find({
+    let res = await request.app.get('db')().collection('users').find({
         $or: [{ username }, { email:username }],
         password
     }).limit(1).toArray();
@@ -65,7 +66,7 @@ var userLogIn = async function (request,response) {
         response.json({success:false,CODE:`USER_DOESNT_EXIST`});
     }
     else {
-        let token=await (require("../auth/jwt/jwt")).generateToken({email:res.email,time:Date.now()});
+        let token=await (require("../auth/jwt/jwt")).generateToken({email:res[0].email,time:Date.now()});
         response.json({success:true,CODE:`USER_SUCCESS`,token});
     }
 };
