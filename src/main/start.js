@@ -26,6 +26,9 @@ app.set(`id`,ObjectID);
 app.set(`event`,eventEmitter);
 // DO all auth functions
 let user_auth=require(`../auth/user_auth`);
+app.use(function (err,req,res,next) {
+        console.log(arguments);
+});
 app.get("/",function (req,res) {
         res.send(`Hello World`)
 });
