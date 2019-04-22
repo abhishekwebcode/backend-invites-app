@@ -93,6 +93,7 @@ var userSignUp = async function (request,response) {
     }
 };
 async function facebook(request,response) {
+    console.log(arguments);
     let user = await facebookSignIn.verify(request.fields.facebook_token);
     if (!user) {
         response.json({success:false,CODE:`FACEBOOK_AUTH_FAILED`})
