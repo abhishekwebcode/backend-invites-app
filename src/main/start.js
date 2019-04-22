@@ -27,7 +27,7 @@ app.set(`event`,eventEmitter);
 // DO all auth functions
 let user_auth=require(`../auth/user_auth`);
 app.get("/",function (req,res) {
-        res.send(`hello world`)
+        res.send(`hello server live`)
 })
 app.post('/signup',user_auth.sign_up);
 app.post(`/login`,user_auth.login);
