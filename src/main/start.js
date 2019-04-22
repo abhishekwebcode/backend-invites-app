@@ -1,4 +1,5 @@
 console.clear();
+// initialize express app
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -16,8 +17,6 @@ process.env.NODE_ENV = 'production';
 const express = require('express');
 const app = express();
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
 app.use(formidableMiddleware())
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
@@ -32,25 +31,17 @@ app.post(`/login`,user_auth.login);
 app.post('/google_auth',user_auth.google_auth);
 app.post('/facebook_auth',user_auth.facebook);
 // require auth to proceed
-const bearerToken = require('express-bearer-token');
-app.use(bearerToken());
-app.all("*",async function (req, res, next) {
-    //let meta = require(`../auth/jwt/verify`)(res.token, res.email, res);
-    let meta = await (require("../auth/jwt/jwt").getPayloadFromToken(req.token));
-    if (!meta) { res.end() ; return ; }
-    req.User = meta;
-    req.email = meta.email;
-    next();
-});
-
+require(`../classes/jwt-check`)(app);
 // tests module
 require(`../tests/init`)(app);
-
-
+// jobs module
+require(`../jobs/init`)(app);
+// gamification module
+require(`../gamification/init`)(app);
 app.listen(
-    3000,
+    process.env.PORT || 3000,
     () =>
         console.log(
-            `Example app listening on port 3000 !`
+            `Example app listening on port ${process.env.PORT || 3000} !`
         )
 );

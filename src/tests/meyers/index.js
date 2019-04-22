@@ -41,11 +41,16 @@ module.exports=function (app) {
                 scoreCard:score
             },    { upsert: true }
         ]);
-        let updateScore = await req.app.get(`db`)().collection(`users`).findOneAndUpdate({email:req.email}, {$set: {
-                meyersScore: inferredPersonalityType,
-                meyersAttempt: answermappings,
-                scoreCard: score
-            }},    { upsert: true }
+        let updateScore = await req.app.get(`db`)().collection(`users`).findOneAndUpdate(
+            {email:req.email}, {
+            $set: {
+                meyers: {
+                    meyersScore: inferredPersonalityType,
+                    meyersAttempt: answermappings,
+                    scoreCard: score
+                }
+            }
+            },    { upsert: true }
         );
         app.get(`event`).emit('NEW_TEST',{user:req.email,updateScore:updateScore,score:score,inferredPersonalityType:inferredPersonalityType,type:`MEYERS`});
         res.json({success:true,CODE:`SUCCESS_TEST`,PERSONALITY:inferredPersonalityType,TYPE:`MEYERS`});

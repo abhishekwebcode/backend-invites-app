@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@types/express": "*",
+    "@types/formidable": "^1.0.31",
     "nodemon": "*"
   }
 }

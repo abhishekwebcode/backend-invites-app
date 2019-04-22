@@ -34,10 +34,15 @@ module.exports=function (app) {
         let inferredPersonalityType=a[0].type;
         if (a[0].value===0) res.json({success:false,CODE:`INVALID_TEST`});
         let updateScore = await req.app.get(`db`)().collection(`users`).findOneAndUpdate({email:req.email}, {
-            hollandScore:inferredPersonalityType,
-            hollandAttempt:answermappings,
-            scoreCard:score
-        });
+                $set : {
+                    holland: {
+                        hollandScore: inferredPersonalityType,
+                        hollandAttempt: answermappings,
+                        scoreCard: score
+                    }
+                }
+            },{upsert:true}
+        );
         app.get(`event`).emit('NEW_TEST',{user:req.email,updateScore:updateScore,score:score,inferredPersonalityType:inferredPersonalityType,type:`holland`});
         res.json({success:true,CODE:`SUCCESS_TEST`,PERSONALITY:inferredPersonalityType,TYPE:`holland`});
     });

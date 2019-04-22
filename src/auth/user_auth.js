@@ -18,7 +18,7 @@ var google_auth=async function (request,response) {
             family_name:googleSignInResult.family_name,
             locale:googleSignInResult.locale
         };
-        let checkExisting = await request.app.get(`db`).collection(`users`).find({email:userObjectGoogle.email}).limit(1).toArray();
+        let checkExisting = await request.app.get(`db`)().collection(`users`).find({email:userObjectGoogle.email}).limit(1).toArray();
         if (checkExisting.length===0) {
             await googleSignUp(request,response,userObjectGoogle);
         }
@@ -74,9 +74,9 @@ var userSignUp = async function (request,response) {
     let email=request.fields.email;
     let username=request.fields.username;
     let password=request.fields.password;
-    let res=await request.app.get("db").collection(`users`).find({email}).limit(1).toArray();
+    let res=await request.app.get("db")().collection(`users`).find({email}).limit(1).toArray();
     if (res.length===0) {
-        let rr=await request.app.get("db").collection(`users`).insertOne({email,username,password,email_verified: false});
+        let rr=await request.app.get("db")().collection(`users`).insertOne({email,username,password,email_verified: false});
         if (rr.insertedCount===1) {
             response.json({success:true,CODE:`EMAIL_VERIFICATION_PENDING`})
         }
@@ -85,7 +85,7 @@ var userSignUp = async function (request,response) {
         }
     }
     else {
-        if (res[0].email_verified) {
+        if (res[0].email_verified || true) {
             response.json({success: false, CODE: `ALREADY_SIGNED_UP`})
         } else {
             response.json({success: false, CODE: `EMAIL_VERIFICATION_PENDING`})
@@ -100,9 +100,9 @@ async function facebook(request,response) {
     else {
         let email = user.email;
         if (email!==undefined && email!== null && email.indexOf('@')>-1) {
-            let resfb=await request.app.get('db').collection(`users`).find({email}).limit(1).toArray();
+            let resfb=await request.app.get('db')().collection(`users`).find({email}).limit(1).toArray();
             if (resfb.length==0) {
-                await request.app.get('db').collection(`users`).insertOne({
+                await request.app.get('db')().collection(`users`).insertOne({
                     username:false,
                     email,
                     facebook_meta:user,

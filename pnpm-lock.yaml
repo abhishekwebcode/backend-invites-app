@@ -20,6 +20,7 @@ dependencies:
   promised-mongo: 1.2.0
   winston: 3.2.1
 devDependencies:
+  '@types/formidable': 1.0.31
   nodemon: 1.18.11
 lockfileVersion: 5
 packages:
@@ -45,16 +46,31 @@ packages:
     dev: false
     resolution:
       integrity: sha512-6ckxMjBBD8URvjB6J3NcnuAn5Pkl7t3TizAg+xdlzzQGSPSmBcXf8KoIH0ua/i+tio+ZRUHEXp0HEmvaR4kt0w==
+  /@types/events/3.0.0:
+    dev: true
+    resolution:
+      integrity: sha512-EaObqwIvayI5a8dCzhFrjKzVwKLxjoG9T6Ppd5CEo07LRKfQ8Yokw54r5+Wq7FaBQ+yXRvQAYPrHwya1/UFt9g==
   /@types/form-data/2.2.1:
     dependencies:
       '@types/node': 11.13.4
     dev: false
     resolution:
       integrity: sha512-JAMFhOaHIciYVh8fb5/83nmuO/AHwmto+Hq7a9y8FzLDcC1KCU344XDOMEmahnrTFlHjgh4L0WJFczNIX2GxnQ==
+  /@types/formidable/1.0.31:
+    dependencies:
+      '@types/events': 3.0.0
+      '@types/node': 11.13.6
+    dev: true
+    resolution:
+      integrity: sha512-dIhM5t8lRP0oWe2HF8MuPvdd1TpPTjhDMAqemcq6oIZQCBQTovhBAdTQ5L5veJB4pdQChadmHuxtB0YzqvfU3Q==
   /@types/node/11.13.4:
     dev: false
     resolution:
       integrity: sha512-+rabAZZ3Yn7tF/XPGHupKIL5EcAbrLxnTr/hgQICxbeuAfWtT0UZSfULE+ndusckBItcv4o6ZeOJplQikVcLvQ==
+  /@types/node/11.13.6:
+    dev: true
+    resolution:
+      integrity: sha512-Xoo/EBzEe8HxTSwaZNLZjaW6M6tA/+GmD3/DZ6uo8qSaolE/9Oarko0oV1fVfrLqOz0tx0nXJB4rdD5c+vixLw==
   /@types/request-promise-native/1.0.15:
     dependencies:
       '@types/request': 2.48.1
@@ -2828,6 +2844,7 @@ packages:
 specifiers:
   '@coolgk/facebook-sign-in': ^1.0.3
   '@paralect/node-mongo': ^1.0.0
+  '@types/formidable': ^1.0.31
   api-mongodb: '*'
   cookie-parser: ~1.4.3
   debug: ~2.6.9

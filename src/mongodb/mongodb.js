@@ -33,5 +33,4 @@ MongoClient.connect(uri, options, function (err, client) {
 function getDB() {
     return db;
 }
-
 module.exports = getDB;
