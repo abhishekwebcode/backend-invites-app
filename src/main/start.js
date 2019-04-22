@@ -17,10 +17,7 @@ process.env.NODE_ENV = 'production';
 const express = require('express');
 const app = express();
 // view engine setup
-app.use(formidableMiddleware())
-app.use(express.urlencoded({extended: true}));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(cookieParser());
 app.set(`db`,mongo);
 app.set(`id`,ObjectID);
 app.set(`event`,eventEmitter);
@@ -36,6 +33,8 @@ app.post('/signup',user_auth.sign_up);
 app.post(`/login`,user_auth.login);
 app.post('/google_auth',user_auth.google_auth);
 app.post('/facebook_auth',user_auth.facebook);
+app.use(formidableMiddleware());
+app.use(express.urlencoded({extended: true}));
 // require auth to proceed
 require(`../classes/jwt-check`)(app);
 // tests module
