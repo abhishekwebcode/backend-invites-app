@@ -1,5 +1,4 @@
 console.clear();
-let start_date = new Date().toDateString();
 // initialize express app
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -17,20 +16,19 @@ const {parse, stringify} = require('flatted/cjs');
 process.env.NODE_ENV = 'production';
 const express = require('express');
 const app = express();
-// view engine setup
+app.use(formidableMiddleware());
+app.use(express.urlencoded({extended: true}));
 //app.use(cookieParser());
 app.set(`db`,mongo);
 app.set(`id`,ObjectID);
 app.set(`event`,eventEmitter);
-app.use(formidableMiddleware());
-app.use(express.urlencoded({extended: true}));
 // DO all auth functions
 let user_auth=require(`../auth/user_auth`);
 app.use(function (err,req,res,next) {
         console.log(arguments);
 });
 app.get("/",function (req,res) {
-        res.send(`Hello World ${start_date}`)
+        res.send(`Hello World`)
 });
 app.post("*",function (req,res,next) {
         console.log(arguments);
@@ -58,6 +56,7 @@ app.listen(
 process.on("uncaughtException",function () {
         console.log(arguments);
 });
+
 process.on("uncaughtRejection",function () {
         console.log(arguments);
-});
+})
