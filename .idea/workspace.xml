@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/gamification/init.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/gamification/init.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobs/user/init.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobs/user/init.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/start.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/holland/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/holland/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/init.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/init.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/meyers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/meyers/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,8 +23,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/start.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="36" column="47" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
+            <state relative-caret-position="250">
+              <caret line="51" column="2" lean-forward="true" selection-start-line="51" selection-start-column="2" selection-end-line="51" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -66,11 +71,13 @@
       <find>,</find>
       <find>`db`).</find>
       <find>form</find>
+      <find>app.post</find>
     </findStrings>
     <replaceStrings>
       <replace>:googleSignInResult.</replace>
       <replace>:0,</replace>
       <replace>`db`)().</replace>
+      <replace>app.all</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -228,12 +235,12 @@
       <workItem from="1555900984069" duration="2030000" />
       <workItem from="1555915227116" duration="1181000" />
       <workItem from="1555929833719" duration="3096000" />
-      <workItem from="1555943148469" duration="4624000" />
+      <workItem from="1555943148469" duration="4954000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55933000" />
+    <option name="totallyTimeSpent" value="56263000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -571,8 +578,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/start.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="36" column="47" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
+        <state relative-caret-position="250">
+          <caret line="51" column="2" lean-forward="true" selection-start-line="51" selection-start-column="2" selection-end-line="51" selection-end-column="2" />
         </state>
       </provider>
     </entry>

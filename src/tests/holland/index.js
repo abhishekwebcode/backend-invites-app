@@ -1,9 +1,9 @@
 module.exports=function (app) {
-    app.post(`/tests/holland/getQuestions`,async function (req,res) {
+    app.all(`/tests/holland/getQuestions`,async function (req,res) {
         let questions = await req.app.get('db').collection(`holland`).find({"answers.option":{"$exists":true},"title":{"$exists":true}},{"title":1,"answers.option":1}).limit(20).toArray();
         res.json({success:true,questions})
     });
-    app.post(`/tests/holland/submitTest`,async function(req,res) {
+    app.all(`/tests/holland/submitTest`,async function(req,res) {
         let score={
             REALISTIC:0,
             SOCIAL:0,

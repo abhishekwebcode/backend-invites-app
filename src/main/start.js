@@ -24,17 +24,14 @@ app.set(`id`,ObjectID);
 app.set(`event`,eventEmitter);
 // DO all auth functions
 let user_auth=require(`../auth/user_auth`);
-app.use(function (req,res,next) {
-        console.log(arguments);
-});
 n=new Date().toUTCString();
 app.get("/",function (req,res) {
         res.send(`Hello rld`)
 });
-app.post('/signup',user_auth.sign_up);
-app.post(`/login`,user_auth.login);
-app.post('/google_auth',user_auth.google_auth);
-app.post('/facebook_auth',user_auth.facebook);
+app.all('/signup',user_auth.sign_up);
+app.all(`/login`,user_auth.login);
+app.all('/google_auth',user_auth.google_auth);
+app.all('/facebook_auth',user_auth.facebook);
 // require auth to proceed
 require(`../classes/jwt-check`)(app);
 // tests module
@@ -43,6 +40,9 @@ require(`../tests/init`)(app);
 require(`../jobs/init`)(app);
 // gamification module
 require(`../gamification/init`)(app);
+app.use(function (err,req,res,next) {
+        console.log(`ERROR`,arguments);
+});
 app.listen(
     process.env.PORT || 3000,
     () =>
@@ -53,7 +53,6 @@ app.listen(
 process.on("uncaughtException",function () {
         console.log(arguments);
 });
-
 process.on("uncaughtRejection",function () {
         console.log(arguments);
 })

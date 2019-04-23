@@ -17,21 +17,21 @@ var gamification = {
 };
 
 module.exports=function (app) {
-  app.post(`/scores`,async function (request,response) {
+  app.all(`/scores`,async function (request,response) {
       let data = await gamification.getScores(request.email,request.app.get("db"));
       return response.json({
           success:true,
           DATA:data
       });
   });
-    app.post(`/friendsScore`,async function (request,response) {
+    app.all(`/friendsScore`,async function (request,response) {
         let data = (await gamification.getFriendsScores(request.email,request.app.get("db")));
         return response.json({
             success:true,
             DATA: data
         })
     });
-    app.post(`/badges`,async function(request,response) {
+    app.all(`/badges`,async function(request,response) {
         let data = await gamification.getBadges(request.email,request.app.get("db"));
         return response.json({
             success:true,

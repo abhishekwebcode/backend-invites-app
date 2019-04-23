@@ -1,9 +1,9 @@
 module.exports=function (app) {
-    app.post(`/tests/meyers/getQuestions`,async function (req,res) {
+    app.all(`/tests/meyers/getQuestions`,async function (req,res) {
         let questions = await req.app.get('db')().collection(`meyers`).find({"answers.option":{"$exists":true},"title":{"$exists":true}},{"title":1,"answers.option":1}).limit(20).toArray();
         res.json({success:true,questions})
     });
-    app.post(`/tests/meyers/submitTest`,async function(req,res) {
+    app.all(`/tests/meyers/submitTest`,async function(req,res) {
         let ider=req.app.get("id");
         let score={E:0,S:0,T:0,J:0,I:0,N:0,F:0,P:0};
         let inc=JSON.parse(req.fields.answerdata);

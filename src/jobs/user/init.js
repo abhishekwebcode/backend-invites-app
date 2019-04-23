@@ -25,7 +25,7 @@ var jobModule = {
 
 // user based job module endpoints
 module.exports=function (app) {
-    app.post(`/job/list`,async function (request,response) {
+    app.all(`/job/list`,async function (request,response) {
         let db = request.app.get(`db`);
         let user = await db().collection(`users`).findOne({email:request.email}).toArray();
         let data = await jobModule.getJobs(db,user,request.fields.offset);
