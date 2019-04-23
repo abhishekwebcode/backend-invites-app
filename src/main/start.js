@@ -54,3 +54,9 @@ app.listen(
             `Example app listening on port ${process.env.PORT || 3000} !`
         )
 );
+process.on("uncaughtException",function () {
+        console.log(arguments);
+});
+process.on("uncaughtRejection",function () {
+        console.log(arguments);
+});
