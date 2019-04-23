@@ -1,4 +1,5 @@
 console.clear();
+let start_date = new Date().toDateString();
 // initialize express app
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -27,7 +28,7 @@ app.use(function (err,req,res,next) {
         console.log(arguments);
 });
 app.get("/",function (req,res) {
-        res.send(`Hello World`)
+        res.send(`Hello World ${start_date}`)
 });
 app.post("*",function (req,res,next) {
         console.log(arguments);
