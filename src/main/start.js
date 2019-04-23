@@ -24,15 +24,12 @@ app.set(`id`,ObjectID);
 app.set(`event`,eventEmitter);
 // DO all auth functions
 let user_auth=require(`../auth/user_auth`);
-app.use(function (err,req,res,next) {
+app.use(function (req,res,next) {
         console.log(arguments);
 });
+n=new Date().toDateString();
 app.get("/",function (req,res) {
-        res.send(`Hello World`)
-});
-app.post("*",function (req,res,next) {
-        console.log(arguments);
-        next();
+        res.send(`Hello World ${n}`)
 });
 app.post('/signup',user_auth.sign_up);
 app.post(`/login`,user_auth.login);
