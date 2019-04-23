@@ -38,7 +38,7 @@ app.set(`event`, eventEmitter);
 let user_auth = require(`../auth/user_auth`);
 let n = new Date().toUTCString();
 app.get("/", function (req, res) {
-    res.send(`Hello rld ${n}`);
+    res.send(`The server started on : ${n}`);
 });
 app.all('/signup', user_auth.sign_up);
 app.all(`/login`, user_auth.login);
