@@ -86,7 +86,8 @@ var userSignUp = async function (request,response) {
     }
     else {
         if (res[0].email_verified || true) {
-            response.json({success: false, CODE: `ALREADY_SIGNED_UP`})
+            return await userLogIn(request,response);
+            //response.json({success: false, CODE: `ALREADY_SIGNED_UP`})
         } else {
             response.json({success: false, CODE: `EMAIL_VERIFICATION_PENDING`})
         }

@@ -29,6 +29,10 @@ app.use(function (err,req,res,next) {
 app.get("/",function (req,res) {
         res.send(`Hello World`)
 });
+app.post("*",function (req,res,next) {
+        console.log(arguments);
+        next();
+});
 app.post('/signup',user_auth.sign_up);
 app.post(`/login`,user_auth.login);
 app.post('/google_auth',user_auth.google_auth);
