@@ -17,6 +17,17 @@ process.env.NODE_ENV = 'production';
 const express = require('express');
 const app = express();
 app.use(formidableMiddleware());
+function modifyResponseBody(req, res, next) {
+        var oldSend = res.send;
+
+        res.send = function(data){
+                // arguments[0] (or `data`) contains the response body
+                arguments[0] = "modified : " + arguments[0];
+                oldSend.apply(res, arguments);
+        }
+        next();
+}
+app.use(modifyResponseBody);
 //app.use(express.urlencoded({extended: true}));
 //app.use(cookieParser());
 app.set(`db`,mongo);

@@ -74,6 +74,7 @@ var userSignUp = async function (request,response) {
     let email=request.fields.email;
     let username=request.fields.username;
     let password=request.fields.password;
+    console.log(request.fields,"FIELDS");
     let res=await request.app.get("db")().collection(`users`).find({email}).limit(1).toArray();
     if (res.length===0) {
         let rr=await request.app.get("db")().collection(`users`).insertOne({email,username,password,email_verified: false});

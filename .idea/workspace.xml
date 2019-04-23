@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/auth/user_auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth/user_auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/start.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -18,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/start.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="19" column="2" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+            <state relative-caret-position="418">
+              <caret line="29" column="1" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -27,8 +28,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/auth/user_auth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-86">
-              <caret line="75" column="41" lean-forward="true" selection-start-line="75" selection-start-column="41" selection-end-line="75" selection-end-column="41" />
+            <state relative-caret-position="672">
+              <caret line="94" column="5" selection-start-line="94" selection-start-column="5" selection-end-line="94" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -67,6 +68,7 @@
       <find>`db`).</find>
       <find>form</find>
       <find>app.post</find>
+      <find>res</find>
     </findStrings>
     <replaceStrings>
       <replace>:googleSignInResult.</replace>
@@ -230,12 +232,12 @@
       <workItem from="1555900984069" duration="2030000" />
       <workItem from="1555915227116" duration="1181000" />
       <workItem from="1555929833719" duration="3096000" />
-      <workItem from="1555943148469" duration="5121000" />
+      <workItem from="1555943148469" duration="5365000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56430000" />
+    <option name="totallyTimeSpent" value="56674000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -550,13 +552,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/auth/user_auth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-86">
-          <caret line="75" column="41" lean-forward="true" selection-start-line="75" selection-start-column="41" selection-end-line="75" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/global-types/node_modules/@types/express-formidable/index.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-39">
@@ -573,10 +568,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/auth/user_auth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="94" column="5" selection-start-line="94" selection-start-column="5" selection-end-line="94" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/start.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="19" column="2" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+        <state relative-caret-position="418">
+          <caret line="29" column="1" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
         </state>
       </provider>
     </entry>
