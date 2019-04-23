@@ -17,7 +17,7 @@ process.env.NODE_ENV = 'production';
 const express = require('express');
 const app = express();
 app.use(formidableMiddleware());
-app.use(express.urlencoded({extended: true}));
+//app.use(express.urlencoded({extended: true}));
 //app.use(cookieParser());
 app.set(`db`,mongo);
 app.set(`id`,ObjectID);
