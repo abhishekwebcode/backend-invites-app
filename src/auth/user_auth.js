@@ -55,7 +55,6 @@ var googleSignIn = async function (request,response,existing_one) {
     });
 };
 var userLogIn = async function (request,response) {
-    console.log(arguments);
     let username=request.fields.username;
     let password=request.fields.password;
     let res = await request.app.get('db')().collection('users').find({
@@ -87,7 +86,9 @@ var userSignUp = async function (request,response) {
     }
     else {
         if (res[0].email_verified || true) {
-            return await userLogIn(request,response);
+            let token=await (require("../auth/jwt/jwt")).generateToken({email,time:Date.now()});
+            response.json({success: true, CODE: `ALREADY_SIGNED_UP`,token:token});
+            //return await userLogIn(request,response);
             //response.json({success: false, CODE: `ALREADY_SIGNED_UP`})
         } else {
             response.json({success: false, CODE: `EMAIL_VERIFICATION_PENDING`})
