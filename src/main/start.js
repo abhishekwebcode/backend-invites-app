@@ -22,6 +22,8 @@ const app = express();
 app.set(`db`,mongo);
 app.set(`id`,ObjectID);
 app.set(`event`,eventEmitter);
+app.use(formidableMiddleware());
+app.use(express.urlencoded({extended: true}));
 // DO all auth functions
 let user_auth=require(`../auth/user_auth`);
 app.use(function (err,req,res,next) {
@@ -38,8 +40,6 @@ app.post('/signup',user_auth.sign_up);
 app.post(`/login`,user_auth.login);
 app.post('/google_auth',user_auth.google_auth);
 app.post('/facebook_auth',user_auth.facebook);
-app.use(formidableMiddleware());
-app.use(express.urlencoded({extended: true}));
 // require auth to proceed
 require(`../classes/jwt-check`)(app);
 // tests module
