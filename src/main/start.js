@@ -27,9 +27,9 @@ let user_auth=require(`../auth/user_auth`);
 app.use(function (req,res,next) {
         console.log(arguments);
 });
-n=new Date().toDateString();
+n=new Date().toUTCString();
 app.get("/",function (req,res) {
-        res.send(`Hello World ${n}`)
+        res.send(`Hello rld ${n}`)
 });
 app.post('/signup',user_auth.sign_up);
 app.post(`/login`,user_auth.login);
