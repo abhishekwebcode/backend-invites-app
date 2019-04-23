@@ -29,7 +29,7 @@ app.use(function (req,res,next) {
 });
 n=new Date().toUTCString();
 app.get("/",function (req,res) {
-        res.send(`Hello rld ${n}`)
+        res.send(`Hello rld`)
 });
 app.post('/signup',user_auth.sign_up);
 app.post(`/login`,user_auth.login);
