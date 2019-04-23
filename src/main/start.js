@@ -22,7 +22,6 @@ function modifyResponseBody(req, res, next) {
         res.send = function(data){
                 // arguments[0] (or `data`) contains the response body
                 console.dir(data);
-                arguments[0] = "modified : " + arguments[0];
                 oldSend.apply(res, arguments);
         }
         next();
