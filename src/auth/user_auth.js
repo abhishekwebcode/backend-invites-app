@@ -2,8 +2,8 @@ var GoogleSignIn = require('google-sign-in');
 var project = new GoogleSignIn.Project(`38743765127-ir1npuoqh58jnep2u1iap8348jllthl2.apps.googleusercontent.com`,`38743765127-srj09uavqg75vsbsj8lbrbm0aotuvi1u.apps.googleusercontent.com`);
 const { FacebookSignIn } = require('@coolgk/facebook-sign-in');
 const facebookSignIn = new FacebookSignIn({
-    clientId: '...',
-    secret: '...'
+    clientId: '405278700287006',
+    secret: '091015732c5ff74759b137843f3f17c9'
 });
 
 var google_auth=async function (request,response) {
