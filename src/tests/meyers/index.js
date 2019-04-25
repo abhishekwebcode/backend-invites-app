@@ -4,6 +4,7 @@ module.exports=function (app) {
         res.json({success:true,questions})
     });
     app.all(`/tests/meyers/submitTest`,async function(req,res) {
+        console.log(arguments,this);
         let ider=req.app.get("id");
         let score={E:0,S:0,T:0,J:0,I:0,N:0,F:0,P:0};
         let inc=JSON.parse(req.fields.answerdata);
@@ -28,7 +29,8 @@ module.exports=function (app) {
         for (let u in score) {a.push({type:u,value:score[u]})}
         a.sort( function ( a, b ) { return b.value - a.value; } );
         let inferredPersonalityType=a[0].type;
-        if (a[0].value===0) res.json({success:false,CODE:`INVALID_TEST`});
+        if (a[0].value===0)
+        {res.json({success:false,CODE:`INVALID_TEST`});res.end();return ;}
         console.dir({email:req.email});
         console.dir({
             meyersScore:inferredPersonalityType,
