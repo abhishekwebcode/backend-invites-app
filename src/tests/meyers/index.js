@@ -14,6 +14,8 @@ module.exports=function (app) {
             answermappings[e._id]=e.option;
             questionIds.push(ider(e._id));
         });
+        console.dir(inc);
+        console.dir(questionIds);
         let questionsStore = await req.app.get(`db`)().collection(`meyers`).find({_id:{$in:questionIds}}).toArray();
         console.log(`DBBB`,questionsStore);
         questionsStore.every(function (item) {
