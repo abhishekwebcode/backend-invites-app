@@ -57,6 +57,6 @@ module.exports=function (app) {
             },    { upsert: true }
         );
         app.get(`event`).emit('NEW_TEST',{user:req.email,updateScore:updateScore,score:score,inferredPersonalityType:inferredPersonalityType,type:`MEYERS`});
-        res.json({success:true,CODE:`SUCCESS_TEST`,PERSONALITY:inferredPersonalityType,TYPE:`MEYERS`});
+        res.json({success:true,CODE:`SUCCESS_TEST`,PERSONALITY:inferredPersonalityType,TYPE:`MEYERS`,score});
     });
 };
