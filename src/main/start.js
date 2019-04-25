@@ -8,7 +8,7 @@ const fs = require(`fs`);
 global.fs = fs;
 const events = require(`events`);
 const eventEmitter = new events.EventEmitter();
-const ObjectID = require('mongodb').ObjectId;
+const ObjectId = require('mongodb').ObjectId;
 const mongo = require("../mongodb/mongodb");
 console.dir(mongo)
 var getDB = mongo;
@@ -32,7 +32,7 @@ app.use(modifyResponseBody);
 //app.use(express.urlencoded({extended: true}));
 //app.use(cookieParser());
 app.set(`db`, mongo);
-app.set(`id`, ObjectID);
+app.set(`id`, ObjectId);
 app.set(`event`, eventEmitter);
 // DO all auth functions
 let user_auth = require(`../auth/user_auth`);

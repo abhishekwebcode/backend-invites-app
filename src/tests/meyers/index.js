@@ -11,8 +11,8 @@ module.exports=function (app) {
         let questionIds=[];
         let answermappings = {};
         inc.forEach(e=>{
-            answermappings[e._id]=e.option;
-            questionIds.push(ider(e._id));
+            answermappings[e.ID]=e.option;
+            questionIds.push(ider(e.ID));
         });
         console.dir(inc);
         console.dir(questionIds);
