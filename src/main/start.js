@@ -17,7 +17,6 @@ process.env.NODE_ENV = 'production';
 const express = require('express');
 const app = express();
 app.use(formidableMiddleware());
-
 function modifyResponseBody(req, res, next) {
     var oldSend = res.send;
     res.send = function (data) {
@@ -27,13 +26,14 @@ function modifyResponseBody(req, res, next) {
     }
     next();
 }
-
 app.use(modifyResponseBody);
 //app.use(express.urlencoded({extended: true}));
 //app.use(cookieParser());
 app.set(`db`, mongo);
 app.set(`id`, ObjectId);
 app.set(`event`, eventEmitter);
+// for the development team
+require("../development/test")(app);
 // DO all auth functions
 let user_auth = require(`../auth/user_auth`);
 let n = new Date().toUTCString();
