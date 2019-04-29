@@ -16,8 +16,8 @@ module.exports=function (app) {
         let questionIds=[];
         let answermappings = {};
         inc.forEach(e=>{
-            answermappings[e._id]=e.option;
-            questionIds.push(e._id);
+            answermappings[e.ID]=e.option;
+            questionIds.push(e.ID);
         });
         let questionsStore = await req.app.get(`db`)().collection(`holland`).find({_id:{$in:questionIds}}).toArray();
         questionsStore.every(function (item) {
