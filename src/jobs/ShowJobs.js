@@ -7,7 +7,8 @@ async function getJobsList(DB) {
         type:`Full Time`,
         company_url:`https://source.unsplash.com/random/100x100`,
         tag:`Urgent Job!`,
-        company_name:`TC Advertising Sdn Bhd (Orins Advertising)`
+        company_name:`TC Advertising Sdn Bhd (Orins Advertising)`,
+        location:`Malayasia`
     };
     let r=[];
     for (let i = 0; i < 10 ; i++) {
