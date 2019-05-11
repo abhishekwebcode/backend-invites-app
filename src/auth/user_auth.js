@@ -1,5 +1,5 @@
 var GoogleSignIn = require('google-sign-in');
-var project = new GoogleSignIn.Project(`38743765127-ir1npuoqh58jnep2u1iap8348jllthl2.apps.googleusercontent.com`,`38743765127-srj09uavqg75vsbsj8lbrbm0aotuvi1u.apps.googleusercontent.com`);
+var project = new GoogleSignIn.Project(`38743765127-elsf2nslqrmd5ce9nak3rfc2r3rn5s9s.apps.googleusercontent.com`);
 const { FacebookSignIn } = require('@coolgk/facebook-sign-in');
 const facebookSignIn = new FacebookSignIn({
     clientId: '405278700287006',
