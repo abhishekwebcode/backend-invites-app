@@ -87,12 +87,9 @@ var userSignUp = async function (request,response) {
     }
     else {
         if (res[0].email_verified || true) {
-            let token=await (require("../auth/jwt/jwt")).generateToken({email,time:Date.now()});
-            response.json({success: true, CODE: `ALREADY_SIGNED_UP`,token:token});
-            //return await userLogIn(request,response);
-            //response.json({success: false, CODE: `ALREADY_SIGNED_UP`})
+            response.json({success: false, CODE: `ALREADY_SIGNED_UP`});response.end();
         } else {
-            response.json({success: false, CODE: `EMAIL_VERIFICATION_PENDING`})
+            response.json({success: false, CODE: `EMAIL_VERIFICATION_PENDING`});response.end();
         }
     }
 };
