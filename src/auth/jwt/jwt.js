@@ -1,6 +1,5 @@
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
-const path = require('path');
 const jwtPrivateKey = `src/auth/jwt/private-key.pem`;
 const jwtPublicKey = `src/auth/jwt/public-key.pem`;
 

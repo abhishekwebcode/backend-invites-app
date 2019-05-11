@@ -15,8 +15,7 @@ let options = {
             socketTimeoutMS: 6000000,
         }
     }
-
-}
+};
 const uri = "mongodb+srv://admin:adminmyjobs@cluster0-zhgyi.mongodb.net";
 const MongoClient = require('mongodb').MongoClient;
 var db;
@@ -25,7 +24,6 @@ MongoClient.connect(uri, options, function (err, client) {
     db = client.db(`test`);
     console.log(`MONGODB CONNECTED NOW`);
 });
-
 /**
  * Returns the sum of a and b
  * @returns {MongoClient} Promise object represents the sum of a and b

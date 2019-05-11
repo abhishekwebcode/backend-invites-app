@@ -1,8 +1,6 @@
 console.clear();
 // initialize express app
 var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
 const formidableMiddleware = require('express-formidable');
 const fs = require(`fs`);
 global.fs = fs;
@@ -10,7 +8,7 @@ const events = require(`events`);
 const eventEmitter = new events.EventEmitter();
 const ObjectId = require('mongodb').ObjectId;
 const mongo = require("../mongodb/mongodb");
-console.dir(mongo)
+console.dir(mongo.cache);
 var getDB = mongo;
 const {parse, stringify} = require('flatted/cjs');
 process.env.NODE_ENV = 'production';
@@ -45,7 +43,7 @@ app.all(`/login`, user_auth.login);
 app.all('/google_auth', user_auth.google_auth);
 app.all('/facebook_auth', user_auth.facebook);
 // require auth to proceed
-//require(`../classes/jwt-check`)(app);
+require(`../classes/jwt-check`)(app);
 // tests module
 require(`../tests/init`)(app);
 // jobs module

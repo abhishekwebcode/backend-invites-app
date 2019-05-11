@@ -5,7 +5,7 @@ module.exports=function (app) {
         //let meta = require(`../auth/jwt/verify`)(res.token, res.email, res);
         let meta = await (require("../auth/jwt/jwt").getPayloadFromToken(req.token));
         console.dir(meta);
-        if (!meta) { res.end() ; return ; }
+        if (!meta) { res.json({success:false,message:"NOT_LOGGED_IN"}); res.end() ; return ; }
         req.User = meta;
         req.email = meta.email;
         next();
