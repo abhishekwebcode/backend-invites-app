@@ -28,18 +28,12 @@ module.exports = function (app) {
             console.log(option,question);
             question.answers.forEach((f)=>{
                 if (f.option==option) {
-                    console.log(`Its `,f.value);
+                    // the derived type personality via current question
+                    let value = f.value;
+                    score[value]+=1
                 }
             })
         }
-        questionsStore.every(function (item) {
-            let selected = answermappings[item._id];
-            item.answers.forEach(an => {
-                if (an.option === selected) {
-                    score[an.value] += 1;
-                }
-            })
-        });
         console.dir(score);
         let a = [];
         for (let u in score) {
