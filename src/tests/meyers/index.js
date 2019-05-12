@@ -20,8 +20,9 @@ module.exports = function (app) {
         console.log(`DBBB`, questionsStore);
         let questionsStoreNew = {};
         questionsStore.forEach(item=>{
-            console.dir(item);
-        })
+            questionsStoreNew[item._id.toHexString()]=item;
+        });
+        console.dir(questionsStoreNew)
         questionsStore.every(function (item) {
             let selected = answermappings[item._id];
             item.answers.forEach(an => {
