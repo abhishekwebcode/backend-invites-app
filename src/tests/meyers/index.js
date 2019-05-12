@@ -22,7 +22,7 @@ module.exports = function (app) {
         questionsStore.forEach(item=>{
             questionsStoreNew[item._id.toHexString()]=item;
         });
-        console.dir(questionsStoreNew)
+        console.dir(answermappings);
         questionsStore.every(function (item) {
             let selected = answermappings[item._id];
             item.answers.forEach(an => {
@@ -59,6 +59,7 @@ module.exports = function (app) {
                 }
             }, {upsert: true}
         );
+        console.dir(this);
         app.get(`event`).emit('NEW_TEST', {
             user: req.email,
             updateScore: updateScore,
