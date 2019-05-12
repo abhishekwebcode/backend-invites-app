@@ -77,7 +77,9 @@ var userSignUp = async function (request,response) {
     let res=await request.app.get("db")().collection(`users`).find({email}).limit(1).toArray();
     if (res.length===0) {
         let rr=await request.app.get("db")().collection(`users`).insertOne({email,username,password,email_verified: false});
+        console.dir({email,username,password,email_verified: false});
         let token=await (require("../auth/jwt/jwt")).generateToken({email,time:Date.now()});
+        console.dir({email});
         if (rr.insertedCount===1) {
             response.json({success:true,CODE:`EMAIL_VERIFICATION_PENDING`,token:token})
         }
