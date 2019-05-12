@@ -31,27 +31,18 @@ module.exports=function (app) {
         for (let u in score) {a.push({type:u,value:score[u]})}
         a.sort( function ( a, b ) { return b.value - a.value; } );
         let inferredPersonalityType=a[0].type;
+        let inferredTypeCombo=a[0].type+a[1].type+a[2].type+a[3].type;
         if (a[0].value===0)
         {res.json({success:false,CODE:`INVALID_TEST`});res.end();return ;}
-        console.dir({email:req.email});
-        console.dir({
-            meyersScore:inferredPersonalityType,
-            meyersAttempt:answermappings,
-            scoreCard:score
-        });
-        console.log([{email:req.email}, {
-                meyersScore:inferredPersonalityType,
-                meyersAttempt:answermappings,
-                scoreCard:score
-            },    { upsert: true }
-        ]);
         let updateScore = await req.app.get(`db`)().collection(`users`).findOneAndUpdate(
             {email:req.email}, {
             $set: {
+                meyersDone:true,
                 meyers: {
                     meyersScore: inferredPersonalityType,
                     meyersAttempt: answermappings,
-                    scoreCard: score
+                    scoreCard: score,
+                    meyersComboScore:inferredTypeCombo
                 }
             }
             },    { upsert: true }
