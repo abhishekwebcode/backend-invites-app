@@ -1,6 +1,6 @@
 module.exports=function (app) {
     app.all(`/tests/holland/getQuestions`,async function (req,res) {
-        let questions = await req.app.get('db').collection(`holland`).find({"answers.option":{"$exists":true},"title":{"$exists":true}},{"title":1,"answers.option":1}).limit(20).toArray();
+        let questions = await req.app.get('db')().collection(`holland`).find({"answers.option":{"$exists":true},"title":{"$exists":true}},{"title":1,"answers.option":1}).limit(20).toArray();
         res.json({success:true,questions})
     });
     app.all(`/tests/holland/submitTest`,async function(req,res) {
