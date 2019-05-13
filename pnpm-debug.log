@@ -1,0 +1,58 @@
+---
+  0 debug pnpm:scope: 
+    selected: 1
+    workspacePrefix: null
+  1 debug pnpm: 
+    isCaseSensitive: false
+    store: "/Users/abhishekmathur/.pnpm-store/2"
+  2 debug pnpm:package-json: 
+    initial: 
+      name: "myjobs-backend"
+      version: "1.0.0"
+      private: true
+      scripts: 
+        start: "nodemon --inspect ./src/main/start.js"
+      dependencies: 
+        @coolgk/facebook-sign-in: "^1.0.3"
+        @paralect/node-mongo: "^1.0.0"
+        api-mongodb: "*"
+        cookie-parser: "~1.4.3"
+        debug: "~2.6.9"
+        ejs: "~2.5.7"
+        express: "~4.16.0"
+        express-bearer-token: "^2.4.0"
+        express-formidable: "^1.2.0"
+        express-winston: "^3.1.0"
+        flatted: "^2.0.0"
+        google-sign-in: "^3.0.3"
+        http-errors: "~1.6.2"
+        ipware: "^2.0.0"
+        jsonwebtoken: "^8.5.1"
+        mongodb: "^3.2.3"
+        morgan: "~1.9.0"
+        multer: "^1.4.1"
+        node-mongo: "^0.0.1"
+        promised-mongo: "^1.2.0"
+        requestify: "^0.2.5"
+        winston: "^3.2.1"
+      devDependencies: 
+        @types/express: "*"
+        @types/formidable: "^1.0.31"
+        nodemon: "*"
+    prefix: "/Users/abhishekmathur/Downloads/myjobs_backend"
+  3 debug pnpm:stage: 
+    prefix: "/Users/abhishekmathur/Downloads/myjobs_backend"
+    stage: "resolution_started"
+  4 error pnpm: 
+    message: 
+      code: "ERR_PNPM_REGISTRY_META_RESPONSE_404"
+      uri: "https://registry.npmjs.org/@types%2Frequestify"
+      response: 
+        size: 0
+        timeout: 0
+      package: "@types/requestify"
+    err: 
+      name: "Error"
+      message: "404 Not Found: @types/requestify (via https://registry.npmjs.org/@types%2Frequestify)"
+      code: "ERR_PNPM_REGISTRY_META_RESPONSE_404"
+      stack: "Error: 404 Not Found: @types/requestify (via https://registry.npmjs.org/@types%2Frequestify)\n    at fromRegistry (/usr/local/pnpm-global/2/node_modules/.registry.npmjs.org/pnpm/3.2.0/node_modules/pnpm/lib/node_modules/@pnpm/npm-resolver/lib/pickPackage.js:97:21)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:189:7)"

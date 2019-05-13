@@ -12,12 +12,14 @@ dependencies:
   flatted: 2.0.0
   google-sign-in: 3.0.3
   http-errors: 1.6.3
+  ipware: 2.0.0
   jsonwebtoken: 8.5.1
   mongodb: 3.2.3
   morgan: 1.9.1
   multer: 1.4.1
   node-mongo: 0.0.1
   promised-mongo: 1.2.0
+  requestify: 0.2.5
   winston: 3.2.1
 devDependencies:
   '@types/formidable': 1.0.31
@@ -1190,6 +1192,10 @@ packages:
       node: '>= 0.10'
     resolution:
       integrity: sha1-6qM9bd16zo9/b+DJygRA5wZzix4=
+  /ipware/2.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-xOqLoYyWIBcO6ANVZK7GgnuH9V7wbqDf6/MrRi4I+Ae1A11m6jcaNRtMSezypkupRUjiSSLq3F/DTvAM1cZfQw==
   /is-accessor-descriptor/0.1.6:
     dependencies:
       kind-of: 3.2.2
@@ -1408,6 +1414,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
+  /jquery/3.4.1:
+    dev: false
+    resolution:
+      integrity: sha512-36+AdBzCL+y6qjw5Tx7HgzeGCzC81MDDgaUP8ld2zhx58HdqXGoBd+tHdrBMiyjGQs0Hxs/MLZTu/eHNJJuWPw==
   /jsbn/0.1.1:
     dev: false
     resolution:
@@ -2063,6 +2073,13 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
+  /q/0.9.7:
+    dev: false
+    engines:
+      node: '>=0.6.0'
+      teleport: '>=0.2.0'
+    resolution:
+      integrity: sha1-TeLmyzspCIyeTLwDv51C+5bOL3U=
   /qs/6.5.2:
     dev: false
     engines:
@@ -2239,6 +2256,16 @@ packages:
       node: '>= 4'
     resolution:
       integrity: sha512-NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==
+  /requestify/0.2.5:
+    dependencies:
+      jquery: 3.4.1
+      q: 0.9.7
+      underscore: 1.9.1
+    dev: false
+    engines:
+      node: ~0.10.x
+    resolution:
+      integrity: sha1-gCSfHKff33n6KmBIrqw31D4jyQU=
   /require_optional/1.0.1:
     dependencies:
       resolve-from: 2.0.0
@@ -2660,6 +2687,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-Il9rngM3Zj4Njnz9aG/Cg2zKznY=
+  /underscore/1.9.1:
+    dev: false
+    resolution:
+      integrity: sha512-5/4etnCkd9c8gwgowi5/om/mYO5ajCaOgdzj/oW+0eQV9WxKBDZw5+ycmKmeaTXjInS/W0BzpGLo2xR2aBwZdg==
   /union-value/1.0.0:
     dependencies:
       arr-union: 3.1.0
@@ -2856,6 +2887,7 @@ specifiers:
   flatted: ^2.0.0
   google-sign-in: ^3.0.3
   http-errors: ~1.6.2
+  ipware: ^2.0.0
   jsonwebtoken: ^8.5.1
   mongodb: ^3.2.3
   morgan: ~1.9.0
@@ -2863,4 +2895,5 @@ specifiers:
   node-mongo: ^0.0.1
   nodemon: '*'
   promised-mongo: ^1.2.0
+  requestify: ^0.2.5
   winston: ^3.2.1
