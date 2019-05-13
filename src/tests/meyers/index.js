@@ -4,7 +4,6 @@ module.exports = function (app) {
         res.json({success: true, questions})
     });
     app.all(`/tests/meyers/submitTest`, async function (req, res) {
-        console.log(arguments, this);
         let ider = req.app.get("id");
         let score = {E: 0, S: 0, T: 0, J: 0, I: 0, N: 0, F: 0, P: 0};
         let inc = JSON.parse(req.fields.answerdata);

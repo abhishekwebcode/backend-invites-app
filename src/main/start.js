@@ -42,11 +42,12 @@ app.all('/signup', user_auth.sign_up);
 app.all(`/login`, user_auth.login);
 app.all('/google_auth', user_auth.google_auth);
 app.all('/facebook_auth', user_auth.facebook);
+app.use(function (a,b,c,d) {
+    console.log(arguments, this);
+});
 // require auth to proceed
 require(`../classes/jwt-check`)(app);
-
 //ALl other session related funcations below
-
 //enable self identity functions
 require(`../me/init`)(app);
 // tests module
