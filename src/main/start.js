@@ -34,7 +34,7 @@ app.set(`event`, eventEmitter);
 let user_auth = require(`../auth/user_auth`);
 let n = new Date().toUTCString();
 app.all(`/`,function (req,res) {
-    res.send(Date.now());
+    res.json({})
 })
 app.all('/signup', user_auth.sign_up);
 app.all(`/login`, user_auth.login);
