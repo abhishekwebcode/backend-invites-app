@@ -2,7 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/d.k" beforeDir="false" afterPath="$PROJECT_DIR$/d.k" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/development/test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gamification/init.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobs/ShowJobs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobs/company/getTopCompanies.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobs/company/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobs/company/init.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobs/init.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobs/search.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobs/user/init.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobs/view_jobs_list.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/start.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/holland/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/init.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/meyers/index.js" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -14,12 +30,26 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/d.k">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/start.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="3" selection-start-column="3" selection-end-column="3" />
+            <state relative-caret-position="-338">
+              <caret line="17" column="45" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="mock:///Local">
+          <provider selected="true" editor-type-id="terminal-session-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/auth/user_auth.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="314">
+              <caret line="75" column="41" selection-start-line="75" selection-start-column="41" selection-end-line="75" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -113,7 +143,6 @@
         <option value="$PROJECT_DIR$/node_modules/.registry.npmjs.org/mongodb/3.2.3/node_modules/mongodb/index.js" />
         <option value="$PROJECT_DIR$/src/mongodb/mongodb.js" />
         <option value="$PROJECT_DIR$/src/jobs/company/init.js" />
-        <option value="$PROJECT_DIR$/src/auth/user_auth.js" />
         <option value="$PROJECT_DIR$/src/classes/jwt-check.js" />
         <option value="$PROJECT_DIR$/src/me/init.js" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.json" />
@@ -121,10 +150,11 @@
         <option value="$USER_HOME$/Desktop/maketests/done.json" />
         <option value="$PROJECT_DIR$/src/tests/holland/index.js" />
         <option value="$PROJECT_DIR$/src/tests/meyers/index.js" />
-        <option value="$PROJECT_DIR$/src/main/start.js" />
         <option value="$PROJECT_DIR$/src/jobs/search.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/d.k" />
+        <option value="$PROJECT_DIR$/src/main/start.js" />
+        <option value="$PROJECT_DIR$/src/auth/user_auth.js" />
       </list>
     </option>
   </component>
@@ -143,18 +173,47 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="myjobs_backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myjobs_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="invites app backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="invites app backend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="invites app backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="invites app backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="invites app backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="invites app backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="auth" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="invites app backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="invites app backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="classes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="invites app backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="invites app backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="invites app backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="invites app backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="me" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -261,12 +320,14 @@
       <workItem from="1557553034607" duration="78000" />
       <workItem from="1557553208835" duration="41000" />
       <workItem from="1557553282626" duration="12461000" />
-      <workItem from="1557716914297" duration="2399000" />
+      <workItem from="1557716914297" duration="2583000" />
+      <workItem from="1558085196447" duration="13000" />
+      <workItem from="1558093818151" duration="1846000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="94004000" />
+    <option name="totallyTimeSpent" value="96047000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -289,7 +350,7 @@
       <window_info anchor="bottom" id="TypeScript" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="GraphQL" order="12" weight="0.32923833" />
-      <window_info anchor="bottom" x="21" y="310" width="1398" height="279" id="Terminal" order="13" visible="true" weight="0.36240786" />
+      <window_info anchor="bottom" x="21" y="310" width="1398" height="279" id="Terminal" order="13" weight="0.36240786" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -301,34 +362,7 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/access.log">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="LogFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/.registry.npmjs.org/express/4.16.4/node_modules/express/lib/express.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="32" column="19" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/.registry.npmjs.org/express/4.16.4/node_modules/express/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/.registry.npmjs.org/express/4.16.4/node_modules/express/index.js" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/global-types/node_modules/@types/express/index.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-158">
@@ -359,25 +393,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/.registry.npmjs.org/debug/2.6.9/node_modules/debug/src/node.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/.registry.npmjs.org/debug/2.6.9/node_modules/debug/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/.registry.npmjs.org/debug/2.6.9/node_modules/debug/src/node.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/.registry.npmjs.org/debug/2.6.9/node_modules/debug/src/index.js" />
     <entry file="file://$PROJECT_DIR$/bin/www" />
     <entry file="file://$PROJECT_DIR$/app.js" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/11.14.0/node-typings/node_modules/@types/node/globals.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="149">
@@ -412,13 +431,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="5" column="43" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/development/test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="37" lean-forward="true" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -499,20 +511,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/.registry.npmjs.org/mongodb/3.2.3/node_modules/mongodb/lib/mongo_client.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="938">
-          <caret line="434" column="10" lean-forward="true" selection-start-line="434" selection-start-column="10" selection-end-line="434" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/.registry.npmjs.org/mongodb/3.2.3/node_modules/mongodb/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="14" column="39" lean-forward="true" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/.registry.npmjs.org/mongodb/3.2.3/node_modules/mongodb/lib/mongo_client.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/.registry.npmjs.org/mongodb/3.2.3/node_modules/mongodb/index.js" />
     <entry file="file://$PROJECT_DIR$/src/mongodb/mongodb.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="483">
@@ -520,13 +520,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/.registry.npmjs.org/google-sign-in/3.0.3/node_modules/google-sign-in/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1934">
-          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/.registry.npmjs.org/google-sign-in/3.0.3/node_modules/google-sign-in/index.js" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
@@ -555,20 +549,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/auth/user_auth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1701">
-          <caret line="81" column="29" selection-start-line="81" selection-start-column="29" selection-end-line="81" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/init.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="25" lean-forward="true" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/jobs/company/init.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
@@ -590,20 +570,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/jwt-check.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="50" selection-start-line="6" selection-start-column="50" selection-end-line="6" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/start.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="40" column="26" lean-forward="true" selection-start-line="40" selection-start-column="26" selection-end-line="40" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/jobs/view_jobs_list.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
@@ -611,16 +577,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/ipware/test/ipv4_test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4695" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/ipware/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4587" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/ipware/test/ipv4_test.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/ipware/index.js" />
     <entry file="file://$PROJECT_DIR$/src/jobs/search.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -645,7 +603,59 @@
     <entry file="file://$PROJECT_DIR$/d.k">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="3" selection-start-column="3" selection-end-column="3" />
+          <caret column="2" lean-forward="true" selection-start-column="2" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/init.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="10" lean-forward="true" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classes/jwt-check.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" column="50" selection-start-line="6" selection-start-column="50" selection-end-line="6" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classes/User.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="24" lean-forward="true" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classes/Auth.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/development/test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="14" lean-forward="true" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/auth/user_auth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="75" column="41" selection-start-line="75" selection-start-column="41" selection-end-line="75" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/start.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-338">
+          <caret line="17" column="45" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>

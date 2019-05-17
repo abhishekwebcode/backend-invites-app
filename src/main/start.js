@@ -30,14 +30,9 @@ app.use(modifyResponseBody);
 app.set(`db`, mongo);
 app.set(`id`, ObjectId);
 app.set(`event`, eventEmitter);
-// for the development team
-require("../development/test")(app);
-// DO all auth functions
+// Do all auth functions
 let user_auth = require(`../auth/user_auth`);
 let n = new Date().toUTCString();
-app.get("/", function (req, res) {
-    res.send(`The server started on : ${n}`);
-});
 app.all('/signup', user_auth.sign_up);
 app.all(`/login`, user_auth.login);
 app.all('/google_auth', user_auth.google_auth);
@@ -47,15 +42,9 @@ app.use(function (a,b,c,d) {
 });
 // require auth to proceed
 require(`../classes/jwt-check`)(app);
-//ALl other session related funcations below
+//All other session related functions below
 //enable self identity functions
 require(`../me/init`)(app);
-// tests module
-require(`../tests/init`)(app);
-// jobs module
-require(`../jobs/init`)(app);
-// gamification module
-require(`../gamification/init`)(app);
 app.use(function (err, req, res, next) {
     console.log(`ERROR`, arguments);
 });
