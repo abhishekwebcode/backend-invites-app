@@ -33,6 +33,9 @@ app.set(`event`, eventEmitter);
 // Do all auth functions
 let user_auth = require(`../auth/user_auth`);
 let n = new Date().toUTCString();
+app.all(`/`,function (req,res) {
+    res.send(Date.now());
+})
 app.all('/signup', user_auth.sign_up);
 app.all(`/login`, user_auth.login);
 app.all('/google_auth', user_auth.google_auth);

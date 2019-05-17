@@ -2,23 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/d.k" beforeDir="false" afterPath="$PROJECT_DIR$/d.k" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/development/test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gamification/init.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jobs/ShowJobs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jobs/company/getTopCompanies.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jobs/company/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jobs/company/init.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jobs/init.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jobs/search.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jobs/user/init.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jobs/view_jobs_list.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/start.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/holland/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/init.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/meyers/index.js" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -31,16 +15,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/start.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-338">
-              <caret line="17" column="45" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
+            <state relative-caret-position="439">
+              <caret line="36" column="25" selection-start-line="36" selection-start-column="25" selection-end-line="36" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="mock:///Local">
           <provider selected="true" editor-type-id="terminal-session-editor" />
         </entry>
@@ -153,8 +137,8 @@
         <option value="$PROJECT_DIR$/src/jobs/search.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/d.k" />
-        <option value="$PROJECT_DIR$/src/main/start.js" />
         <option value="$PROJECT_DIR$/src/auth/user_auth.js" />
+        <option value="$PROJECT_DIR$/src/main/start.js" />
       </list>
     </option>
   </component>
@@ -322,12 +306,12 @@
       <workItem from="1557553282626" duration="12461000" />
       <workItem from="1557716914297" duration="2583000" />
       <workItem from="1558085196447" duration="13000" />
-      <workItem from="1558093818151" duration="1846000" />
+      <workItem from="1558093818151" duration="2116000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96047000" />
+    <option name="totallyTimeSpent" value="96317000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -645,17 +629,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/start.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-338">
-          <caret line="17" column="45" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
           <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/start.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="36" column="25" selection-start-line="36" selection-start-column="25" selection-end-line="36" selection-end-column="25" />
         </state>
       </provider>
     </entry>
