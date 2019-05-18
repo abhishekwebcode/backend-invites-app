@@ -79,9 +79,11 @@ var userSignUp = async function (request,response) {
             success:false,
             message:"Passwords do not match"
         });
+        return;
     }
-    if (!(email && password && name && passwordConfirm)) {
+    if (!email=="" || password=="" || name="" || passwordConfirm=="")) {
         response.json({success:false,message:` Please Fill all the fields correctly`});
+        return;
     }
     else {
         console.log(request.fields, "FIELDS");
