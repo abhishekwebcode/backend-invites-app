@@ -16,7 +16,7 @@ let options = {
         }
     }
 };
-const uri = "mongodb+srv://admin:adminmyjobs@cluster0-zhgyi.mongodb.net";
+const uri = "mongodb://localhost:27017";
 const MongoClient = require('mongodb').MongoClient;
 var db;
 MongoClient.connect(uri, options, function (err, client) {

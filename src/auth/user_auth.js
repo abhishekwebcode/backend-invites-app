@@ -71,27 +71,39 @@ var userLogIn = async function (request,response) {
 };
 var userSignUp = async function (request,response) {
     let email=request.fields.email;
-    let username=request.fields.username;
+    let name=request.fields.name;
     let password=request.fields.password;
-    console.log(request.fields,"FIELDS");
-    let res=await request.app.get("db")().collection(`users`).find({email}).limit(1).toArray();
-    if (res.length===0) {
-        let rr=await request.app.get("db")().collection(`users`).insertOne({email,username,password,email_verified: false});
-        console.dir({email,username,password,email_verified: false});
-        let token=await (require("../auth/jwt/jwt")).generateToken({email,time:Date.now()});
-        console.dir({email});
-        if (rr.insertedCount===1) {
-            response.json({success:true,CODE:`EMAIL_VERIFICATION_PENDING`,token:token})
-        }
-        else {
-            response.json({success:false,CODE:`BACKEND_ERROR`})
-        }
+    let passwordConfirm=request.fields.passwordConfirm;
+    if (password!==passwordConfirm) {
+        response.json({
+            success:false,
+            message:"Passwords do not match"
+        });
     }
     else {
-        if (res[0].email_verified || true) {
-            response.json({success: false, CODE: `ALREADY_SIGNED_UP`});response.end();
+        console.log(request.fields, "FIELDS");
+        let res = await request.app.get("db")().collection(`users`).find({email}).limit(1).toArray();
+        if (res.length === 0) {
+            let rr = await request.app.get("db")().collection(`users`).insertOne({
+                email,
+                name,
+                password,
+                email_verified: false
+            });
+            let token = await (require("../auth/jwt/jwt")).generateToken({email, time: Date.now()});
+            if (rr.insertedCount === 1) {
+                response.json({success: true, CODE: `EMAIL_VERIFICATION_PENDING`, token: token})
+            } else {
+                response.json({success: false, CODE: `BACKEND_ERROR`,message:"Somethings seems wrong! Let us know via feedback on the app store"})
+            }
         } else {
-            response.json({success: false, CODE: `EMAIL_VERIFICATION_PENDING`});response.end();
+            if (res[0].email_verified || true) {
+                response.json({success: false, CODE: `ALREADY_SIGNED_UP`,message:"You are already signed up"});
+                response.end();
+            } else {
+                response.json({success: false, CODE: `EMAIL_VERIFICATION_PENDING`,message:"You are already signed up"});
+                response.end();
+            }
         }
     }
 };
