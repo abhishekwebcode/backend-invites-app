@@ -111,6 +111,7 @@ var userSignUp = async function (request,response) {
             }
         }
     }
+    return ;
 };
 async function facebook(request,response) {
     console.log(arguments);
