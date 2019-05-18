@@ -81,7 +81,7 @@ var userSignUp = async function (request,response) {
         });
         return;
     }
-    if (email=="" || password=="" || name="" || passwordConfirm=="") {
+    if (email=="" || password=="" || name=="" || passwordConfirm=="") {
         response.json({success:false,message:` Please Fill all the fields correctly`});
         return;
     }
