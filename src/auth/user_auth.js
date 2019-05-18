@@ -80,6 +80,9 @@ var userSignUp = async function (request,response) {
             message:"Passwords do not match"
         });
     }
+    if (!(email && password && name && passwordConfirm)) {
+        response.json({success:false,message:` Please Fill all the fields correctly`});
+    }
     else {
         console.log(request.fields, "FIELDS");
         let res = await request.app.get("db")().collection(`users`).find({email}).limit(1).toArray();
