@@ -14,12 +14,8 @@ module.exports=function (app) {
         let todo = request.fields.itemID;
         let status = request.fields.status;
         console.dir(todo);
-        let result=await app.get(`db`)().collection(`todo`).updateOne(
-            {
-                _id:{$in:[app.get(`id`)(todo)]}
-            },{
-                $set:{done:(status === "true")}
-            },{upsert:true});
+        console.dir(status);
+        let result = await request.app.get(`db`)().collection(`todo`).updateOne({_id:request.app.get(`id`)(todo)},{$set:{done:false}},{upsert:true})
         console.dir(result);
         response.json({success:true});
         return ;
