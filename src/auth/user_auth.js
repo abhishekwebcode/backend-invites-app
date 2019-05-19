@@ -55,18 +55,17 @@ var googleSignIn = async function (request,response,existing_one) {
     });
 };
 var userLogIn = async function (request,response) {
-    let username=request.fields.username;
+    let email=request.fields.email;
     let password=request.fields.password;
-    let res = await request.app.get('db')().collection('users').find({
-        $or: [{ username }, { email:username }],
-        password
-    }).limit(1).toArray();
+    let res = await request.app.get('db')().collection('users').find({email,password}).limit(1).toArray();
     if (res.length===0) {
         response.json({success:false,CODE:`USER_DOESNT_EXIST`});
+        return;
     }
     else {
         let token=await (require("../auth/jwt/jwt")).generateToken({email:res[0].email,time:Date.now()});
         response.json({success:true,CODE:`USER_SUCCESS`,token});
+        return;
     }
 };
 var userSignUp = async function (request,response) {

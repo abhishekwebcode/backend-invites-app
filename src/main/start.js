@@ -53,6 +53,8 @@ require(`../me/init`)(app);
 app.use(function (err, req, res, next) {
     console.log(`ERROR`, arguments);
 });
+// enable event handlers and functions
+require(`../events/init`)(app);
 app.listen(
     process.env.PORT || 3000,
     () =>
