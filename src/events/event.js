@@ -7,7 +7,7 @@ module.exports=function (app) {
         }).project({_id:1,date:1,childName:1,theme:1}).sort({date:-1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
         let send=[];
         events.forEach(item=>{
-            send.append({
+            send.push({
                 id:item._id,
                 name:item.childName,
                 theme:item.theme,
