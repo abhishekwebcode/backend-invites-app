@@ -1,6 +1,7 @@
 
 module.exports=function (app) {
     app.post(`/events/list`,async function (request,response) {
+        console.log(arguments);
         let events = await app.get(`db`)().collection(`events`).find({
             created_by:request.email,
         },{_id:1,date:1,childName:1,theme:1}).sort({date:-1}).skip(parseInt(request.fields.offset)||10).limit(10).toArray();
