@@ -10,7 +10,7 @@ module.exports=function (app) {
     app.post(`/todos/create`,async function (request,response) {
         let todo = request.fields.todo;
         let eventId = request.fields.eventId;
-        let todoIns = await app.get(`db`)().collection(`events`).insertOne({
+        let todoIns = await app.get(`db`)().collection(`todo`).insertOne({
             todo,eventId,created_by:request.email,date_created:Date.now(),done:false
         });
         if (todoIns.insertedCount==1) {response.json({success: true})}
