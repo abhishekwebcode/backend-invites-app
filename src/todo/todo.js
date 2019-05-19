@@ -18,6 +18,7 @@ module.exports=function (app) {
                 done:(status === "true")
             });
         console.dir(result);
+        response.json({success:true});
     });
     app.post(`/todos/create`,async function (request,response) {
         let todo = request.fields.todo;
