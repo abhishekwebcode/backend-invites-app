@@ -10,7 +10,8 @@ module.exports=function (app) {
         })
     });
     app.post(`/todos/update`,async function (request,response) {
-        let todo = request.fields.item;
+        console.log(arguments);
+        let todo = request.fields.itemID;
         let status = request.fields.status;
         console.log(
             {
