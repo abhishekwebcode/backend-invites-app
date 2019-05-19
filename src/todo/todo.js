@@ -17,7 +17,7 @@ module.exports=function (app) {
         console.dir(status);
         let result = await request.app.get(`db`)().collection(`todo`).updateOne({_id:request.app.get(`id`)(todo)},{$set:{done:status}},{upsert:true})
         console.dir(result);
-        response.json({success:true});
+        response.json({success:result.modifiedCount==1});
         return ;
     });
     app.post(`/todos/create`,async function (request,response) {
