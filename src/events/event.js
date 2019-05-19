@@ -15,7 +15,7 @@ module.exports=function (app) {
                 date:item.date.getTime()
             })
         })
-        response.json({success:true,events:events});
+        response.json({success:true,events:send});
     });
     app.post(`/events/add`,async function(request,response) {
         console.log(arguments);
