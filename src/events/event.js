@@ -14,7 +14,7 @@ module.exports=function (app) {
                 theme:item.theme,
                 date:item.date.getTime()
             })
-        })
+        });
         response.json({success:true,events:send});
     });
     app.post(`/events/add`,async function(request,response) {
