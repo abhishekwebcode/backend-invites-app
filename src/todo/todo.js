@@ -1,5 +1,6 @@
 module.exports=function (app) {
     app.post(`/todos/list`,async function (request,response) {
+        console.log(arguments);
         let todos = await app.get(`db`)().collection(`todo`).find({
             created_by:request.email,eventId:request.fields.eventId
         }).project({_id:1}).sort({}).skip(parseInt(request.fields.offset)).limit(10).toArray();
