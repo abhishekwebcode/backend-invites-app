@@ -15,7 +15,7 @@ module.exports=function (app) {
             {
                 _id:app.get(`id`)(todo)
             },{
-                done:(status === "true")
+                $set:{done:(status === "true")}
             },{upsert:true});
         let result=await app.get(`db`)().collection(`todo`).updateOne(
             {
