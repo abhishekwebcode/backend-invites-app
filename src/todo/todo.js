@@ -13,12 +13,7 @@ module.exports=function (app) {
         console.log(arguments);
         let todo = request.fields.itemID;
         let status = request.fields.status;
-        console.log(
-            {
-                _id:new ObjectID(todo)
-            },{
-                $set:{done:(status === "true")}
-            },{upsert:true});
+        console.dir(todo);
         let result=await app.get(`db`)().collection(`todo`).updateOne(
             {
                 _id:{$in:[app.get(`id`)(todo)]}
