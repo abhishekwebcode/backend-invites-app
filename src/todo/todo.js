@@ -11,7 +11,7 @@ module.exports=function (app) {
     app.post(`/todos/update`,async function (request,response) {
         let todo = request.fields.item;
         let status = request.fields.status;
-        let result=await app.get(`db`)().collection(`todo`).update(
+        let result=await app.get(`db`)().collection(`todo`).updateOne(
             {
                 _id:app.get(`id`)(todo)
             },{
