@@ -8,6 +8,17 @@ module.exports=function (app) {
             success:true,todos
         })
     });
+    app.post(`/todos/update`,async function (request,response) {
+        let todo = request.fields.item;
+        let status = request.fields.status;
+        let result=await app.get(`db`)().collection(`todo`).update(
+            {
+                _id:app.get(`id`)(todo)
+            },{
+                done:(status === "true")
+            });
+        console.dir(result);
+    });
     app.post(`/todos/create`,async function (request,response) {
         let todo = request.fields.todo;
         let eventId = request.fields.eventId;
