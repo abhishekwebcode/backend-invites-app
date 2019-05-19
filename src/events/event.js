@@ -4,7 +4,7 @@ module.exports=function (app) {
         console.log(arguments);
         let events = await app.get(`db`)().collection(`events`).find({
             created_by:request.email,
-        },{_id:1,date:1,childName:1,theme:1}).sort({date:-1}).skip(parseInt(request.fields.offset)||10).limit(10).toArray();
+        },{_id:1,date:1,childName:1,theme:1}).sort({date:-1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
         response.json({success:true,events:events});
     });
     app.post(`/events/add`,async function(request,response) {
