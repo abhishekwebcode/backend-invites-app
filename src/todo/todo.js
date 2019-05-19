@@ -3,7 +3,7 @@ module.exports=function (app) {
         console.log(arguments);
         let todos = await app.get(`db`)().collection(`todo`).find({
             created_by:request.email,eventId:request.fields.eventId
-        }).project({_id:1}).sort({}).skip(parseInt(request.fields.offset)).limit(10).toArray();
+        }).project({_id:1,todo:1,done:1,date_created:1}).sort({}).skip(parseInt(request.fields.offset)).limit(10).toArray();
         response.json({
             success:true,todos
         })
