@@ -19,6 +19,7 @@ module.exports=function (app) {
             });
         console.dir(result);
         response.json({success:true});
+        return ;
     });
     app.post(`/todos/create`,async function (request,response) {
         let todo = request.fields.todo;
