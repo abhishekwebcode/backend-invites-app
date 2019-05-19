@@ -20,7 +20,7 @@ module.exports=function (app) {
             },{upsert:true});
         let result=await app.get(`db`)().collection(`todo`).updateOne(
             {
-                _id:new ObjectID(todo)
+                _id:{$in:[app.get(`id`)(todo)]}
             },{
                 $set:{done:(status === "true")}
             },{upsert:true});
