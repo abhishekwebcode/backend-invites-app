@@ -4,7 +4,16 @@ module.exports=function (app) {
         console.log(arguments);
         let events = await app.get(`db`)().collection(`events`).find({
             created_by:request.email,
-        },{_id:1,date:1,childName:1,theme:1}).sort({date:-1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
+        }).project({_id:1,date:1,childName:1,theme:1}).sort({date:-1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
+        let send=[];
+        events.forEach(item=>{
+            send.append({
+                id:item._id,
+                name:item.childName,
+                theme:item.theme,
+                date:item.getTime()
+            })
+        })
         response.json({success:true,events:events});
     });
     app.post(`/events/add`,async function(request,response) {
