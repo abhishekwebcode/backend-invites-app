@@ -12,10 +12,10 @@ module.exports=function (app) {
     app.post(`/todos/update`,async function (request,response) {
         console.log(arguments);
         let todo = request.fields.itemID;
-        let status = request.fields.status;
+        let status = request.fields.status==="true";
         console.dir(todo);
         console.dir(status);
-        let result = await request.app.get(`db`)().collection(`todo`).updateOne({_id:request.app.get(`id`)(todo)},{$set:{done:false}},{upsert:true})
+        let result = await request.app.get(`db`)().collection(`todo`).updateOne({_id:request.app.get(`id`)(todo)},{$set:{done:status}},{upsert:true})
         console.dir(result);
         response.json({success:true});
         return ;
