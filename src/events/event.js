@@ -5,6 +5,7 @@ module.exports=function (app) {
         let events = await app.get(`db`)().collection(`events`).find({
             created_by:request.email,
         }).project({_id:1,date:1,childName:1,theme:1}).sort({date:-1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
+        console.dir(events);
         let send=[];
         events.forEach(item=>{
             send.push({
