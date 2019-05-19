@@ -11,7 +11,7 @@ module.exports=function (app) {
                 id:item._id,
                 name:item.childName,
                 theme:item.theme,
-                date:item.getTime()
+                date:item.date.getTime()
             })
         })
         response.json({success:true,events:events});
