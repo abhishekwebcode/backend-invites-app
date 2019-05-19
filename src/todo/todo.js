@@ -11,12 +11,18 @@ module.exports=function (app) {
     app.post(`/todos/update`,async function (request,response) {
         let todo = request.fields.item;
         let status = request.fields.status;
+        console.dir((
+            {
+                _id:app.get(`id`)(todo)
+            },{
+                done:(status === "true")
+            },{upsert:true}));
         let result=await app.get(`db`)().collection(`todo`).updateOne(
             {
                 _id:app.get(`id`)(todo)
             },{
                 done:(status === "true")
-            });
+            },{upsert:true});
         console.dir(result);
         response.json({success:true});
         return ;
