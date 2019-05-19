@@ -1,3 +1,4 @@
+const ObjectID = require('mongodb').ObjectID;
 module.exports=function (app) {
     app.post(`/todos/list`,async function (request,response) {
         console.log(arguments);
@@ -13,15 +14,15 @@ module.exports=function (app) {
         let status = request.fields.status;
         console.log(
             {
-                _id:app.get(`id`)(todo)
+                _id:new ObjectID(todo)
             },{
                 $set:{done:(status === "true")}
             },{upsert:true});
         let result=await app.get(`db`)().collection(`todo`).updateOne(
             {
-                _id:app.get(`id`)(todo)
+                _id:new ObjectID(todo)
             },{
-                done:(status === "true")
+                $set:{done:(status === "true")}
             },{upsert:true});
         console.dir(result);
         response.json({success:true});
