@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node --max-old-space-size=200 --inspect ./src/main/start.js "
+    "start": "nodemon --max-old-space-size=400 --inspect ./src/main/start.js "
   },
   "dependencies": {
     "@coolgk/facebook-sign-in": "^1.0.3",
