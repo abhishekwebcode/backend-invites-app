@@ -10,6 +10,7 @@
     "@paralect/node-mongo": "^1.0.0",
     "accountkit-server": "^0.45.2",
     "api-mongodb": "*",
+    "awesome-phonenumber": "^2.10.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
