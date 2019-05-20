@@ -8,6 +8,7 @@
   "dependencies": {
     "@coolgk/facebook-sign-in": "^1.0.3",
     "@paralect/node-mongo": "^1.0.0",
+    "accountkit-server": "^0.45.2",
     "api-mongodb": "*",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
@@ -24,6 +25,7 @@
     "mongodb": "^3.2.3",
     "morgan": "~1.9.0",
     "multer": "^1.4.1",
+    "node-accountkit": "^1.1.6",
     "node-mongo": "^0.0.1",
     "promised-mongo": "^1.2.0",
     "requestify": "^0.2.5",
