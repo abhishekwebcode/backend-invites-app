@@ -2,7 +2,7 @@ module.exports=function (app) {
     app.post(`gifts/list`,async function (request,response) {
         let gifts = await app.get(`db`)().collection(`gifts`).find({
             created_by:request.email,eventId:request.fields.eventId
-        }).project({_id:1,todo:1,done:1,date_created:1}).sort({gift:1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
+        }).project({_id:1,gift:1,selected:1,date_created:1}).sort({gift:1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
         response.json({
             success:true,gifts
         })
