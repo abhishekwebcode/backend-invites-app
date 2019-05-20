@@ -5,7 +5,7 @@ const facebookSignIn = new FacebookSignIn({
     clientId: '405278700287006',
     secret: '091015732c5ff74759b137843f3f17c9'
 });
-var AccountKit = require('accountkit-server');
+import AccountKit from 'accountkit-server';
 Accountkit.configure(`303423527243659`, `c2bff7ffc2d663722eabdc1579324795`);
 
 var google_auth=async function (request,response) {
