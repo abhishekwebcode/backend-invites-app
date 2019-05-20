@@ -57,6 +57,8 @@ app.use(function (err, req, res, next) {
 require(`../events/init`)(app);
 // enable todo functions
 require(`../todo/init`)(app);
+// enable gifts functions
+require(`../gifts/init`)(app);
 app.listen(
     process.env.PORT || 3000,
     () =>
