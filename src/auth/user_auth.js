@@ -82,6 +82,7 @@ var userLogIn = async function (request,response) {
     }
 };
 var userSignUp = async function (request,response) {
+    var phone;
     let email=request.fields.email;
     let name=request.fields.name;
     let password=request.fields.password;
@@ -99,8 +100,8 @@ var userSignUp = async function (request,response) {
     }
     else {
         try {
-            let response1 = await resolveAccountKit(request.fields.code);
-            let phone = response1.phone;
+            var response1 = await resolveAccountKit(request.fields.code);
+            phone = response1.phone;
             console.dir(phone);
         } catch (e) {
             console.error(e);
