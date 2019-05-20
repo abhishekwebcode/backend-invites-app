@@ -98,7 +98,6 @@ var userSignUp = async function (request,response) {
         return;
     }
     else {
-
         try {
             let response1 = await resolveAccountKit(request.fields.code);
             console.dir(response1);
@@ -107,12 +106,12 @@ var userSignUp = async function (request,response) {
             }
             else {
                 let phone = response1.phone;
+                console.dir(phone);
             }
         } catch (e) {
             console.error(e);
             response.json({success:false});return ;
         }
-
         console.log(request.fields, "FIELDS");
         let res = await request.app.get("db")().collection(`users`).find({email}).limit(1).toArray();
         if (res.length === 0) {
