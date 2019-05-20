@@ -1,5 +1,5 @@
 module.exports=function (app) {
-    app.post(`gifts/list`,async function (request,response) {
+    app.post(`/gifts/list`,async function (request,response) {
         let gifts = await app.get(`db`)().collection(`gifts`).find({
             created_by:request.email,eventId:request.fields.eventId
         }).project({_id:1,gift:1,selected:1,date_created:1}).sort({gift:1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
@@ -8,7 +8,7 @@ module.exports=function (app) {
         })
         return ;
     })
-    app.post(`gifts/add`,async function (request,response) {
+    app.post(`/gifts/add`,async function (request,response) {
         let gift = request.fields.todo;
         let eventId = request.fields.eventId;
         let todoIns = await app.get(`db`)().collection(`gifts`).insertOne({
