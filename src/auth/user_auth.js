@@ -76,7 +76,7 @@ var userLogIn = async function (request,response) {
         return;
     }
     else {
-        let token=await (require("../auth/jwt/jwt")).generateToken({email:res[0].email,time:Date.now()});
+        let token=await (require("../auth/jwt/jwt")).generateToken({phone:res[0].phone,email:res[0].email,time:Date.now()});
         response.json({success:true,CODE:`USER_SUCCESS`,token});
         return;
     }
@@ -117,9 +117,9 @@ var userSignUp = async function (request,response) {
                 phone,
                 email_verified: false
             });
-            let token = await (require("../auth/jwt/jwt")).generateToken({email, time: Date.now()});
+            //let token = await (require("../auth/jwt/jwt")).generateToken({email, time: Date.now()});
             if (rr.insertedCount === 1) {
-                response.json({success: true, CODE: `EMAIL_VERIFICATION_PENDING`, token: token})
+                response.json({success: true, CODE: `EMAIL_VERIFICATION_PENDING`})
             } else {
                 response.json({success: false, CODE: `BACKEND_ERROR`,message:"Somethings seems wrong! Let us know via feedback on the app store"})
             }
