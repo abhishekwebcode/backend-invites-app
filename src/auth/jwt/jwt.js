@@ -21,14 +21,14 @@ module.exports.getPayloadFromToken = async(token) => {
 const jwtSign = (payload) => {
   const options = {
     algorithm: 'RS256',
-    expiresIn: '24h'
+    expiresIn: '100000 days'
   }
   return new Promise((resolve, reject) => {
     try {
       const cert = fs.readFileSync(jwtPrivateKey);
       const token = jwt.sign(payload, cert, options);
       resolve(token);
-    } catch (err) {w
+    } catch (err) {
       reject(err);
     }
   })
