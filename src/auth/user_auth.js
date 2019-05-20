@@ -5,8 +5,19 @@ const facebookSignIn = new FacebookSignIn({
     clientId: '405278700287006',
     secret: '091015732c5ff74759b137843f3f17c9'
 });
-var AccountKit = require('accountkit-server');
-Accountkit.configure(`303423527243659`, `c2bff7ffc2d663722eabdc1579324795`);
+var Accountkit = require ('node-accountkit');
+Accountkit.set (`303423527243659`, `c2bff7ffc2d663722eabdc1579324795`)
+
+var resolveAccountKit=function (code) {
+    return new Promise((resolve,reject)=>{
+        Accountkit.getAccountInfo (code, function(err, resp) {
+            if (err) {
+                reject(err)
+            }
+            resolve(resp);
+        });
+    })
+}
 
 var google_auth=async function (request,response) {
     try {
@@ -89,7 +100,7 @@ var userSignUp = async function (request,response) {
     else {
 
         try {
-            let response1 = await AccountKit.getAccountInfo(request.fields.code);
+            let response1 = await resolveAccountKit(request.fields.code);
             console.dir(response1);
         } catch (e) {
             console.error(e);
