@@ -100,14 +100,8 @@ var userSignUp = async function (request,response) {
     else {
         try {
             let response1 = await resolveAccountKit(request.fields.code);
-            console.dir(response1);
-            if (!(response1.phone.number)) {
-                throw Error();
-            }
-            else {
-                let phone = response1.phone;
-                console.dir(phone);
-            }
+            let phone = response1.phone;
+            console.dir(phone);
         } catch (e) {
             console.error(e);
             response.json({success:false});return ;
@@ -119,7 +113,7 @@ var userSignUp = async function (request,response) {
                 email,
                 name,
                 password,
-                phone:response1.phone,
+                phone,
                 email_verified: false
             });
             let token = await (require("../auth/jwt/jwt")).generateToken({email, time: Date.now()});
