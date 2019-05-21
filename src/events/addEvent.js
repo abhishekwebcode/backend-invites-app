@@ -93,7 +93,7 @@ module.exports = function (app) {
                 ip_created: ip
             }
         );
-        sendPush(user);
+        sendPush(users);
         sendSMS([...localArray, ...intlArray]);
         if (events.insertedCount == 1) {
             response.json({success: true})
