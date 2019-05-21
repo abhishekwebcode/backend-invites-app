@@ -9,7 +9,7 @@ function parsePhone(no,intlArray,localArray) {
     localArray.push(parseInt(no).toString());
 }
 function remove(element,array) {
-    array.splice(a.indexOf(element),1);
+    array.splice(array.indexOf(element),1);
     return array;
 }
 
@@ -50,6 +50,7 @@ async function createEvent(numbers,emails1,db) {
     console.log(`intlArray`,intlArray1,`localArray`,localArray1);
     let {users,localArray,emails,intlArray} = searchUsers(intlArray1,localArray1,db,emails1);
     console.log(users,localArray,emails,intlArray);
+    console.log(`TILL DEBUG 234`);
 }
 
 module.exports=function (app) {
