@@ -59,6 +59,13 @@ require(`../events/init`)(app);
 require(`../todo/init`)(app);
 // enable gifts functions
 require(`../gifts/init`)(app);
+// add error handler
+app.use((err, req, res, next) => {
+    // log the error...
+    console.debug(arguments);
+    res.json({success:false,message:`Server error occurred`});
+    return;
+})
 app.listen(
     process.env.PORT || 3000,
     () =>
