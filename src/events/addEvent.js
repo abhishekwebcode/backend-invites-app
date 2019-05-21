@@ -1,79 +1,105 @@
-const PhoneNumber = require( 'awesome-phonenumber' );
-function isPlus(phone){
-    return phone.indexOf(`+`)!==-1;
+const PhoneNumber = require('awesome-phonenumber');
+
+function isPlus(phone) {
+    return phone.indexOf(`+`) !== -1;
 }
-function parsePhone(no,intlArray,localArray) {
+
+function parsePhone(no, intlArray, localArray) {
     if (isPlus(no)) {
-        intlArray.push(new PhoneNumber(no).getNumber());return;
+        intlArray.push(new PhoneNumber(no).getNumber());
+        return;
     }
     localArray.push(parseInt(no).toString());
 }
-function remove(element,array) {
-    array.splice(array.indexOf(element),1);
+
+function remove(element, array) {
+    array.splice(array.indexOf(element), 1);
     return array;
 }
 
-async function searchUsers(intlArray,localArray,db,emails) {
+async function searchUsers(intlArray, localArray, db, emails) {
     let attendees = await db.collection(`users`).find({
-        $or : [
-            {"phone.number":{$in:intlArray}},
-            {"phone.national_number":{                $in:localArray            }            },
-            {email:{                $in:emails            }}
+        $or: [
+            {"phone.number": {$in: intlArray}},
+            {"phone.national_number": {$in: localArray}},
+            {email: {$in: emails}}
         ]
-    }).project({_id:1,phone:1,email:1}).toArray();
+    }).project({_id: 1, phone: 1, email: 1}).toArray();
     console.dir(attendees);
-    let final=[];
-    for (i=0;i<attendees.length;i++) {
+    let final = [];
+    for (i = 0; i < attendees.length; i++) {
         let item = attendees[i];
-        id=true;
-        if (localArray.indexOf(item.phone.national_number)!==-1) {
-            id=false;
-            localArray=remove(item.phone.national_number,localArray);
+        id = true;
+        if (localArray.indexOf(item.phone.national_number) !== -1) {
+            id = false;
+            localArray = remove(item.phone.national_number, localArray);
         }
-        if (intlArray.indexOf(item.phone.number)!==-1) {
-            id=false;
-            intlArray=remove(item.phone.number,intlArray);
+        if (intlArray.indexOf(item.phone.number) !== -1) {
+            id = false;
+            intlArray = remove(item.phone.number, intlArray);
         }
-        if (emails.indexOf(item.email)!==-1) {emails=remove(item.email,emails);id=false;}
+        if (emails.indexOf(item.email) !== -1) {
+            emails = remove(item.email, emails);
+            id = false;
+        }
         if (!id) {
             final.push(item);
         }
     }
-    return {users:final,localArray,emails,intlArray};
+    return {users: final, localArray, emails, intlArray};
 }
 
-async function createEvent(numbers,emails1,db) {
+async function sendPush(registeredUsers) {
+}
+
+async function sendSMS(nonRegisteredUsers) {
+}
+
+async function createEvent(numbers, emails1, db) {
     console.log(arguments);
-    let intlArray1=[];
-    let localArray1=[];
-    numbers.forEach(e=>parsePhone(e,intlArray1,localArray1));
-    console.log(`intlArray`,intlArray1,`localArray`,localArray1);
-    let {users,localArray,emails,intlArray} = await searchUsers(intlArray1,localArray1,db,emails1);
-    console.log(users,localArray,emails,intlArray);
-    console.log(`TILL DEBUG 234`);
+    let intlArray1 = [];
+    let localArray1 = [];
+    numbers.forEach(e => parsePhone(e, intlArray1, localArray1));
+    console.log(`intlArray`, intlArray1, `localArray`, localArray1);
+    let {users, localArray, emails, intlArray} = await searchUsers(intlArray1, localArray1, db, emails1);
+    console.log(users, localArray, emails, intlArray);
+    return {users, localArray, emails, intlArray};
 }
 
-module.exports=function (app) {
-    app.post(`/events/add`,async function(request,response) {
+module.exports = function (app) {
+    app.post(`/events/add`, async function (request, response) {
         console.log(arguments);
-        let numbers = JSON.parse(request.fields.numbers);
-        let emails = JSON.parse(request.fields.emails);
+        let numbers1 = JSON.parse(request.fields.numbers);
+        let emails1 = JSON.parse(request.fields.emails);
         //let numberResult = await app.get(`db`)().collection(`events`).find({});
-        createEvent(numbers,emails,request.app.get(`db`)());
-        let event=JSON.parse(request.fields.event);
-        response.json({success: false,message:`Error creating your party`});return;
-        event["date"]=new Date(parseInt(event["date"]));
-        event["isSpecialTheme"]=(event["isSpecialTheme"]=="true"?true:false);
-        event["guestSee"]=(event["guestSee"]=="true"?true:false);
+        let {users, localArray, emails, intlArray} = createEvent(numbers1, emails1, request.app.get(`db`)());
+        let usersIdsobjs = [];
+        users.forEach(e => usersIdsobjs.push(e._id));
+        let event = JSON.parse(request.fields.event);
+        event["date"] = new Date(parseInt(event["date"]));
+        event["isSpecialTheme"] = (event["isSpecialTheme"] == "true" ? true : false);
+        event["guestSee"] = (event["guestSee"] == "true" ? true : false);
         console.log(event);
+        var ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress || ``;
         let events = await app.get(`db`)().collection(`events`).insertOne(
-            {...event,created_by:request.email,date_created:Date.now()}
+            {
+                ...event,
+                created_by: request.email,
+                date_created: Date.now(),
+                users: usersIdsobjs,
+                unRegisteredNumbersLocal: localArray,
+                unRegisteredNumbersInternational: intlArray,
+                unRegisteredEmails: emails,
+                ip_created: ip
+            }
         );
-        if (events.insertedCount==1) {
+        sendPush(user);
+        sendSMS([...localArray, ...intlArray]);
+        if (events.insertedCount == 1) {
             response.json({success: true})
+        } else {
+            response.json({success: false, message: `Error creating your party`});
         }
-        else
-        {response.json({success: false,message:`Error creating your party`})}
-        return ;
+        return;
     });
 }
