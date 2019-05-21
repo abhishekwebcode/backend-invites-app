@@ -46,12 +46,12 @@ async function searchUsers(intlArray, localArray, db, emails) {
     }
     return {users: final, localArray, emails, intlArray};
 }
-async function sendPush(registeredUsers,ids,db,eventIdObject) {
+async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
     db.collection(`users`).updateMany(
         {_id:{$in:ids}},
         {
             $push:{
-                invited:{a:`here is data`}
+                invited:app.get(`id`)(eventIdObject)
             }
         },
         {upsert:true,}
@@ -100,7 +100,7 @@ module.exports = function (app) {
                 ip_created: ip
             }
         );
-        sendPush(users,usersIdsobjs,request.app.get(`db`)(),events.insertedId);
+        sendPush(users,usersIdsobjs,request.app.get(`db`)(),events.insertedId,app);
         sendSMS([...localArray, ...intlArray]);
         console.dir(events);
         if (events.insertedCount == 1) {
