@@ -115,7 +115,9 @@ var userSignUp = async function (request,response) {
                 name,
                 password,
                 phone,
-                email_verified: false
+                email_verified: false,
+                invited:[],
+                meta:{}
             });
             //let token = await (require("../auth/jwt/jwt")).generateToken({email, time: Date.now()});
             if (rr.insertedCount === 1) {

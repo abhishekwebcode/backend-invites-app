@@ -1,9 +1,7 @@
 const PhoneNumber = require('awesome-phonenumber');
-
 function isPlus(phone) {
     return phone.indexOf(`+`) !== -1;
 }
-
 function parsePhone(no, intlArray, localArray) {
     if (isPlus(no)) {
         intlArray.push(new PhoneNumber(no).getNumber());
@@ -11,12 +9,12 @@ function parsePhone(no, intlArray, localArray) {
     }
     localArray.push(parseInt(no).toString());
 }
-
 function remove(element, array) {
-    array.splice(array.indexOf(element), 1);
+    if (array.indexOf(element)!==-1) {
+        array.splice(array.indexOf(element), 1);
+    }
     return array;
 }
-
 async function searchUsers(intlArray, localArray, db, emails) {
     let attendees = await db.collection(`users`).find({
         $or: [
@@ -48,13 +46,19 @@ async function searchUsers(intlArray, localArray, db, emails) {
     }
     return {users: final, localArray, emails, intlArray};
 }
+async function sendPush(registeredUsers,ids,db) {
+    db.collection(`users`).updateMany(
+        {_id:{$in:ids}},
+        {
+            $push:{
+                invited:{}
+            }
+        }
 
-async function sendPush(registeredUsers) {
+    )
 }
-
 async function sendSMS(nonRegisteredUsers) {
 }
-
 async function createEvent(numbers, emails1, db) {
     console.log(arguments);
     let intlArray1 = [];
@@ -65,7 +69,6 @@ async function createEvent(numbers, emails1, db) {
     console.log(users, localArray, emails, intlArray);
     return {users, localArray, emails, intlArray};
 }
-
 module.exports = function (app) {
     app.post(`/events/add`, async function (request, response) {
         console.log(arguments);
@@ -73,6 +76,9 @@ module.exports = function (app) {
         let emails1 = JSON.parse(request.fields.emails);
         //let numberResult = await app.get(`db`)().collection(`events`).find({});
         let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`)());
+        remove(request.email,emails);
+        remove(request.User.phone.national_number,localArray);
+        remove(request.User.phone.number,intlArray);
         let usersIdsobjs = [];
         users.forEach(e => usersIdsobjs.push(e._id));
         let event = JSON.parse(request.fields.event);
@@ -93,8 +99,9 @@ module.exports = function (app) {
                 ip_created: ip
             }
         );
-        sendPush(users);
+        sendPush(users,usersIdsobjs,request.app.get(`db`)());
         sendSMS([...localArray, ...intlArray]);
+        console.dir(events);
         if (events.insertedCount == 1) {
             response.json({success: true})
         } else {
