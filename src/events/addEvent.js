@@ -4,7 +4,7 @@ function isPlus(phone){
 }
 function parsePhone(no,intlArray,localArray) {
     if (isPlus(no)) {
-        intlArray.push(new PhoneNumber(no).getNumber());
+        intlArray.push(new PhoneNumber(no).getNumber());return;
     }
     localArray.push(parseInt(no).toString());
 }
@@ -15,7 +15,11 @@ function remove(element,array) {
 
 async function searchUsers(intlArray,localArray,db,emails) {
     let attendees = await db.collection(`users`).find({
-        $or : [{"phone.number":{$in:{intlArray}}},{"phone.national_number":{$in:localArray}},{email:{$in:emails}}]
+        $or : [
+            {"phone.number":{$in:intlArray}},
+            {"phone.national_number":{                $in:localArray            }            },
+            {email:{                $in:emails            }}
+        ]
     }).project({_id:1,phone:1,email:1}).toArray();
     let final=[];
     for (i=0;i<attendees.length();i++) {
