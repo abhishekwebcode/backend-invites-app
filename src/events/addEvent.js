@@ -49,6 +49,7 @@ async function createEvent(numbers,emails1,db) {
     numbers.forEach(e=>parsePhone(e,intlArray1,localArray1));
     console.log(`intlArray`,intlArray1,`localArray`,localArray1);
     let {users,localArray,emails,intlArray} = searchUsers(intlArray1,localArray1,db,emails1);
+    console.dir(searchUsers(intlArray1,localArray1,db,emails1));
     console.log(users,localArray,emails,intlArray);
     console.log(`TILL DEBUG 234`);
 }
