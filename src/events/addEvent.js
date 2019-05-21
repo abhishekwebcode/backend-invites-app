@@ -35,8 +35,8 @@ async function searchUsers(intlArray,localArray,db,emails) {
             intlArray=remove(item.phone.number,intlArray);
         }
         if (emails.indexOf(item.email)!==-1) {emails=remove(item.email,emails);id=false;}
-        if (id) {
-            final.push(item._id);
+        if (!id) {
+            final.push(item);
         }
     }
     return {users:final,localArray,emails,intlArray};
@@ -49,7 +49,6 @@ async function createEvent(numbers,emails1,db) {
     numbers.forEach(e=>parsePhone(e,intlArray1,localArray1));
     console.log(`intlArray`,intlArray1,`localArray`,localArray1);
     let {users,localArray,emails,intlArray} = await searchUsers(intlArray1,localArray1,db,emails1);
-    console.dir(searchUsers(intlArray1,localArray1,db,emails1));
     console.log(users,localArray,emails,intlArray);
     console.log(`TILL DEBUG 234`);
 }
