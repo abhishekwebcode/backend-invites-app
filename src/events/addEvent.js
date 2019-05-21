@@ -21,8 +21,9 @@ async function searchUsers(intlArray,localArray,db,emails) {
             {email:{                $in:emails            }}
         ]
     }).project({_id:1,phone:1,email:1}).toArray();
+    console.dir(attendees);
     let final=[];
-    for (i=0;i<attendees.length();i++) {
+    for (i=0;i<attendees.length;i++) {
         let item = attendees[i];
         id=true;
         if (localArray.indexOf(item.phone.national_number)!==-1) {
