@@ -37,8 +37,14 @@ async function searchUsers(intlArray,localArray,db,emails) {
     return {users:final,localArray,emails,intlArray};
 }
 
-async function createEvent(request,response) {
-
+async function createEvent(numbers,emails1,db) {
+    console.log(arguments);
+    let intlArray1=[];
+    let localArray1=[];
+    numbers.forEach(e=>parsePhone(e,intlArray1,localArray1));
+    console.log(`intlArray`,intlArray1,`localArray`,localArray1);
+    let {users,localArray,emails,intlArray} = searchUsers(intlArray1,localArray1,db,emails1);
+    console.log(users,localArray,emails,intlArray);
 }
 
 module.exports=function (app) {
@@ -46,8 +52,10 @@ module.exports=function (app) {
         console.log(arguments);
         let numbers = JSON.parse(request.fields.numbers);
         let emails = JSON.parse(request.fields.emails);
-        let numberResult = await app.get(`db`)().collection(`events`).find({})
+        //let numberResult = await app.get(`db`)().collection(`events`).find({});
+        createEvent(numbers,emails,request.app.get(`db`()));
         let event=JSON.parse(request.fields.event);
+        response.json({success: false,message:`Error creating your party`});return;
         event["date"]=new Date(parseInt(event["date"]));
         event["isSpecialTheme"]=(event["isSpecialTheme"]=="true"?true:false);
         event["guestSee"]=(event["guestSee"]=="true"?true:false);
