@@ -53,7 +53,7 @@ module.exports=function (app) {
         let numbers = JSON.parse(request.fields.numbers);
         let emails = JSON.parse(request.fields.emails);
         //let numberResult = await app.get(`db`)().collection(`events`).find({});
-        createEvent(numbers,emails,request.app.get(`db`()));
+        createEvent(numbers,emails,request.app.get(`db`)());
         let event=JSON.parse(request.fields.event);
         response.json({success: false,message:`Error creating your party`});return;
         event["date"]=new Date(parseInt(event["date"]));
