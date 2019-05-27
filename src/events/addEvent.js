@@ -90,6 +90,7 @@ module.exports = function (app) {
         let rawData = JSON.parse(request.fields.data);
         let {numbers1,emails1} = await getRealData(rawData);
         let event = JSON.parse(request.fields.event);
+        let sms_invite_link=`the link of sms invite will go here`;
         //let numberResult = await app.get(`db`)().collection(`events`).find({});
         let send_sms = numbers1.length>0;
         let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`)());
@@ -120,7 +121,7 @@ module.exports = function (app) {
         sendEmails(emails);
         console.dir(events);
         if (events.insertedCount === 1) {
-            response.json({success: true,send_sms})
+            response.json({success: true,send_sms,sms_invite_link})
         } else {
             response.json({success: false, message: `Error creating your party`});
         }
