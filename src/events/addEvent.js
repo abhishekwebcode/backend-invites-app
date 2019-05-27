@@ -87,7 +87,7 @@ async function getRealData(rawData) {
 module.exports = function (app) {
     app.post(`/events/add`, async function (request, response) {
         console.log(arguments);
-        let rawData = JSON.parse(request.fields.numbers);
+        let rawData = JSON.parse(request.fields.data);
         let {numbers1,emails1} = await getRealData(rawData);
         let event = JSON.parse(request.fields.event);
         //let numberResult = await app.get(`db`)().collection(`events`).find({});
