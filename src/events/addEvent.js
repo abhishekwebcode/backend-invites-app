@@ -1,4 +1,6 @@
 const PhoneNumber = require('awesome-phonenumber');
+const firebaseAdmin = require(`firebase-admin`);
+
 function isPlus(phone) {
     return phone.indexOf(`+`) !== -1;
 }
@@ -58,6 +60,9 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
     )
 }
 async function sendSMS(nonRegisteredUsers) {
+    // NOT REQUIRED AS ITS DONE VIA USER APP
+}
+async  function sendEmails(emails) {
 
 }
 async function createEvent(numbers, emails1, db) {
@@ -70,11 +75,21 @@ async function createEvent(numbers, emails1, db) {
     console.log(users, localArray, emails, intlArray);
     return {users, localArray, emails, intlArray};
 }
+async function getRealData(rawData) {
+    let numbers1=[];
+    let emails1=[];
+    rawData.forEach(e=>{
+        if (e.indexOf(`@`)!==-1) emails1.push(e);
+        else numbers1.push(e);
+    });
+    return {numbers1,emails1};
+};
 module.exports = function (app) {
     app.post(`/events/add`, async function (request, response) {
         console.log(arguments);
-        let numbers1 = JSON.parse(request.fields.numbers);
-        let emails1 = JSON.parse(request.fields.emails);
+        let rawData = JSON.parse(request.fields.numbers);
+        let {numbers1,emails1} = await getRealData(rawData);
+        let event = JSON.parse(request.fields.event);
         //let numberResult = await app.get(`db`)().collection(`events`).find({});
         let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`)());
         remove(request.email,emails);
@@ -82,10 +97,10 @@ module.exports = function (app) {
         remove(request.User.phone.number,intlArray);
         let usersIdsobjs = [];
         users.forEach(e => usersIdsobjs.push(e._id));
-        let event = JSON.parse(request.fields.event);
+
         event["date"] = new Date(parseInt(event["date"]));
-        event["isSpecialTheme"] = (event["isSpecialTheme"] == "true" ? true : false);
-        event["guestSee"] = (event["guestSee"] == "true" ? true : false);
+        event["isSpecialTheme"] = (event["isSpecialTheme"] === "true");
+        event["guestSee"] = (event["guestSee"] === "true");
         console.log(event);
         var ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress || ``;
         let events = await app.get(`db`)().collection(`events`).insertOne(
@@ -102,8 +117,9 @@ module.exports = function (app) {
         );
         sendPush(users,usersIdsobjs,request.app.get(`db`)(),events.insertedId,app);
         sendSMS([...localArray, ...intlArray]);
+        sendEmails(emails);
         console.dir(events);
-        if (events.insertedCount == 1) {
+        if (events.insertedCount === 1) {
             response.json({success: true})
         } else {
             response.json({success: false, message: `Error creating your party`});
