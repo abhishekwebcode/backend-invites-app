@@ -1,5 +1,5 @@
 const PhoneNumber = require('awesome-phonenumber');
-const firebaseAdmin = require(`firebase-admin`);
+//const firebaseAdmin = require(`firebase-admin`);
 
 function isPlus(phone) {
     return phone.indexOf(`+`) !== -1;
