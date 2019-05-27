@@ -91,13 +91,13 @@ module.exports = function (app) {
         let {numbers1,emails1} = await getRealData(rawData);
         let event = JSON.parse(request.fields.event);
         //let numberResult = await app.get(`db`)().collection(`events`).find({});
+        let send_sms = numbers1.length>0;
         let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`)());
         remove(request.email,emails);
         remove(request.User.phone.national_number,localArray);
         remove(request.User.phone.number,intlArray);
         let usersIdsobjs = [];
         users.forEach(e => usersIdsobjs.push(e._id));
-
         event["date"] = new Date(parseInt(event["date"]));
         event["isSpecialTheme"] = (event["isSpecialTheme"] === "true");
         event["guestSee"] = (event["guestSee"] === "true");
@@ -120,7 +120,7 @@ module.exports = function (app) {
         sendEmails(emails);
         console.dir(events);
         if (events.insertedCount === 1) {
-            response.json({success: true})
+            response.json({success: true,send_sms})
         } else {
             response.json({success: false, message: `Error creating your party`});
         }
