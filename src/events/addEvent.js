@@ -17,7 +17,7 @@ function remove(element, array) {
     }
     return array;
 }
-async function searchUsers(intlArray,l,  db, emails) {
+async function searchUsers(intlArray,localarray1,  db, emails) {
     console.dir(db);
     let attendees = await db.collection(`users`).find({
         $or: [
@@ -83,6 +83,7 @@ async function getRealData(rawData) {
 module.exports = function (app) {
     app.post(`/events/add`, async function (request, response) {
         let prefix = request.User.phone.country_prefix;
+        console.log(`PREFIX`,prefix);
         console.log(arguments);
         let rawData = JSON.parse(request.fields.data);
         let {numbers1,emails1} = await getRealData(rawData);
