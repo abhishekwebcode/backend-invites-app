@@ -82,7 +82,7 @@ async function getRealData(rawData) {
 };
 module.exports = function (app) {
     app.post(`/events/add`, async function (request, response) {
-        let prefix = request.User.phone.country_prefix;
+        let prefix = `+`+request.User.phone.country_prefix;
         console.log(`PREFIX`,prefix);
         console.log(arguments);
         let rawData = JSON.parse(request.fields.data);
