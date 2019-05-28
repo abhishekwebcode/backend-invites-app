@@ -1,6 +1,6 @@
 module.exports=function (app) {
     app.post(`/invites/list`,async function (request,response) {
-        let db = request.app.get(`db`);
+        let db = request.app.get(`db`)();
         console.dir(`inInviesliSt`);
         console.dir(db);
         let id = await db.collection(`users`).find({email:request.User.email}).limit(1).toArray();
