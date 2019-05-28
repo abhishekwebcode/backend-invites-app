@@ -13,7 +13,7 @@ module.exports=function (app) {
                     userID
                 ]
             }
-        }.project({
+        }).project({
            _id:1,childName:1,date:1
         }).sort({date:-1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
         response.json({
