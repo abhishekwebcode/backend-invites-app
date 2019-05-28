@@ -1,10 +1,12 @@
 module.exports=function (app) {
     app.post(`/invites/list`,async function (request,response) {
         let db = request.app.get(`db`);
+        console.dir(`inInviesliSt`);
+        console.dir(db);
         let id = await db.collection(`users`).find({email:request.User.email}).limit(1).toArray();
         let _id= id[0]._id;
         let userID=request.app.get(`id`)(_id);
-        let invites = db.collection(`events`).find({
+        let invites =await db.collection(`events`).find({
             users:{
                 $in:[
                     userID
