@@ -4,12 +4,12 @@ const PhoneNumber = require('awesome-phonenumber');
 function isPlus(phone) {
     return phone.indexOf(`+`) !== -1;
 }
-function parsePhone(no, intlArray, localArray) {
+function parsePhone(no, intlArray, localArray,prefix) {
     if (isPlus(no)) {
         intlArray.push(new PhoneNumber(no).getNumber());
         return;
     }
-    localArray.push(parseInt(no).toString());
+    intlArray.push(prefix+parseInt(no).toString());
 }
 function remove(element, array) {
     if (array.indexOf(element)!==-1) {
@@ -17,11 +17,10 @@ function remove(element, array) {
     }
     return array;
 }
-async function searchUsers(intlArray, localArray, db, emails) {
+async function searchUsers(intlArray,  db, emails) {
     let attendees = await db.collection(`users`).find({
         $or: [
             {"phone.number": {$in: intlArray}},
-            {"phone.national_number": {$in: localArray}},
             {email: {$in: emails}}
         ]
     }).project({_id: 1, phone: 1, email: 1}).toArray();
@@ -29,11 +28,7 @@ async function searchUsers(intlArray, localArray, db, emails) {
     let final = [];
     for (i = 0; i < attendees.length; i++) {
         let item = attendees[i];
-        id = true;
-        if (localArray.indexOf(item.phone.national_number) !== -1) {
-            id = false;
-            localArray = remove(item.phone.national_number, localArray);
-        }
+        let id = true;
         if (intlArray.indexOf(item.phone.number) !== -1) {
             id = false;
             intlArray = remove(item.phone.number, intlArray);
@@ -65,11 +60,11 @@ async function sendSMS(nonRegisteredUsers) {
 async  function sendEmails(emails) {
 
 }
-async function createEvent(numbers, emails1, db) {
+async function createEvent(numbers, emails1, db,prefix) {
     console.log(arguments);
     let intlArray1 = [];
     let localArray1 = [];
-    numbers.forEach(e => parsePhone(e, intlArray1, localArray1));
+    numbers.forEach(e => parsePhone(e, intlArray1, localArray1,prefix));
     console.log(`intlArray`, intlArray1, `localArray`, localArray1);
     let {users, localArray, emails, intlArray} = await searchUsers(intlArray1, localArray1, db, emails1);
     console.log(users, localArray, emails, intlArray);
@@ -86,6 +81,7 @@ async function getRealData(rawData) {
 };
 module.exports = function (app) {
     app.post(`/events/add`, async function (request, response) {
+        let prefix = request.User.phone.country_prefix;
         console.log(arguments);
         let rawData = JSON.parse(request.fields.data);
         let {numbers1,emails1} = await getRealData(rawData);
@@ -93,7 +89,7 @@ module.exports = function (app) {
         let sms_invite_link=`the link of sms invite will go here`;
         //let numberResult = await app.get(`db`)().collection(`events`).find({});
         let send_sms = numbers1.length>0;
-        let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`)());
+        let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`,prefix)());
         remove(request.email,emails);
         remove(request.User.phone.national_number,localArray);
         remove(request.User.phone.number,intlArray);

@@ -7,5 +7,7 @@ module.exports=function(app) {
     require(`./event`)(app);
     // register add event handler
     require(`./addEvent`)(app);
+    // register invites handler
+    require(`./invites`)(app);
 };
 
