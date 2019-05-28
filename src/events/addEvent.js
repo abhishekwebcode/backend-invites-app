@@ -19,7 +19,7 @@ function remove(element, array) {
 }
 async function searchUsers(intlArray,localarray1,  db, emails) {
     console.dir(db);
-
+    console.dir(intlArray)
     let attendees = await db.collection(`users`).find({
         $or: [
             {"phone.number": {$in: intlArray}},
