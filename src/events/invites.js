@@ -1,7 +1,6 @@
 module.exports=function (app) {
     app.post(`/invites/list`,async function (request,response) {
         console.dir(arguments);
-        return ;
         let db = request.app.get(`db`)();
         console.dir(`inInviesliSt`);
         console.dir(db);
@@ -16,7 +15,7 @@ module.exports=function (app) {
             }
         },{
            _id:1,childName:1,date:1
-        }).sort({date:-1}).skip(request.fields.offset).limit(10).toArray();
+        }).sort({date:-1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
         response.json({
             success:true,invites
         })
