@@ -94,7 +94,7 @@ module.exports = function (app) {
         let send_sms = numbers1.length>0;
         let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`)(),prefix);
         remove(request.email,emails);
-        remove(request.User.phone.national_number,localArray);
+        //remove(request.User.phone.national_number,localArray);
         remove(request.User.phone.number,intlArray);
         let usersIdsobjs = [];
         users.forEach(e => usersIdsobjs.push(e._id));
