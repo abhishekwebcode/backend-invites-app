@@ -1,5 +1,6 @@
 module.exports=function (app) {
     app.post(`/invites/list`,async function (request,response) {
+        console.dir(arguments)
         let db = request.app.get(`db`)();
         console.dir(`inInviesliSt`);
         console.dir(db);
