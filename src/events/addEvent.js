@@ -43,7 +43,7 @@ async function searchUsers(intlArray,localarray1,  db, emails) {
             final.push(item);
         }
     }
-    return {users: final,localarray1, emails, intlArray};
+    return {users: final,localArray:localarray1, emails, intlArray};
 }
 async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
     db.collection(`users`).updateMany(
