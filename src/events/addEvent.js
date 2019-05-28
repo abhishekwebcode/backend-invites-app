@@ -19,6 +19,7 @@ function remove(element, array) {
 }
 async function searchUsers(intlArray,localarray1,  db, emails) {
     console.dir(db);
+
     let attendees = await db.collection(`users`).find({
         $or: [
             {"phone.number": {$in: intlArray}},
@@ -42,7 +43,7 @@ async function searchUsers(intlArray,localarray1,  db, emails) {
             final.push(item);
         }
     }
-    return {users: final, l, emails, intlArray};
+    return {users: final,localarray1, emails, intlArray};
 }
 async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
     db.collection(`users`).updateMany(
