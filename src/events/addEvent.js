@@ -1,6 +1,8 @@
 const PhoneNumber = require('awesome-phonenumber');
 //const firebaseAdmin = require(`firebase-admin`);
-
+function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+}
 function isPlus(phone) {
     return phone.indexOf(`+`) !== -1;
 }
@@ -67,6 +69,7 @@ async function createEvent(numbers, emails1, db,prefix) {
     let intlArray1 = [];
     let localArray1 = [];
     numbers.forEach(e => parsePhone(e, intlArray1, localArray1,prefix));
+    intlArray=onlyUnique(intlArray);
     console.log(`intlArray`, intlArray1, `localArray`, localArray1);
     let {users, localArray, emails, intlArray} = await searchUsers(intlArray1, localArray1, db, emails1);
     console.log(users, localArray, emails, intlArray);
