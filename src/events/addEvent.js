@@ -89,7 +89,7 @@ module.exports = function (app) {
         let sms_invite_link=`the link of sms invite will go here`;
         //let numberResult = await app.get(`db`)().collection(`events`).find({});
         let send_sms = numbers1.length>0;
-        let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`,prefix)());
+        let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`),prefix)();
         remove(request.email,emails);
         remove(request.User.phone.national_number,localArray);
         remove(request.User.phone.number,intlArray);
