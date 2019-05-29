@@ -20,6 +20,7 @@ module.exports=function (app) {
 
     app.post(`/events/infodetail`,async function (request,response) {
         let db = request.app.get(`db`)();
+        console.log(request.fields);
         let eventIDObj = request.app.get(`id`)(request.fields.eventId);
         let event = db.collection(`events`).find({
             _id:eventIDObj
