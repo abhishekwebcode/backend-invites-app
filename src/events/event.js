@@ -41,7 +41,7 @@ module.exports=function (app) {
         console.dir(event);
        response.json({
            success:true,
-           event
+           event[0]
        })
     });
 
