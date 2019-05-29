@@ -21,8 +21,6 @@ module.exports=function (app) {
     app.post(`/events/infodetail`,async function (request,response) {
         let db = request.app.get(`db`)();
         let eventIDObj = (request.app.get(`id`))(request.fields.eventId);
-        console.log(request.fields,db,eventIDObj,request.app.get(`id`));
-        console.dir(await await db.collection(`events`).find({_id:eventIDObj}));
         let event = await db.collection(`events`)
             .find({_id:eventIDObj})
             .project({
@@ -39,7 +37,7 @@ module.exports=function (app) {
             otherAddress: 1,
             theme: 1,
             created_by: 1
-        }).toArray();
+        }).toArray()[0];
        response.json({
            success:true,
            event
