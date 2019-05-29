@@ -87,6 +87,8 @@ module.exports = function (app) {
             eventID,
             registered: true,
         })
+        console.log(`CHECKING EXISTING INVITE`);
+        console.dir(check);
         if (check===null) {
             response.json({
                 success:true,
