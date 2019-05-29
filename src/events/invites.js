@@ -86,13 +86,20 @@ module.exports = function (app) {
             email:request.User.email,
             eventID,
             registered: true,
-            bodys:324
         })
-        console.dir(check);
-        response.json({
-            success:true,
-            sent:false
-        })
+        if (check===null) {
+            response.json({
+                success:true,
+                sent:false
+            })
+        }
+        else {
+            response.json({
+                success:true,
+                sent:true
+            })
+        }
+
     });
 
 };
