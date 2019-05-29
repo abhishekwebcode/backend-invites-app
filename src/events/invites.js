@@ -20,4 +20,39 @@ module.exports=function (app) {
             success:true,invites
         })
     });
+    app.post(`/invites/info`,async function (request,response) {
+        let eventID=request.fields.eventId;
+        let eventIDOBJECT = request.app.get(`id`)(eventID);
+        let eventINFO = await request.app.get(`db`)().find({
+            _id:eventIDOBJECT
+        }).project({
+            timeEnd:1,
+            zipCode:1,
+            country:1,
+            isSpecialTheme:1,
+            city:1,
+            timeStart:1,
+            date:1,
+            street:1,
+            childName:1,
+            district:1,
+            otherAddress:1,
+            theme:1,
+            created_by:1
+        }).toArray();
+        if (eventINFO.length===0) {
+            response.json({success:false,message:"Invite does not exist"});
+            return ;
+        }
+        else {
+            let email = eventINFO[0].created_by;
+            let userInfo = await request.app.get(`db`)().find({email:email}).toArray();
+            response.json({
+                success:true,
+                invite:eventINFO[0],
+                owner:userInfo[0]
+        });
+            return ;
+        }
+    });
 };

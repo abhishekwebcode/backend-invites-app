@@ -94,7 +94,6 @@ module.exports = function (app) {
         let event = JSON.parse(request.fields.event);
         let sms_invite_link=`the link of sms invite will go here`;
         //let numberResult = await app.get(`db`)().collection(`events`).find({});
-        let send_sms = numbers1.length>0;
         let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`)(),prefix);
         remove(request.email,emails);
         //remove(request.User.phone.national_number,localArray);
@@ -119,11 +118,13 @@ module.exports = function (app) {
             }
         );
         sendPush(users,usersIdsobjs,request.app.get(`db`)(),events.insertedId,app);
-        sendSMS([...localArray, ...intlArray]);
+        //sendSMS([...localArray, ...intlArray]);
+        let sendString="";
         sendEmails(emails);
         console.dir(events);
+        let send_sms = intlArray.length>0;
         if (events.insertedCount === 1) {
-            response.json({success: true,send_sms,sms_invite_link})
+            response.json({success: true,send_sms,sms_invite_link,send_sms_datas:intlArray.join(";")})
         } else {
             response.json({success: false, message: `Error creating your party`});
         }
