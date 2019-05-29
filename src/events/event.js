@@ -38,10 +38,11 @@ module.exports=function (app) {
             theme: 1,
             created_by: 1
         }).limit(1).toArray();
+        event=event[0];
         console.dir(event);
        response.json({
            success:true,
-           event[0]
+           event
        })
     });
 
