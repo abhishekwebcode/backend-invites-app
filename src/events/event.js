@@ -22,7 +22,7 @@ module.exports=function (app) {
         let db = request.app.get(`db`)();
         console.log(request.fields,db);
         let eventIDObj = await request.app.get(`id`)(request.fields.eventId);
-        let invite = db.collection(`events`).find({
+        let event = db.collection(`events`).find({
             _id:eventIDObj
         }).project({
             timeEnd: 1,
@@ -41,7 +41,7 @@ module.exports=function (app) {
         }).toArray();
        response.json({
            success:true,
-           invite
+           event
        })
     });
 
