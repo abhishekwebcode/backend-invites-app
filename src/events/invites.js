@@ -60,4 +60,20 @@ module.exports = function (app) {
             return;
         }
     });
+    app.post(`/invites/reject`, async function (request, response) {
+        let db = request.app.get(`db`)();
+        let eventID = request.app.get(`id`)(request.fields.eventId);
+        let ins = db.collection(`responses`).insetOne({
+            registered:true,
+            intention:false,
+            email:request.User.email,
+            eventID
+        });
+        response.json({
+            success:true
+        })
+    });
+
+
+
 };
