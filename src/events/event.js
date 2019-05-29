@@ -54,6 +54,7 @@ module.exports=function (app) {
         let fields = request.fields;
         delete fields.eventId;
         let update = db.collection(`events`).update({_id:eventIDObj},fields,{});
+        console.dir(update);
         response.json({success:(
             update.result.ok===1
             )});
