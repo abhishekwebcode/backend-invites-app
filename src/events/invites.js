@@ -132,7 +132,8 @@ module.exports = function (app) {
         else {
             response.json({
                 success:true,
-                sent:true
+                sent:true,
+                intention:check.intent
             })
         }
 
