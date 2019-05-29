@@ -69,12 +69,30 @@ module.exports = function (app) {
             email:request.User.email,
             eventID
         });
-        console.dir(ins);
-        response.json({
-            success:true
-        })
+        if (ins.result.ok===1) {
+            response.json({
+                success: true
+            })
+        } else {
+            response.json({success:false})
+        }
+        return ;
     });
 
-
+    app.post(`/invites/check`, async function (request, response) {
+        let db = request.app.get(`db`)();
+        let eventID = request.app.get(`id`)(request.fields.eventId);
+        let check = await db.collection(`responses`).findOne({
+            email:request.User.email,
+            eventID,
+            registered: true,
+            bodys:324
+        })
+        console.dir(check);
+        response.json({
+            success:true,
+            sent:false
+        })
+    });
 
 };
