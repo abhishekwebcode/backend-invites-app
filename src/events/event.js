@@ -47,4 +47,16 @@ module.exports=function (app) {
        })
     });
 
+
+    app.post(`/events/update`,async function (request,response) {
+        let db = request.app.get(`db`)();
+        let eventIDObj = (request.app.get(`id`))(request.fields.eventId);
+        let fields = request.fields;
+        delete fields.eventId;
+        let update = db.collection(`events`).update({_id:eventIDObj},fields,{});
+        response.json({success:(
+            update.result.ok===1
+            )});
+    });
+
 };
