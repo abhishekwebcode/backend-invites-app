@@ -79,6 +79,29 @@ module.exports = function (app) {
         return ;
     });
 
+    app.post(`/invites/accept`, async function (request, response) {
+        let db = request.app.get(`db`)();
+        let eventID = request.app.get(`id`)(request.fields.eventId);
+        let ins = await db.collection(`responses`).insertOne({
+            registered:true,
+            intention:true,
+            email:request.User.email,
+            eventID,
+            allergy1:request.fields.allergy1,
+            allergy2:request.fields.allergy2,
+            allergy3:request.fields.allergy3,
+            isAllergy:request.fields.isAllergy
+        });
+        if (ins.result.ok===1) {
+            response.json({
+                success: true
+            })
+        } else {
+            response.json({success:false})
+        }
+        return ;
+    });
+
     app.post(`/invites/check`, async function (request, response) {
         let db = request.app.get(`db`)();
         let eventID = request.app.get(`id`)(request.fields.eventId);
