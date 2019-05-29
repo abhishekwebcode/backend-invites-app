@@ -37,7 +37,7 @@ module.exports=function (app) {
             otherAddress: 1,
             theme: 1,
             created_by: 1
-        }).toArray();
+        }).limit(1).toArray();
         console.dir(event);
        response.json({
            success:true,
