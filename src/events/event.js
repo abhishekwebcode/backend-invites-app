@@ -18,7 +18,7 @@ module.exports=function (app) {
         response.json({success:true,events:send});
     });
 
-    app.post(`/events/eventdetail`,async function (request,response) {
+    app.post(`/events/infodetail`,async function (request,response) {
         let db = request.app.get(`db`);
         let eventIDObj = request.app.get(`id`)(request.fields.eventId);
         let event = db.collection(`events`).find({
