@@ -18,5 +18,30 @@ module.exports=function (app) {
         response.json({success:true,events:send});
     });
 
+    app.post(`/events/eventdetail`,async function (request,response) {
+        let db = request.app.get(`db`);
+        let eventIDObj = request.app.get(`id`)(request.fields.eventId);
+        let event = db.collection(`events`).find({
+            _id:eventIDObj
+        }).project({
+            timeEnd: 1,
+            zipCode: 1,
+            country: 1,
+            isSpecialTheme: 1,
+            city: 1,
+            timeStart: 1,
+            date: 1,
+            street: 1,
+            childName: 1,
+            district: 1,
+            otherAddress: 1,
+            theme: 1,
+            created_by: 1
+        }).toArray();
+       response.json({
+           success:true,
+           event
+       })
+    });
 
 };
