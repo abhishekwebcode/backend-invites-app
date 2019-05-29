@@ -22,7 +22,7 @@ module.exports=function (app) {
         let db = request.app.get(`db`)();
         let eventIDObj = (request.app.get(`id`))(request.fields.eventId);
         let event = await db.collection(`events`)
-            .findOne({_id:eventIDObj})
+            .find({_id:eventIDObj})
             .project({
             timeEnd: 1,
             zipCode: 1,
