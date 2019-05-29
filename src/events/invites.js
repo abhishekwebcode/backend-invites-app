@@ -63,7 +63,7 @@ module.exports = function (app) {
     app.post(`/invites/reject`, async function (request, response) {
         let db = request.app.get(`db`)();
         let eventID = request.app.get(`id`)(request.fields.eventId);
-        await db.collection(`responses`).delete({
+        await db.collection(`responses`).remove({
             email:request.User.email,
             eventID,
             registered:true
@@ -88,7 +88,7 @@ module.exports = function (app) {
     app.post(`/invites/accept`, async function (request, response) {
         let db = request.app.get(`db`)();
         let eventID = request.app.get(`id`)(request.fields.eventId);
-        await db.collection(`responses`).delete({
+        await db.collection(`responses`).remove({
             email:request.User.email,
             eventID,
             registered:true
