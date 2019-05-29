@@ -22,7 +22,7 @@ module.exports=function (app) {
         let db = request.app.get(`db`)();
         let eventIDObj = (request.app.get(`id`))(request.fields.eventId);
         let event = await db.collection(`events`)
-            .find({_id:eventIDObj})
+            .findOne({_id:eventIDObj})
             .project({
             timeEnd: 1,
             zipCode: 1,
@@ -37,7 +37,8 @@ module.exports=function (app) {
             otherAddress: 1,
             theme: 1,
             created_by: 1
-        }).toArray()[0];
+        }).toArray();
+        console.dir(event);
        response.json({
            success:true,
            event
