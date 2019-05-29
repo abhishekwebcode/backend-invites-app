@@ -36,7 +36,8 @@ module.exports=function (app) {
             district: 1,
             otherAddress: 1,
             theme: 1,
-            created_by: 1
+            created_by: 1,
+                guestSee:1
         }).limit(1).toArray();
         event=event[0];
         console.dir(event);
