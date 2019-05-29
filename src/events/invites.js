@@ -47,7 +47,7 @@ module.exports=function (app) {
         }
         else {
             let email = eventINFO[0].created_by;
-            let userInfo = await request.app.get(`db`)().find({email:email}).toArray();
+            let userInfo = await request.app.get(`db`)().collection(`users`).find({email:email}).toArray();
             response.json({
                 success:true,
                 invite:eventINFO[0],
