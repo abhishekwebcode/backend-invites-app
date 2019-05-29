@@ -24,7 +24,7 @@ module.exports=function (app) {
         let eventID=request.fields.eventId;
         let eventIDOBJECT = request.app.get(`id`)(eventID);
         console.log(arguments);
-        let eventINFO = await request.app.get(`db`)().find({
+        let eventINFO = await request.app.get(`db`)().collection(`events`).find({
             _id:eventIDOBJECT
         }).project({
             timeEnd:1,
