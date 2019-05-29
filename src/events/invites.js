@@ -63,12 +63,13 @@ module.exports = function (app) {
     app.post(`/invites/reject`, async function (request, response) {
         let db = request.app.get(`db`)();
         let eventID = request.app.get(`id`)(request.fields.eventId);
-        let ins = db.collection(`responses`).insetOne({
+        let ins = db.collection(`responses`).insertOne({
             registered:true,
             intention:false,
             email:request.User.email,
             eventID
         });
+        console.dir(ins);
         response.json({
             success:true
         })
