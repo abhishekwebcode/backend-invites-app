@@ -20,11 +20,12 @@ module.exports=function (app) {
 
     app.post(`/events/infodetail`,async function (request,response) {
         let db = request.app.get(`db`)();
-        let eventIDObj = request.app.get(`id`)(request.fields.eventId);
+        let eventIDObj = (request.app.get(`id`))(request.fields.eventId);
         console.log(request.fields,db,eventIDObj,request.app.get(`id`));
-        let event = db.collection(`events`).find({
-            _id:eventIDObj
-        }).project({
+        console.dir(await await db.collection(`events`).find({_id:eventIDObj}));
+        let event = await db.collection(`events`)
+            .find({_id:eventIDObj})
+            .project({
             timeEnd: 1,
             zipCode: 1,
             country: 1,
