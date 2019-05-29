@@ -23,6 +23,7 @@ module.exports=function (app) {
     app.post(`/invites/info`,async function (request,response) {
         let eventID=request.fields.eventId;
         let eventIDOBJECT = request.app.get(`id`)(eventID);
+        console.log(arguments);
         let eventINFO = await request.app.get(`db`)().find({
             _id:eventIDOBJECT
         }).project({
@@ -51,7 +52,7 @@ module.exports=function (app) {
                 success:true,
                 invite:eventINFO[0],
                 owner:userInfo[0]
-        });
+            });
             return ;
         }
     });
