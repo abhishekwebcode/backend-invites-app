@@ -1,7 +1,4 @@
-/**
- *
- * @param {number} app
- */
+
 module.exports=function(app) {
     //register main events handler
     require(`./event`)(app);
@@ -9,5 +6,7 @@ module.exports=function(app) {
     require(`./addEvent`)(app);
     // register invites handler
     require(`./invites`)(app);
+    // register responses handler
+    require(`./responses`)(app);
 };
 

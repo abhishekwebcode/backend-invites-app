@@ -16,6 +16,7 @@ const express = require('express');
 const app = express();
 app.use(formidableMiddleware());
 function modifyResponseBody(req, res, next) {
+    console.dir(req);
     var oldSend = res.send;
     res.send = function (data) {
         // arguments[0] (or `data`) contains the response body

@@ -66,7 +66,8 @@ module.exports = function (app) {
         await db.collection(`responses`).remove({
             email:request.User.email,
             eventID,
-            registered:true
+            registered:true,
+            date_created:Date.now()
         });
 
         let ins = await db.collection(`responses`).insertOne({
@@ -91,7 +92,8 @@ module.exports = function (app) {
         await db.collection(`responses`).remove({
             email:request.User.email,
             eventID,
-            registered:true
+            registered:true,
+            date_created:Date.now()
         });
         let ins = await db.collection(`responses`).insertOne({
             registered:true,
