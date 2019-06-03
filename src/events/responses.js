@@ -1,11 +1,12 @@
 module.exports=function (app) {
     app.post(`/events/listResponses`,async function(request,response) {
         let db = request.app.get(`db`)();
+
         let eventIdObject = request.app.get(`id`)(request.fields.eventId);
         let responses = await db
             .collection(`responses`)
             .find({
-                eventId : eventIdObject,
+                eventID : eventIdObject,
             })
             .project({
                 _id:1,
