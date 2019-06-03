@@ -13,7 +13,11 @@ module.exports=function (app) {
                 registered:1,
                 intention:1,
                 email:1,
-                date_created:1
+                date_created:1,
+                isAllergy:1,
+                allergy1:1,
+                allergy2:1,
+                allergy3:1,
             })
             .sort({date_created: -1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
         for (let i=0;i<responses.length;i++) {
