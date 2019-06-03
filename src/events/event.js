@@ -70,7 +70,7 @@ module.exports = function (app) {
         });
     });
 
-    app.post(`/events/update`, async function (request, response) {
+    app.post(`/events/delete`, async function (request, response) {
         let db = request.app.get(`db`)();
         let eventIDObj = (request.app.get(`id`))(request.fields.eventId);
         let RESPONSE_DB = await db.collection(`events`).remove({_id:eventIDObj});
