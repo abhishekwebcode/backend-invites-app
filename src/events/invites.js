@@ -66,15 +66,15 @@ module.exports = function (app) {
         await db.collection(`responses`).remove({
             email:request.User.email,
             eventID,
-            registered:true,
-            date_created:Date.now()
+            registered:true
         });
 
         let ins = await db.collection(`responses`).insertOne({
             registered:true,
             intention:false,
             email:request.User.email,
-            eventID
+            eventID,
+            date_created:Date.now()
         });
         if (ins.result.ok===1) {
             response.json({
@@ -92,8 +92,7 @@ module.exports = function (app) {
         await db.collection(`responses`).remove({
             email:request.User.email,
             eventID,
-            registered:true,
-            date_created:Date.now()
+            registered:true
         });
         let ins = await db.collection(`responses`).insertOne({
             registered:true,
@@ -103,7 +102,8 @@ module.exports = function (app) {
             allergy1:request.fields.allergy1,
             allergy2:request.fields.allergy2,
             allergy3:request.fields.allergy3,
-            isAllergy:request.fields.isAllergy
+            isAllergy:request.fields.isAllergy,
+            date_created:Date.now()
         });
         if (ins.result.ok===1) {
             response.json({
