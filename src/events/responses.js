@@ -12,7 +12,8 @@ module.exports=function (app) {
                 _id:1,
                 registered:1,
                 intention:1,
-                email:1
+                email:1,
+                date_created:1
             })
             .sort({date_created: -1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
         for (let i=0;i<responses.length;i++) {
