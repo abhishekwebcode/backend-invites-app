@@ -7,7 +7,6 @@ module.exports=function (app) {
             .find({
                 eventId : eventIdObject,
             })
-            .forEach(e=>{})
             .project({
                 _id:1,
                 registered:1,
@@ -15,6 +14,16 @@ module.exports=function (app) {
                 email:1
             })
             .sort({date_created: -1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
+        for (let i=0;i<responses.length;i++) {
+            try {
+                if (responses[i].registered !== true) continue;
+                let email = responses[i].email;
+                delete responses[i].email;
+                responses[i].name=(await db.collection(`users`).findOne({email}, {projection: {name: 1, _id: 0}})).name;
+            } catch (e) {
+                console.error(e);
+            }
+        }
         response.json({
             success : true,
             responses
