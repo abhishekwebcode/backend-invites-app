@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/events/responses.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/responses.js" afterDir="false" />
-    </list>
+    <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -18,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/events/responses.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="16" column="27" lean-forward="true" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+            <state relative-caret-position="215">
+              <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -336,12 +334,12 @@
       <workItem from="1559318541133" duration="341000" />
       <workItem from="1559494503596" duration="172000" />
       <workItem from="1559494850409" duration="2828000" />
-      <workItem from="1559558649979" duration="2248000" />
+      <workItem from="1559558649979" duration="2495000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="151842000" />
+    <option name="totallyTimeSpent" value="152089000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -656,8 +654,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/events/responses.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="16" column="27" lean-forward="true" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+        <state relative-caret-position="215">
+          <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
         </state>
       </provider>
     </entry>
