@@ -14,7 +14,7 @@ module.exports = function (app) {
                 ]
             }
         }).project({
-            _id: 1, childName: 1, date: 1
+            _id: 1, childName: 1, date: 1,guestSee:1
         }).sort({date: -1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
         response.json({
             success: true, invites
