@@ -40,6 +40,7 @@ module.exports=function (app) {
             selected:true,selected_by_id:userIdObj
         });
         if (gidtUpdate.result.ok===1) {
+            console.log(responseObj);
             let responseUpdate = await db.collection(`responses`).update({_id: responseObj}, {
                 giftSelected: gift
             });
