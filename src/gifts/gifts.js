@@ -36,16 +36,16 @@ module.exports=function (app) {
         let responseObj = request.app.get(`id`)(request.fields.responseId);
         let email = await db.collection(`users`).findOne({email:request.email});
         let userIdObj = email._id;
-        let gidtUpdate = await db.collection(`gifts`).update({_id:gift},{
-            selected:true,selected_by_id:userIdObj
+        let gidtUpdate = await db.collection(`gifts`).findOneAndUpdate({_id:gift},{
+            $set:{selected:true,selected_by_id:userIdObj}
         });
         if (gidtUpdate.result.ok===1) {
             console.log(responseObj);
-            let responseUpdate = await db.collection(`responses`).update({_id: responseObj}, {
-                giftSelected: gift
+            let responseUpdate = await db.collection(`responses`).findOneAndUpdate({_id: responseObj}, {
+                $set:{giftSelected: gift}
             });
             if (responseUpdate.result.ok===1) {
-                response.json({success: true})
+                response.json({success: true});
                 return ;
             }
         }
