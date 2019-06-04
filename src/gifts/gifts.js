@@ -30,18 +30,25 @@ module.exports=function (app) {
         return ;
     })
     app.post(`/gifts/mark`,async function (request,response) {
+        let db=app.get(`db`)();
         let gift = request.app.get(`id`)(request.fields.todo);
         let eventId = request.app.get(`id`)(request.fields.eventId);
         let responseObj = request.app.get(`id`)(request.fields.responseId);
-        let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
-        let idObj = email._id;
-        console.dir(idObj);
-        response.json({success:false});return ;
-        let todoIns = await app.get(`db`)().collection(`gifts`).update({
-            gift,eventId,created_by:request.email,date_created:Date.now(),selected:false,selected_by_id:null
+        let email = await db.collection(`users`).findOne({email:request.email});
+        let userIdObj = email._id;
+        let gidtUpdate = await db.collection(`gifts`).update({_id:gift},{
+            selected:true,selected_by_id:userIdObj
         });
-        if (todoIns.insertedCount===1) {response.json({success: true})}
-        else {response.json({success: false,message:`Error creating your task`});}
+        if (gidtUpdate.result.ok===1) {
+            let responseUpdate = await db.collection(`responses`).update({_id: responseObj}, {
+                giftSelected: gift
+            });
+            if (responseUpdate.result.ok===1) {
+                response.json({success: true})
+                return ;
+            }
+        }
+        response.json({success:false});
         return ;
     })
 };
