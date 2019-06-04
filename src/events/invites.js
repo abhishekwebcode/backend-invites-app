@@ -77,7 +77,7 @@ module.exports = function (app) {
         });
         if (ins.result.ok===1) {
             console.log(`hdisuf`,request.email,db);
-            let userIdObj = db.collection(`users`).findOne({email:request.email});
+            let userIdObj = await db.collection(`users`).findOne({email:request.email});
             let userOBJ= userIdObj._id;
             console.log(`SELE`,userOBJ);
             console.dir(eventID);
