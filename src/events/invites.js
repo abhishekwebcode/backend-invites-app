@@ -76,6 +76,7 @@ module.exports = function (app) {
             date_created:Date.now()
         });
         if (ins.result.ok===1) {
+            console.log(`hdisuf`,request.email,db);
             let userIdObj = db.collection(`users`).findOne({email:request.email});
             let userOBJ= userIdObj._id;
             console.log(`SELE`,userOBJ);

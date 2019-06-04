@@ -18,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/events/invites.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="81" column="33" selection-start-line="81" selection-start-column="33" selection-end-line="81" selection-end-column="33" />
+            <state relative-caret-position="304">
+              <caret line="78" column="51" selection-start-line="78" selection-start-column="51" selection-end-line="78" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -348,12 +348,12 @@
       <workItem from="1559494850409" duration="2828000" />
       <workItem from="1559558649979" duration="3489000" />
       <workItem from="1559630129743" duration="1624000" />
-      <workItem from="1559642197230" duration="4311000" />
+      <workItem from="1559642197230" duration="4422000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="159018000" />
+    <option name="totallyTimeSpent" value="159129000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -705,8 +705,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/events/invites.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="81" column="33" selection-start-line="81" selection-start-column="33" selection-end-line="81" selection-end-column="33" />
+        <state relative-caret-position="304">
+          <caret line="78" column="51" selection-start-line="78" selection-start-column="51" selection-end-line="78" selection-end-column="51" />
         </state>
       </provider>
     </entry>
