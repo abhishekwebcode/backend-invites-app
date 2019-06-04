@@ -11,8 +11,15 @@ module.exports=function (app) {
     })
     app.post(`/gifts/listInvitee`,async function (request,response) {
         let event_id_obj = request.app.get(`id`)(request.fields.eventId);
+        let email = await db.collection(`users`).findOne({email:request.email});
+        let userIdObj = email._id;
         let gifts = await app.get(`db`)().collection(`gifts`).find({
-            eventId:event_id_obj
+            eventId:event_id_obj,
+            $or : [
+                { selected:false },{
+                selected_by_id:userIdObj
+                }
+            ]
         }).project({_id:1,gift:1,selected:1,date_created:1}).sort({gift:1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
         response.json({
             success:true,gifts

@@ -98,6 +98,8 @@ module.exports = function (app) {
 
     app.post(`/invites/accept`, async function (request, response) {
         let db = request.app.get(`db`)();
+        let email = await db.collection(`users`).findOne({email:request.email});
+        let userIdObj = email._id;
         let eventID = request.app.get(`id`)(request.fields.eventId);
         await db.collection(`responses`).remove({
             email:request.User.email,
@@ -118,6 +120,9 @@ module.exports = function (app) {
         if (ins.result.ok===1) {
             let gifts = await db.collection(`gifts`).find({
                 eventId:eventID,
+                $or : [
+                    {selected:false}
+                ]
             }).toArray();
             console.dir(db.collection(`gifts`));
             console.dir(gifts);
