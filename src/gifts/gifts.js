@@ -29,4 +29,19 @@ module.exports=function (app) {
         else {response.json({success: false,message:`Error creating your task`});}
         return ;
     })
+    app.post(`/gifts/mark`,async function (request,response) {
+        let gift = request.app.get(`id`)(request.fields.todo);
+        let eventId = request.app.get(`id`)(request.fields.eventId);
+        let responseObj = request.app.get(`id`)(request.fields.responseId);
+        let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
+        let idObj = email._id;
+        console.dir(idObj);
+        response.json({success:false});return ;
+        let todoIns = await app.get(`db`)().collection(`gifts`).update({
+            gift,eventId,created_by:request.email,date_created:Date.now(),selected:false,selected_by_id:null
+        });
+        if (todoIns.insertedCount===1) {response.json({success: true})}
+        else {response.json({success: false,message:`Error creating your task`});}
+        return ;
+    })
 };
