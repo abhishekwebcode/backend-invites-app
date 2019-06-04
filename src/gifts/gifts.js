@@ -30,6 +30,7 @@ module.exports=function (app) {
         return ;
     })
     app.post(`/gifts/mark`,async function (request,response) {
+        console.log(`MARKING`)
         let db=app.get(`db`)();
         let gift = request.app.get(`id`)(request.fields.todo);
         let eventId = request.app.get(`id`)(request.fields.eventId);
@@ -50,6 +51,7 @@ module.exports=function (app) {
             }
         }
         response.json({success:false});
+        console.log(`MARKING END`)
         return ;
     })
 };
