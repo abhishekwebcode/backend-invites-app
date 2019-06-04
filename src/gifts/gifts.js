@@ -41,12 +41,12 @@ module.exports=function (app) {
             $set:{selected:true,selected_by_id:userIdObj}
         });
         console.log(`gidupdate`,gidtUpdate);
-        if (gidtUpdate.result.ok===1) {
+        if (gidtUpdate.ok===1) {
             console.log(responseObj);
             let responseUpdate = await db.collection(`responses`).findOneAndUpdate({_id: responseObj}, {
                 $set:{giftSelected: gift}
             });
-            if (responseUpdate.result.ok===1) {
+            if (responseUpdate.ok===1) {
                 response.json({success: true});
                 return ;
             }
