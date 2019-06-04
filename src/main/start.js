@@ -80,3 +80,4 @@ process.on("uncaughtException", function () {
 process.on("uncaughtRejection", function () {
     console.log(arguments);
 })
+console.dir(app);
