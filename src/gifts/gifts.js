@@ -8,6 +8,16 @@ module.exports=function (app) {
         })
         return ;
     })
+    app.post(`/gifts/listInvitee`,async function (request,response) {
+        let event_id_obj = request.app.get(`id`)(request.fields.eventId);
+        let gifts = await app.get(`db`)().collection(`gifts`).find({
+            eventId:event_id_obj
+        }).project({_id:1,gift:1,selected:1,date_created:1}).sort({gift:1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
+        response.json({
+            success:true,gifts
+        });
+        return ;
+    })
     app.post(`/gifts/add`,async function (request,response) {
         let gift = request.fields.todo;
         let eventId = request.fields.eventId;

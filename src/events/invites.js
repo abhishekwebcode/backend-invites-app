@@ -113,7 +113,8 @@ module.exports = function (app) {
                 response.json({
                     success: true,
                     chooseGifts:true,
-                    gifts
+                    gifts,
+                    response_id:ins.insertedId.toString()
                 });
             }
             else {
