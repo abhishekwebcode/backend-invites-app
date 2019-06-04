@@ -68,7 +68,6 @@ module.exports = function (app) {
             eventID,
             registered:true
         });
-
         let ins = await db.collection(`responses`).insertOne({
             registered:true,
             intention:false,
@@ -77,6 +76,11 @@ module.exports = function (app) {
             date_created:Date.now()
         });
         if (ins.result.ok===1) {
+            let userIdObj = db.collection(`users`).findOne({email:request.email}).toArray();
+            let userOBJ= userIdObj._id;
+            await db.collection(`gifts`).findOneAndUpdate({
+                eventId:eventID,selected_by_id:userOBJ
+            },{$set:{selected:false,selected_by_id: false}});
             response.json({
                 success: true
             })
