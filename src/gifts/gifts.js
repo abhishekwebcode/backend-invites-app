@@ -40,6 +40,7 @@ module.exports=function (app) {
         let gidtUpdate = await db.collection(`gifts`).findOneAndUpdate({_id:gift},{
             $set:{selected:true,selected_by_id:userIdObj}
         });
+        console.log(`gidupdate`,gidtUpdate);
         if (gidtUpdate.result.ok===1) {
             console.log(responseObj);
             let responseUpdate = await db.collection(`responses`).findOneAndUpdate({_id: responseObj}, {
