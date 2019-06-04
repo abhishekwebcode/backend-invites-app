@@ -106,9 +106,21 @@ module.exports = function (app) {
             date_created:Date.now()
         });
         if (ins.result.ok===1) {
-            response.json({
-                success: true
-            })
+            let gifts = await db.collection(`gifts`).find({
+                eventId:eventID,
+            }).toArray();
+            if (gifts.length!==0) {
+                response.json({
+                    success: true,
+                    chooseGifts:true,
+                    gifts
+                });
+            }
+            else {
+                response.json({
+                    success: true
+                });
+            }
         } else {
             response.json({success:false})
         }
