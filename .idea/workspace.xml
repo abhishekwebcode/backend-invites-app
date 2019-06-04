@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/events/invites.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/invites.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gifts/gifts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/gifts/gifts.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -17,20 +15,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/events/invites.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="111" column="48" selection-start-line="111" selection-start-column="48" selection-end-line="111" selection-end-column="48" />
+            <state relative-caret-position="412">
+              <caret line="111" column="48" lean-forward="true" selection-start-line="111" selection-start-column="48" selection-end-line="111" selection-end-column="48" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/gifts/gifts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+            <state relative-caret-position="294">
+              <caret line="14" column="32" lean-forward="true" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -46,7 +44,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>.collection</find>
       <find>&quot;,</find>
       <find>&quot;</find>
       <find>db,</find>
@@ -76,6 +73,7 @@
       <find>phone</find>
       <find>.delete</find>
       <find>accept</find>
+      <find>`gifts`</find>
     </findStrings>
     <replaceStrings>
       <replace>:googleSignInResult.</replace>
@@ -145,8 +143,8 @@
         <option value="$PROJECT_DIR$/src/events/responses.js" />
         <option value="$PROJECT_DIR$/src/events/event.js" />
         <option value="$PROJECT_DIR$/src/main/start.js" />
-        <option value="$PROJECT_DIR$/src/gifts/gifts.js" />
         <option value="$PROJECT_DIR$/src/events/invites.js" />
+        <option value="$PROJECT_DIR$/src/gifts/gifts.js" />
       </list>
     </option>
   </component>
@@ -350,12 +348,12 @@
       <workItem from="1559494850409" duration="2828000" />
       <workItem from="1559558649979" duration="3489000" />
       <workItem from="1559630129743" duration="1624000" />
-      <workItem from="1559642197230" duration="687000" />
+      <workItem from="1559642197230" duration="1015000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="155394000" />
+    <option name="totallyTimeSpent" value="155722000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -661,17 +659,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gifts/gifts.js">
+    <entry file="file://$PROJECT_DIR$/src/events/invites.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+        <state relative-caret-position="412">
+          <caret line="111" column="48" lean-forward="true" selection-start-line="111" selection-start-column="48" selection-end-line="111" selection-end-column="48" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/events/invites.js">
+    <entry file="file://$PROJECT_DIR$/src/gifts/gifts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="111" column="48" selection-start-line="111" selection-start-column="48" selection-end-line="111" selection-end-column="48" />
+        <state relative-caret-position="294">
+          <caret line="14" column="32" lean-forward="true" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
         </state>
       </provider>
     </entry>
