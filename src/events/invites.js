@@ -109,6 +109,11 @@ module.exports = function (app) {
             let gifts = await db.collection(`gifts`).find({
                 eventId:eventID,
             }).toArray();
+            console.dir(db.collection(`gifts`));
+            console.dir(gifts);
+            console.dir({
+                eventId:eventID,
+            });
             if (gifts.length!==0) {
                 response.json({
                     success: true,

@@ -24,7 +24,7 @@ module.exports=function (app) {
         let todoIns = await app.get(`db`)().collection(`gifts`).insertOne({
             gift,eventId,created_by:request.email,date_created:Date.now(),selected:false,selected_by_id:null
         });
-        if (todoIns.insertedCount==1) {response.json({success: true})}
+        if (todoIns.insertedCount===1) {response.json({success: true})}
         else {response.json({success: false,message:`Error creating your task`});}
         return ;
     })
