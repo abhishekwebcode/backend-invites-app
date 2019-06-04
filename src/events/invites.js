@@ -76,7 +76,7 @@ module.exports = function (app) {
             date_created:Date.now()
         });
         if (ins.result.ok===1) {
-            let userIdObj = db.collection(`users`).findOne({email:request.email}).toArray();
+            let userIdObj = db.collection(`users`).findOne({email:request.email});
             let userOBJ= userIdObj._id;
             await db.collection(`gifts`).findOneAndUpdate({
                 eventId:eventID,selected_by_id:userOBJ
