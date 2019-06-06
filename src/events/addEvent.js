@@ -73,8 +73,8 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
             }
         };
         sends.push(await fcm(message));
-    })
-
+    });
+    return 1;
     /*db.collection(`users`).updateMany(
         {_id:{$in:ids}},
         {
