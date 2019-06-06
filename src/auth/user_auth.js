@@ -17,7 +17,7 @@ var resolveAccountKit=function (code) {
             resolve(resp);
         });
     })
-}
+};
 
 var google_auth=async function (request,response) {
     try {
@@ -70,14 +70,18 @@ var googleSignIn = async function (request,response,existing_one) {
 var userLogIn = async function (request,response) {
     let email=request.fields.email;
     let password=request.fields.password;
+    let token = request.fields.token;
     let res = await request.app.get('db')().collection('users').find({email,password}).limit(1).toArray();
     if (res.length===0) {
         response.json({success:false,CODE:`USER_DOESNT_EXIST`});
         return;
     }
     else {
+        await request.app.get('db')().collection('users').findOneAndUpdate({email,password},{
+            $push: { FCM_Tokens: token }
+        });
         let token=await (require("../auth/jwt/jwt")).generateToken({phone:res[0].phone,email:res[0].email,time:Date.now()});
-        response.json({success:true,CODE:`USER_SUCCESS`,token});
+        response.json({success:true,CODE:`USER_SUCCESS`,token,email});
         return;
     }
 };
@@ -117,7 +121,8 @@ var userSignUp = async function (request,response) {
                 phone,
                 email_verified: false,
                 invited:[],
-                meta:{}
+                meta:{},
+                FCM_Tokens:[]
             });
             //let token = await (require("../auth/jwt/jwt")).generateToken({email, time: Date.now()});
             if (rr.insertedCount === 1) {
