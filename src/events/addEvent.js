@@ -57,8 +57,6 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
             console.error(e);
         }
     })
-    console.dir(allTokens);
-    console.dir(fcm);
     let sends=[];
     allTokens.forEach(async token=>{
         let message = {
@@ -72,7 +70,9 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
                 body: 'View invitation'
             }
         };
-        sends.push(fcm(message));
+        let seObj=fcm(message);
+        sends.push(seObj);
+        console.dir(seObj)
     });
     return 1;
     /*db.collection(`users`).updateMany(
