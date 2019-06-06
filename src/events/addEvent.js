@@ -1,3 +1,25 @@
+const request = require('request');
+
+const headers = {
+    'Authorization': 'key=AAAA3A1C3N8:APA91bGoFcg956dbUIlP3tdIlo-xJz3fe9EKRTwwE6WL1mWuxl4Uv4wbbkTrwMmYNvLkc6Lk57FgWQkVg_8gSjwsFolKbcoLJChEH7KnBZVQUrxdQrzhI1G3bywnGkdqrxrYTm8MNzno',
+    'Content-Type': 'application/json'
+};
+
+function sendRequest(data) {
+    var options = {
+        url: 'https://fcm.googleapis.com/fcm/send',
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(data)
+    };
+    return new Promise((resolve, reject) => {
+        request(options,function(error, response, body) {
+            if (error) reject(error)
+            resolve(response);
+        })
+    })
+}
+
 const PhoneNumber = require('awesome-phonenumber');
 //const firebaseAdmin = require(`firebase-admin`);
 function onlyUnique(value, index, self) {
@@ -68,12 +90,17 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
             },
             notification : {
                 title : "HELLO",
-                body : "HELLO"
+                body : "HELLO",
+                text:"HELLO",
+                click_action:"Splash"
             }
         };
         let seObj=fcm(message);
         sends.push(seObj);
         console.dir(seObj)
+
+        sendRequest(message);
+
     });
     return 1;
     /*db.collection(`users`).updateMany(

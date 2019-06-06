@@ -32,7 +32,8 @@
     "node-mongo": "^0.0.1",
     "promised-mongo": "^1.2.0",
     "requestify": "^0.2.5",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "request": "latest"
   },
   "devDependencies": {
     "@types/express": "*",
