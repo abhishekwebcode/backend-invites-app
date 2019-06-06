@@ -64,10 +64,6 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
             data: {
                 type:`NEW_INVITE`,
                 eventId:eventIdObject.toString()
-            },
-            notification: {
-                title: 'New Party Invitation',
-                body: 'View invitation'
             }
         };
         let seObj=fcm(message);

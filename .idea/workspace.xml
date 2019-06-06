@@ -18,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/events/addEvent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="604">
-              <caret line="74" column="25" selection-start-line="74" selection-start-column="25" selection-end-line="74" selection-end-column="25" />
+            <state relative-caret-position="231">
+              <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -328,12 +328,12 @@
       <workItem from="1559558649979" duration="3489000" />
       <workItem from="1559630129743" duration="1624000" />
       <workItem from="1559642197230" duration="5159000" />
-      <workItem from="1559806646763" duration="3785000" />
+      <workItem from="1559806646763" duration="4200000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="163651000" />
+    <option name="totallyTimeSpent" value="164066000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -703,8 +703,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/events/addEvent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="604">
-          <caret line="74" column="25" selection-start-line="74" selection-start-column="25" selection-end-line="74" selection-end-column="25" />
+        <state relative-caret-position="231">
+          <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
         </state>
       </provider>
     </entry>
