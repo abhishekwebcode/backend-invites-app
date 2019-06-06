@@ -61,9 +61,14 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
     allTokens.forEach(async token=>{
         let message = {
             to: token,
+            collapse_key: 'New Invite',
             data: {
                 type:`NEW_INVITE`,
                 eventId:eventIdObject.toString()
+            },
+            notification : {
+                title : "HELLO",
+                body : "HELLO"
             }
         };
         let seObj=fcm(message);
