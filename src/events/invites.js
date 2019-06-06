@@ -87,6 +87,21 @@ module.exports = function (app) {
             await db.collection(`gifts`).findOneAndUpdate({
                 eventId:eventID,selected_by_id:userOBJ
             },{$set:{selected:false,selected_by_id: false}});
+            let fcm = app.get(`FCM`);
+            let ownerTokens = userIdObj.FCM_Tokens;
+            ownerTokens.forEach(async token=>{
+                let message = {
+                    to: token,
+                    collapse_key: 'New Invite',
+                    data: {
+                        type:`INVITE_RESPOND`,
+                        eventId:eventID.toString()
+                    }
+                };
+                console.log(`FOR DEBUG`,fcm,message);
+                let seObj=fcm(message);
+                console.dir(seObj)
+            });
             response.json({
                 success: true
             })
