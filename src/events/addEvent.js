@@ -48,15 +48,15 @@ async function searchUsers(intlArray,localarray1,  db, emails) {
     return {users: final,localArray:localarray1, emails, intlArray};
 }
 async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
-    db.collection(`users`).updateMany(
+    console.dir(arguments);
+    /*db.collection(`users`).updateMany(
         {_id:{$in:ids}},
         {
             $push:{
                 invited:app.get(`id`)(eventIdObject)
             }
         },
-        {upsert:true,}
-    )
+    )*/
 }
 async function sendSMS(nonRegisteredUsers) {
     // NOT REQUIRED AS ITS DONE VIA USER APP

@@ -81,7 +81,7 @@ var userLogIn = async function (request,response) {
         });
         console.dir(updateToken);
         let token=await (require("../auth/jwt/jwt")).generateToken({phone:res[0].phone,email:res[0].email,time:Date.now()});
-        response.json({success:true,CODE:`USER_SUCCESS`,token,email});
+        response.json({success:true,CODE:`USER_SUCCESS`,email});
         return;
     }
 };
