@@ -80,8 +80,8 @@ var userLogIn = async function (request,response) {
             $push: { FCM_Tokens: request.fields.token }
         });
         console.dir(updateToken);
-        let token=await (require("../auth/jwt/jwt")).generateToken({phone:res[0].phone,email:res[0].email,time:Date.now()});
-        response.json({success:true,CODE:`USER_SUCCESS`,email});
+        let token_new=await (require("../auth/jwt/jwt")).generateToken({phone:res[0].phone,email:res[0].email,time:Date.now()});
+        response.json({success:true,CODE:`USER_SUCCESS`,email,token:token_new});
         return;
     }
 };

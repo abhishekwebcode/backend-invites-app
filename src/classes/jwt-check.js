@@ -8,7 +8,7 @@ module.exports=function (app) {
             let meta = await (require("../auth/jwt/jwt").getPayloadFromToken(req.token));
             console.dir(meta);
             if (!meta) {
-                res.json({success: false, message: "NOT_LOGGED_IN"});
+                res.json({success: false, NOTLOGIN:true});
                 res.end();
                 return;
             }
@@ -16,7 +16,7 @@ module.exports=function (app) {
             req.email = meta.email;
             next();
         } catch (e) {
-         res.json({success:false,message:`Your login has expired,please login again...`})
+         res.json({success:false,NOTLOGIN:true})
         }
     });
 };
