@@ -12,8 +12,10 @@ console.dir(mongo.cache);
 var getDB = mongo;
 const {parse, stringify} = require('flatted/cjs');
 process.env.NODE_ENV = 'production';
+const fcm = require(`../FCM/init`);
 const express = require('express');
 const app = express();
+app.set(`FCM`,fcm);
 app.use(formidableMiddleware());
 function modifyResponseBody(req, res, next) {
     console.dir(req);

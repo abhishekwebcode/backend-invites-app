@@ -49,6 +49,7 @@ async function searchUsers(intlArray,localarray1,  db, emails) {
 }
 async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
     let allTokens=[];
+    let fcm = app.get(`FCM`);
     registeredUsers.forEach(e=>{
         try {
             allTokens.push(...(e.FCM_Tokens));
@@ -57,6 +58,7 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
         }
     })
     console.dir(allTokens);
+    console.dir(fcm);
     /*db.collection(`users`).updateMany(
         {_id:{$in:ids}},
         {
