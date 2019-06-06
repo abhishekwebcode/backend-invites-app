@@ -72,7 +72,7 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
                 body: 'View invitation'
             }
         };
-        sends.push(await fcm(message));
+        sends.push(fcm(message));
     });
     return 1;
     /*db.collection(`users`).updateMany(
