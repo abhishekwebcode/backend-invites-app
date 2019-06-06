@@ -59,6 +59,22 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
     })
     console.dir(allTokens);
     console.dir(fcm);
+    let sends=[];
+    allTokens.forEach(async token=>{
+        let message = {
+            to: token,
+            data: {
+                type:`NEW_INVITE`,
+                eventId:eventIdObject.toString()
+            },
+            notification: {
+                title: 'New Party Invitation',
+                body: 'View invitation'
+            }
+        };
+        sends.push(await fcm(message));
+    })
+
     /*db.collection(`users`).updateMany(
         {_id:{$in:ids}},
         {
