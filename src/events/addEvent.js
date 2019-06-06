@@ -27,7 +27,7 @@ async function searchUsers(intlArray,localarray1,  db, emails) {
             {"phone.number": {$in: intlArray}},
             {email: {$in: emails}}
         ]
-    }).project({_id: 1, phone: 1, email: 1}).toArray();
+    }).project({_id: 1, phone: 1, email: 1,FCM_Tokens:1}).toArray();
     console.dir(attendees);
     let final = [];
     for (i = 0; i < attendees.length; i++) {
