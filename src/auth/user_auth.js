@@ -70,7 +70,6 @@ var googleSignIn = async function (request,response,existing_one) {
 var userLogIn = async function (request,response) {
     let email=request.fields.email;
     let password=request.fields.password;
-    let token = request.fields.token;
     let res = await request.app.get('db')().collection('users').find({email,password}).limit(1).toArray();
     if (res.length===0) {
         response.json({success:false,CODE:`USER_DOESNT_EXIST`});
@@ -78,7 +77,7 @@ var userLogIn = async function (request,response) {
     }
     else {
         let updateToken=await request.app.get('db')().collection('users').findOneAndUpdate({email,password},{
-            $push: { FCM_Tokens: token }
+            $push: { FCM_Tokens: request.fields.token }
         });
         console.dir(updateToken);
         let token=await (require("../auth/jwt/jwt")).generateToken({phone:res[0].phone,email:res[0].email,time:Date.now()});

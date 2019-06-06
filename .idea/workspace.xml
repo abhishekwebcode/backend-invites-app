@@ -45,8 +45,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/auth/user_auth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="82" column="33" selection-start-line="82" selection-start-column="33" selection-end-line="82" selection-end-column="33" />
+            <state relative-caret-position="292">
+              <caret line="79" column="54" selection-start-line="79" selection-start-column="54" selection-end-line="79" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -350,15 +350,16 @@
       <workItem from="1559558649979" duration="3489000" />
       <workItem from="1559630129743" duration="1624000" />
       <workItem from="1559642197230" duration="5159000" />
-      <workItem from="1559806646763" duration="1207000" />
+      <workItem from="1559806646763" duration="1378000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="161073000" />
+    <option name="totallyTimeSpent" value="161244000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24320458" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -712,8 +713,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/auth/user_auth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="82" column="33" selection-start-line="82" selection-start-column="33" selection-end-line="82" selection-end-column="33" />
+        <state relative-caret-position="292">
+          <caret line="79" column="54" selection-start-line="79" selection-start-column="54" selection-end-line="79" selection-end-column="54" />
         </state>
       </provider>
     </entry>
