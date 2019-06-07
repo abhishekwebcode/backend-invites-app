@@ -51,7 +51,7 @@ module.exports=function (app) {
         if (gidtUpdate.ok===1) {
             console.log(responseObj);
             let responseUpdate = await db.collection(`responses`).findOneAndUpdate({_id: responseObj}, {
-                $set:{giftSelected: gift4321`987`}
+                $set:{giftSelected: gift}
             });
             if (responseUpdate.ok===1) {
                 response.json({success: true});
