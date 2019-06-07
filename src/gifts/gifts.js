@@ -9,9 +9,9 @@ module.exports=function (app) {
         })
         return ;
     })
-    app.post(`/gifts/listInvitee`,async function (request,response) {
+    app.post(`/gifts/listInvitee`,async function(request,response) {
         let event_id_obj = request.app.get(`id`)(request.fields.eventId);
-        let email = await db.collection(`users`).findOne({email:request.email});
+        let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
         let userIdObj = email._id;
         let gifts = await app.get(`db`)().collection(`gifts`).find({
             eventId:event_id_obj,
@@ -42,7 +42,7 @@ module.exports=function (app) {
         let gift = request.app.get(`id`)(request.fields.todo);
         let eventId = request.app.get(`id`)(request.fields.eventId);
         let responseObj = request.app.get(`id`)(request.fields.responseId);
-        let email = await db.collection(`users`).findOne({email:request.email});
+        let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
         let userIdObj = email._id;
         let gidtUpdate = await db.collection(`gifts`).findOneAndUpdate({_id:gift},{
             $set:{selected:true,selected_by_id:userIdObj}
