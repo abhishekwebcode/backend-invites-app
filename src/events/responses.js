@@ -14,10 +14,10 @@ module.exports = function (app) {
                 intention: 1,
                 email: 1,
                 date_created: 1,
-                isAllergy: (isGuest ? 0 : 1),
-                allergy1: (isGuest ? 0 : 1),
-                allergy2: (isGuest ? 0 : 1),
-                allergy3: (isGuest ? 0 : 1),
+                isAllergy: 1,
+                allergy1: 1,
+                allergy2: 1,
+                allergy3: 1,
                 giftSelected:1
             })
             .sort({date_created: -1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
