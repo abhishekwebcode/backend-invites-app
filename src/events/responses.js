@@ -49,8 +49,7 @@ module.exports = function (app) {
                 delete responses[i].email;
                 responses[i].name = (await db.collection(`users`).findOne({email}, {
                     projection: {
-                        name: 1,
-                        _id: 0
+                        name: 1
                     }
                 })).name;
             } catch (e) {
