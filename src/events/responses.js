@@ -1,7 +1,7 @@
 module.exports = function (app) {
     app.post(`/events/listResponses`, async function (request, response) {
         let db = request.app.get(`db`)();
-        let isGuest = Boolean(request.fields.isGuest);
+        let isGuest = (request.fields.isGuest)=="true"?true:false;
         let eventIdObject = request.app.get(`id`)(request.fields.eventId);
         let responses = await db
             .collection(`responses`)
