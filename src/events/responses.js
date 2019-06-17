@@ -26,6 +26,7 @@ module.exports = function (app) {
             let objCurrent = responses[i];
             try {
                 if (!isGuest) {
+                    console.log(isGuest,objCurrent.giftSelected,`GIFT SHOW`);
                     if (objCurrent.giftSelected && objCurrent.giftSelected!=="" && objCurrent.giftSelected!==false && objCurrent.giftSelected!==null && objCurrent.giftSelected!==undefined) {
                         let giftID = request.app.get(`id`)( objCurrent.giftSelected );
                         let gift = await db.collection(`gifts`).findOne({

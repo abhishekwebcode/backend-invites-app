@@ -36,8 +36,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/events/responses.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="51" column="31" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
+            <state relative-caret-position="306">
+              <caret line="28" column="74" selection-start-line="28" selection-start-column="74" selection-end-line="28" selection-end-column="74" />
             </state>
           </provider>
         </entry>
@@ -53,7 +53,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>,</find>
       <find>`db`).</find>
       <find>form</find>
       <find>app.post</find>
@@ -83,6 +82,7 @@
       <find>let email = await db.collection(`users`).findOne({email:request.email});</find>
       <find>giftSelected</find>
       <find>findOne</find>
+      <find>(isGuest ? 0 : 1)</find>
     </findStrings>
     <replaceStrings>
       <replace>:googleSignInResult.</replace>
@@ -93,6 +93,7 @@
       <replace>app.</replace>
       <replace>.remove</replace>
       <replace>let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});</replace>
+      <replace>1</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/jobs</dir>
@@ -356,12 +357,12 @@
       <workItem from="1559806646763" duration="7352000" />
       <workItem from="1559884659905" duration="232000" />
       <workItem from="1560526302958" duration="419000" />
-      <workItem from="1560746005985" duration="1518000" />
+      <workItem from="1560746005985" duration="1614000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="169387000" />
+    <option name="totallyTimeSpent" value="169483000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -731,8 +732,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/events/responses.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="51" column="31" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
+        <state relative-caret-position="306">
+          <caret line="28" column="74" selection-start-line="28" selection-start-column="74" selection-end-line="28" selection-end-column="74" />
         </state>
       </provider>
     </entry>
