@@ -48,7 +48,7 @@ async function searchUsers(intlArray,localarray1,  db, emails) {
     }
     return {users: final,localArray:localarray1, emails, intlArray};
 }
-async function temPtoken(token) {
+async function temPtoken(token,eventIdObject,fcm,sends) {
     let message = {
         to: token,
         collapse_key: 'New Invite',
@@ -75,7 +75,7 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
     let sends=[];
     for (let i = 0; i < allTokens.length ; i++) {
         let token = allTokens[i];
-        temPtoken(token).catch(console.log);
+        temPtoken(token,eventIdObject,fcm,sends).catch(console.log);
     }
     return 1;
     /*db.collection(`users`).updateMany(
