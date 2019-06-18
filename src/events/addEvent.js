@@ -48,6 +48,20 @@ async function searchUsers(intlArray,localarray1,  db, emails) {
     }
     return {users: final,localArray:localarray1, emails, intlArray};
 }
+async function temPtoken(token) {
+    let message = {
+        to: token,
+        collapse_key: 'New Invite',
+        data: {
+            type:`NEW_INVITE`,
+            eventId:eventIdObject.toString()
+        }
+    };
+    console.log(`FOR DEBUG`,fcm,message);
+    let seObj=fcm(message).then(console.log).catch(console.log);
+    sends.push(seObj);
+    console.dir(seObj)
+}
 async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
     let allTokens=[];
     let fcm = app.get(`FCM`);
@@ -55,24 +69,14 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
         try {
             allTokens.push(...(e.FCM_Tokens));
         } catch (e) {
-            console.error(e);
+            console.warn(`ERROR`,e);
         }
-    })
-    let sends=[];
-    allTokens.forEach(async token=>{
-        let message = {
-            to: token,
-            collapse_key: 'New Invite',
-            data: {
-                type:`NEW_INVITE`,
-                eventId:eventIdObject.toString()
-            }
-        };
-        console.log(`FOR DEBUG`,fcm,message);
-        let seObj=fcm(message);
-        sends.push(seObj);
-        console.dir(seObj)
     });
+    let sends=[];
+    for (let i = 0; i < allTokens.length ; i++) {
+        let token = allTokens[i];
+        temPtoken(token).catch(console.log);
+    }
     return 1;
     /*db.collection(`users`).updateMany(
         {_id:{$in:ids}},
