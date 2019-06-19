@@ -8,7 +8,7 @@ module.exports=function (app) {
             let meta = await (require("../auth/jwt/jwt").getPayloadFromToken(req.token));
             console.dir(meta);
             if (!meta) {
-                res.json({success: false, NOTLOGIN:true});
+                res.json({success: false, loggedOutError:true});
                 res.end();
                 return;
             }
@@ -16,7 +16,8 @@ module.exports=function (app) {
             req.email = meta.email;
             next();
         } catch (e) {
-         res.json({success:false,NOTLOGIN:true})
+            console.error(e);
+            res.json({success:false,loggedOutError:true})
         }
     });
 };
