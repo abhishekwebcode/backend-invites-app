@@ -47,11 +47,6 @@ module.exports = function (app) {
         } else {
             let email = eventINFO[0].created_by;
             let userInfo = await request.app.get(`db`)().collection(`users`).find({email: email}).toArray();
-            console.dir({
-                success: true,
-                invite: eventINFO[0],
-                owner: userInfo[0]
-            });
             response.json({
                 success: true,
                 invite: eventINFO[0],
@@ -170,14 +165,14 @@ module.exports = function (app) {
             email:request.User.email,
             eventID,
             registered: true,
-        })
+        });
         console.log(`CHECKING EXISTING INVITE`);
         console.dir(check);
         if (check===null) {
             response.json({
                 success:true,
                 sent:false
-            })
+            });
         }
         else {
             response.json({

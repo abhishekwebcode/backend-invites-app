@@ -47,7 +47,19 @@ async function searchUsers(intlArray,localarray1,  db, emails) {
     }
     return {users: final,localArray:localarray1, emails, intlArray};
 }
+
+/**
+ * @deprecated
+ * The feature is no longer required as push goes via user end and/or fcm directly
+ * @param registeredUsers
+ * @param ids
+ * @param db
+ * @param eventIdObject
+ * @param app
+ * @returns {Promise<void>}
+ */
 async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
+    return ;
     db.collection(`users`).updateMany(
         {_id:{$in:ids}},
         {

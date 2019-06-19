@@ -112,7 +112,15 @@ var userSignUp = async function (request,response) {
             response.json({success:false});return ;
         }
         console.log(request.fields, "FIELDS");
-        let res = await request.app.get("db")().collection(`users`).find({email}).limit(1).toArray();
+        /**
+         * Added email <b>AND</b> Mobile number duplicated check
+         */
+        let res = await request.app.get("db")().collection(`users`).find({
+            $or:[
+                {email:email},
+                {"phone.number":phone.number}
+            ]
+        }).limit(1).toArray();
         if (res.length === 0) {
             let rr = await request.app.get("db")().collection(`users`).insertOne({
                 email,
