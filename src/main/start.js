@@ -41,6 +41,10 @@ app.all(`/`,function (req,res) {
         date : new Date()
     });res.end();return;
 })
+app.all(`/app`,function(req,res) {
+    res.send(`Forgot password content will be hosted here when hosting from client is received,thanks`);
+    return;
+})
 app.all('/signup', user_auth.sign_up);
 app.all(`/login`, user_auth.login);
 app.all('/google_auth', user_auth.google_auth);
