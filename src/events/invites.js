@@ -36,6 +36,8 @@ module.exports = function (app) {
             date: 1,
             street: 1,
             childName: 1,
+            latitude:1,
+            longitude:1,
             district: 1,
             otherAddress: 1,
             theme: 1,
