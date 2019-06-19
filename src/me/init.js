@@ -18,7 +18,12 @@ module.exports=function (app) {
             response.json({success:false});return ;
         }
         else {
-            await request.app.get("db")().collection(`users`).findOneAndUpdate({email},{password:new1});
+                await request.app.get("db")().collection(`users`).findOneAndUpdate(
+                    {email},
+                    {
+                        $set: {password: new1}
+                    }
+                );
             response.json({success:true});
             return ;
         }
