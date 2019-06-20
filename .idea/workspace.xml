@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/events/changeContacts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/changeContacts.js" afterDir="false" />
-    </list>
+    <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -378,16 +376,15 @@
       <workItem from="1560746005985" duration="2712000" />
       <workItem from="1560856502368" duration="1041000" />
       <workItem from="1560875320633" duration="338000" />
-      <workItem from="1560940181143" duration="4605000" />
+      <workItem from="1560940181143" duration="4783000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="176565000" />
+    <option name="totallyTimeSpent" value="176743000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24320458" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
