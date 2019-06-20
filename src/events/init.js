@@ -8,5 +8,7 @@ module.exports=function(app) {
     require(`./invites`)(app);
     // register responses handler
     require(`./responses`)(app);
+    // register change contacts handler
+    require(`./changeContacts`)(app);
 };
 
