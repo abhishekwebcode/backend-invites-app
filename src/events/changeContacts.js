@@ -143,7 +143,6 @@ module.exports = function (app) {
         //sendSMS([...localArray, ...intlArray]);
         let sendString="";
         //sendEmails(emails);
-        console.dir(events);
         let send_sms = intlArray.length>0;
         if (eventsUpdate.ok===1) {
             response.json({success: true,send_sms,sms_invite_link,send_sms_datas:intlArray.join(";")})
