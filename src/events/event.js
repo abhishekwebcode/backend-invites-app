@@ -61,7 +61,11 @@ module.exports = function (app) {
         let eventIDObj = (request.app.get(`id`))(request.fields.eventId);
         let fields = request.fields;
         delete fields.eventId;
-        let update = await db.collection(`events`).update({_id: eventIDObj}, {$set: fields}, {});
+        let event = fields;
+        event["date"] = new Date(parseInt(event["date"]));
+        event["isSpecialTheme"] = (event["isSpecialTheme"] === "true");
+        event["guestSee"] = (event["guestSee"] === "true");
+        let update = await db.collection(`events`).update({_id: eventIDObj}, {$set: event}, {});
         console.dir(update);
         response.json({
             success: (

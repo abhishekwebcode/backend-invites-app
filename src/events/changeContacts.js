@@ -27,7 +27,7 @@ async function searchUsers(intlArray,localarray1,  db, emails) {
             {"phone.number": {$in: intlArray}},
             {email: {$in: emails}}
         ]
-    }).project({_id: 1, phone: 1, email: 1}).toArray();
+    }).project({_id: 1, phone: 1, email: 1,FCM_Tokens:1}).toArray();
     console.dir(attendees);
     let final = [];
     for (i = 0; i < attendees.length; i++) {
@@ -47,28 +47,44 @@ async function searchUsers(intlArray,localarray1,  db, emails) {
     }
     return {users: final,localArray:localarray1, emails, intlArray};
 }
-
-/**
- * @deprecated
- * The feature is no longer required as push goes via user end and/or fcm directly
- * @param registeredUsers
- * @param ids
- * @param db
- * @param eventIdObject
- * @param app
- * @returns {Promise<void>}
- */
+async function temPtoken(token,eventIdObject,fcm,sends) {
+    let message = {
+        to: token,
+        collapse_key: 'New Invite',
+        data: {
+            type:`NEW_INVITE`,
+            eventId:eventIdObject.toString()
+        }
+    };
+    console.log(`FOR DEBUG`,fcm,message);
+    let seObj=fcm(message).then(console.log).catch(console.log);
+    sends.push(seObj);
+    console.dir(seObj)
+}
 async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
-    return ;
-    db.collection(`users`).updateMany(
+    let allTokens=[];
+    let fcm = app.get(`FCM`);
+    registeredUsers.forEach(e=>{
+        try {
+            allTokens.push(...(e.FCM_Tokens));
+        } catch (e) {
+            console.warn(`ERROR`,e);
+        }
+    });
+    let sends=[];
+    for (let i = 0; i < allTokens.length ; i++) {
+        let token = allTokens[i];
+        temPtoken(token,eventIdObject,fcm,sends).catch(console.log);
+    }
+    return 1;
+    /*db.collection(`users`).updateMany(
         {_id:{$in:ids}},
         {
             $push:{
                 invited:app.get(`id`)(eventIdObject)
             }
         },
-        {upsert:true,}
-    )
+    )*/
 }
 async function sendSMS(nonRegisteredUsers) {
     // NOT REQUIRED AS ITS DONE VIA USER APP
@@ -96,11 +112,44 @@ async function getRealData(rawData) {
     });
     return {numbers1,emails1};
 };
-
-module.exports=function (app) {
-  app.post(`/event/updateContacts`,function (request,response) {
-      let db = request.app.get(`db`)();
-      let eventIDOBJ=request.app.get(`id`)(request.fields.eventId);
-
-  })
+module.exports = function (app) {
+    app.post(`/events/updateContacts`, async function (request, response) {
+        let prefix = `+`+request.User.phone.country_prefix;
+        console.log(`PREFIX`,prefix);
+        console.log(arguments);
+        let rawData = JSON.parse(request.fields.data);
+        let {numbers1,emails1} = await getRealData(rawData);
+        let sms_invite_link=`the link of sms invite will go here`;
+        //let numberResult = await app.get(`db`)().collection(`events`).find({});
+        let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`)(),prefix);
+        remove(request.email,emails);
+        //remove(request.User.phone.national_number,localArray);
+        remove(request.User.phone.number,intlArray);
+        let usersIdsobjs = [];
+        users.forEach(e => usersIdsobjs.push(e._id));
+        let eventObject = request.app.get(`id`)(request.fields.eventId);
+        let eventsUpdate = await app.get(`db`)().collection(`events`).findOneAndUpdate(
+            {_id:eventObject},
+            {
+                $push : {
+                    users: usersIdsobjs,
+                    unRegisteredNumbersLocal: localArray,
+                    unRegisteredNumbersInternational: intlArray,
+                    unRegisteredEmails: emails
+                }
+            }
+        );
+        sendPush(users,usersIdsobjs,request.app.get(`db`)(),events.insertedId,app);
+        //sendSMS([...localArray, ...intlArray]);
+        let sendString="";
+        //sendEmails(emails);
+        console.dir(events);
+        let send_sms = intlArray.length>0;
+        if (eventsUpdate.ok===1) {
+            response.json({success: true,send_sms,sms_invite_link,send_sms_datas:intlArray.join(";")})
+        } else {
+            response.json({success: false, message: `Error creating your party`});
+        }
+        return;
+    });
 };
