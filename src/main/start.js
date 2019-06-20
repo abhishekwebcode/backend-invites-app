@@ -1,4 +1,4 @@
-console.clear();
+
 // initialize express app
 var path = require('path');
 const formidableMiddleware = require('express-formidable');
@@ -8,7 +8,6 @@ const events = require(`events`);
 const eventEmitter = new events.EventEmitter();
 const ObjectId = require('mongodb').ObjectId;
 const mongo = require("../mongodb/mongodb");
-console.dir(mongo.cache);
 var getDB = mongo;
 const {parse, stringify} = require('flatted/cjs');
 process.env.NODE_ENV = 'production';
