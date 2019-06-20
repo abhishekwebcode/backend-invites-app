@@ -132,10 +132,10 @@ module.exports = function (app) {
             {_id:eventObject},
             {
                 $push : {
-                    users: usersIdsobjs,
-                    unRegisteredNumbersLocal: localArray,
-                    unRegisteredNumbersInternational: intlArray,
-                    unRegisteredEmails: emails
+                    users: {$each:usersIdsobjs} ,
+                    unRegisteredNumbersLocal: {$each:localArray},
+                    unRegisteredNumbersInternational: {$each:intlArray},
+                    unRegisteredEmails: {$each: emails}
                 }
             }
         );
