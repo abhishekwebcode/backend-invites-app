@@ -139,7 +139,7 @@ module.exports = function (app) {
                 }
             }
         );
-        sendPush(users,usersIdsobjs,request.app.get(`db`)(),events.insertedId,app);
+        sendPush(users,usersIdsobjs,request.app.get(`db`)(),eventObject,app);
         //sendSMS([...localArray, ...intlArray]);
         let sendString="";
         //sendEmails(emails);
