@@ -145,13 +145,12 @@ module.exports = function (app) {
         console.log(`FILTERED NON_APP`,filteredInternational);
 
         console.log(`---`,users,eventEntryBefore.users,`---`);
-        let newUsers=[];
+
         let hashes=[];
+        let newUsers=[];
+        eventEntryBefore.users.forEach(e=>hashes.push(e.toHexString()));
         users.forEach(e=>{
-            hashes.push(e._id.toHexString())
-        });
-        eventEntryBefore.users.forEach(e=>{
-            if (hashes.indexOf(e.toHexString())===-1) {
+            if (hashes.indexOf(e._id.toHexString())===-1) {
                 newUsers.push(e);
             }
         });
