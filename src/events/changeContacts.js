@@ -115,6 +115,12 @@ async function getRealData(rawData) {
 module.exports = function (app) {
     app.post(`/events/updateContacts`, async function (request, response) {
         let prefix = `+`+request.User.phone.country_prefix;
+        let eventObject = request.app.get(`id`)(request.fields.eventId);
+        let eventEntryBefore = await app.get(`db`)().collection(`events`).findOne({_id:eventObject},{
+            unRegisteredNumbersInternational:1,
+            users:1
+        });
+        console.log(`EVENTS ENTRY BEFORE`,eventEntryBefore);
         console.log(`PREFIX`,prefix);
         console.log(arguments);
         let rawData = JSON.parse(request.fields.data);
@@ -127,7 +133,7 @@ module.exports = function (app) {
         remove(request.User.phone.number,intlArray);
         let usersIdsobjs = [];
         users.forEach(e => usersIdsobjs.push(e._id));
-        let eventObject = request.app.get(`id`)(request.fields.eventId);
+
         let eventsUpdate = await app.get(`db`)().collection(`events`).findOneAndUpdate(
             {_id:eventObject},
             {
