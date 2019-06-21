@@ -23,10 +23,10 @@ module.exports = function (app) {
     app.post(`/invites/info`, async function (request, response) {
 
         let db1 = request.app.get(`db`)();
-        let eventID1 = request.app.get(`id`)(request.fields.eventId);
+        let eventID = request.app.get(`id`)(request.fields.eventId);
         let check1 = await db1.collection(`responses`).findOne({
             email:request.User.email,
-            eventID1,
+            eventID,
             registered: true,
         });
         console.log(`CHECKING EXISTING INVITE`);
@@ -46,8 +46,8 @@ module.exports = function (app) {
 
 
 
-        let eventID = request.fields.eventId;
-        let eventIDOBJECT = request.app.get(`id`)(eventID);
+        let eventID1 = request.fields.eventId;
+        let eventIDOBJECT = request.app.get(`id`)(eventID1);
         console.log(arguments);
         let eventINFO = await request.app.get(`db`)().collection(`events`).find({
             _id: eventIDOBJECT
