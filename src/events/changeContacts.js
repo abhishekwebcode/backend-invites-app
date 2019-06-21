@@ -120,6 +120,7 @@ module.exports = function (app) {
             unRegisteredNumbersInternational:1,
             users:1
         });
+        console.log(`DEBUG__`,eventObject,app.get(`db`)().collection(`events`));
         console.log(`EVENTS ENTRY BEFORE`,eventEntryBefore);
         console.log(`PREFIX`,prefix);
         console.log(arguments);
