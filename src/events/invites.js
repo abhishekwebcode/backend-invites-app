@@ -187,7 +187,7 @@ module.exports = function (app) {
     });
 
     app.post(`/invites/check`, async function (request, response) {
-
+        response.end();
     });
 
 };
