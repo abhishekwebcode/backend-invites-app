@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/events/invites.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/invites.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/changeContacts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/changeContacts.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -16,19 +16,19 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/events/event.js">
+        <entry file="file://$PROJECT_DIR$/src/events/addEvent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-233">
-              <caret line="47" column="14" lean-forward="true" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="14" />
+            <state relative-caret-position="325">
+              <caret line="126" column="17" lean-forward="true" selection-start-line="126" selection-start-column="17" selection-end-line="126" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/events/invites.js">
+        <entry file="file://$PROJECT_DIR$/src/events/changeContacts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="35" column="23" lean-forward="true" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
+            <state relative-caret-position="376">
+              <caret line="141" column="65" lean-forward="true" selection-start-line="141" selection-start-column="65" selection-end-line="141" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -142,11 +142,11 @@
         <option value="$PROJECT_DIR$/src/classes/jwt-check.js" />
         <option value="$PROJECT_DIR$/src/events/event.js" />
         <option value="$PROJECT_DIR$/src/events/init.js" />
-        <option value="$PROJECT_DIR$/src/events/changeContacts.js" />
         <option value="$PROJECT_DIR$/src/me/init.js" />
         <option value="$PROJECT_DIR$/src/mongodb/mongodb.js" />
         <option value="$PROJECT_DIR$/src/main/start.js" />
         <option value="$PROJECT_DIR$/src/events/invites.js" />
+        <option value="$PROJECT_DIR$/src/events/changeContacts.js" />
       </list>
     </option>
   </component>
@@ -375,18 +375,18 @@
       <workItem from="1561120580154" duration="121000" />
       <workItem from="1561121161598" duration="135000" />
       <workItem from="1561121805641" duration="75000" />
-      <workItem from="1561122874866" duration="1702000" />
+      <workItem from="1561122874866" duration="2317000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="180802000" />
+    <option name="totallyTimeSpent" value="181417000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24320458" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24320458" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -408,7 +408,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Mongo Explorer" order="3" weight="0.3297568" />
       <window_info anchor="right" id="Database" order="4" />
-      <window_info active="true" anchor="right" x="21" y="310" width="1398" height="279" id="Terminal" order="5" side_tool="true" visible="true" weight="0.3583691" />
+      <window_info anchor="right" x="21" y="310" width="1398" height="279" id="Terminal" order="5" side_tool="true" weight="0.3583691" />
     </layout>
     <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24320458" />
@@ -698,20 +698,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/events/addEvent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="133" column="59" lean-forward="true" selection-start-line="131" selection-start-column="8" selection-end-line="133" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/events/changeContacts.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="134" column="49" lean-forward="true" selection-start-line="134" selection-start-column="49" selection-end-line="134" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/me/init.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
@@ -747,6 +733,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/events/invites.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="13" lean-forward="true" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/events/event.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-233">
@@ -754,10 +747,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/events/invites.js">
+    <entry file="file://$PROJECT_DIR$/src/events/addEvent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="35" column="23" lean-forward="true" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
+        <state relative-caret-position="325">
+          <caret line="126" column="17" lean-forward="true" selection-start-line="126" selection-start-column="17" selection-end-line="126" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/events/changeContacts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="141" column="65" lean-forward="true" selection-start-line="141" selection-start-column="65" selection-end-line="141" selection-end-column="65" />
         </state>
       </provider>
     </entry>

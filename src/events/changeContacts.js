@@ -139,6 +139,7 @@ module.exports = function (app) {
                 }
             }
         );
+        console.log(`UPDATE EVENT CONTACTS DETAIL`,eventsUpdate);
         sendPush(users,usersIdsobjs,request.app.get(`db`)(),eventObject,app);
         //sendSMS([...localArray, ...intlArray]);
         let sendString="";
