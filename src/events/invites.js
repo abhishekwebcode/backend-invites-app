@@ -40,7 +40,7 @@ module.exports = function (app) {
         else {
             checkObj=({
                 sent:true,
-                intention:(check.intention===true?`going`:`not going`)
+                intention:(check1.intention===true?`going`:`not going`)
             })
         }
 
