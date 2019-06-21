@@ -21,6 +21,31 @@ module.exports = function (app) {
         })
     });
     app.post(`/invites/info`, async function (request, response) {
+
+        let db1 = request.app.get(`db`)();
+        let eventID1 = request.app.get(`id`)(request.fields.eventId);
+        let check1 = await db1.collection(`responses`).findOne({
+            email:request.User.email,
+            eventID1,
+            registered: true,
+        });
+        console.log(`CHECKING EXISTING INVITE`);
+        console.dir(check1);
+        var checkObj ;
+        if (check1===null) {
+            checkObj=({
+                sent:false
+            });
+        }
+        else {
+            checkObj=({
+                sent:true,
+                intention:(check.intention===true?`going`:`not going`)
+            })
+        }
+
+
+
         let eventID = request.fields.eventId;
         let eventIDOBJECT = request.app.get(`id`)(eventID);
         console.log(arguments);
@@ -52,7 +77,8 @@ module.exports = function (app) {
             response.json({
                 success: true,
                 invite: eventINFO[0],
-                owner: userInfo[0]
+                owner: userInfo[0],
+                ...checkObj
             });
             return;
         }
@@ -161,28 +187,6 @@ module.exports = function (app) {
     });
 
     app.post(`/invites/check`, async function (request, response) {
-        let db = request.app.get(`db`)();
-        let eventID = request.app.get(`id`)(request.fields.eventId);
-        let check = await db.collection(`responses`).findOne({
-            email:request.User.email,
-            eventID,
-            registered: true,
-        });
-        console.log(`CHECKING EXISTING INVITE`);
-        console.dir(check);
-        if (check===null) {
-            response.json({
-                success:true,
-                sent:false
-            });
-        }
-        else {
-            response.json({
-                success:true,
-                sent:true,
-                intention:(check.intention===true?`going`:`not going`)
-            })
-        }
 
     });
 
