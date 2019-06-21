@@ -27,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/events/changeContacts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="155" column="50" selection-start-line="155" selection-start-column="50" selection-end-line="155" selection-end-column="50" />
+            <state relative-caret-position="616">
+              <caret line="176" column="25" selection-start-line="176" selection-start-column="25" selection-end-line="176" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -375,12 +375,12 @@
       <workItem from="1561120580154" duration="121000" />
       <workItem from="1561121161598" duration="135000" />
       <workItem from="1561121805641" duration="75000" />
-      <workItem from="1561122874866" duration="5144000" />
+      <workItem from="1561122874866" duration="5403000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184244000" />
+    <option name="totallyTimeSpent" value="184503000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -756,8 +756,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/events/changeContacts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="155" column="50" selection-start-line="155" selection-start-column="50" selection-end-line="155" selection-end-column="50" />
+        <state relative-caret-position="616">
+          <caret line="176" column="25" selection-start-line="176" selection-start-column="25" selection-end-line="176" selection-end-column="25" />
         </state>
       </provider>
     </entry>

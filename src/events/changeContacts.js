@@ -154,16 +154,19 @@ module.exports = function (app) {
             }
         });
         console.log(`NEW USERS NOW ARE`,newUsers);
+
+
         remove(request.email,emails);
         //remove(request.User.phone.national_number,localArray);
         remove(request.User.phone.number,intlArray);
         let usersIdsobjs = [];
         newUsers.forEach(e => usersIdsobjs.push(e._id));
+
         let eventsUpdate = await app.get(`db`)().collection(`events`).findOneAndUpdate(
             {_id:eventObject},
             {
                 $push : {
-                    users: {$each:newUsers} ,
+                    users: {$each:usersIdsobjs} ,
                     unRegisteredNumbersLocal: {$each:localArray},
                     unRegisteredNumbersInternational: {$each:intlArray},
                     unRegisteredEmails: {$each: emails}
