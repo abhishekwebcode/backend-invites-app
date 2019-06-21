@@ -145,7 +145,6 @@ module.exports = function (app) {
         console.log(`FILTERED NON_APP`,filteredInternational);
 
         console.log(`---`,users,eventEntryBefore.users,`---`);
-
         let hashes=[];
         let newUsers=[];
         eventEntryBefore.users.forEach(e=>hashes.push(e.toHexString()));
@@ -155,19 +154,16 @@ module.exports = function (app) {
             }
         });
         console.log(`NEW USERS NOW ARE`,newUsers);
-
-
         remove(request.email,emails);
         //remove(request.User.phone.national_number,localArray);
         remove(request.User.phone.number,intlArray);
         let usersIdsobjs = [];
-        users.forEach(e => usersIdsobjs.push(e._id));
-
+        newUsers.forEach(e => usersIdsobjs.push(e._id));
         let eventsUpdate = await app.get(`db`)().collection(`events`).findOneAndUpdate(
             {_id:eventObject},
             {
                 $push : {
-                    users: {$each:usersIdsobjs} ,
+                    users: {$each:newUsers} ,
                     unRegisteredNumbersLocal: {$each:localArray},
                     unRegisteredNumbersInternational: {$each:intlArray},
                     unRegisteredEmails: {$each: emails}
@@ -175,7 +171,7 @@ module.exports = function (app) {
             }
         );
         console.log(`UPDATE EVENT CONTACTS DETAIL`,eventsUpdate);
-        sendPush(users,usersIdsobjs,request.app.get(`db`)(),eventObject,app);
+        sendPush(newUsers,usersIdsobjs,request.app.get(`db`)(),eventObject,app);
         //sendSMS([...localArray, ...intlArray]);
         let sendString="";
         //sendEmails(emails);
