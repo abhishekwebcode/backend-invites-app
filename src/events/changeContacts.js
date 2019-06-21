@@ -143,8 +143,19 @@ module.exports = function (app) {
             }
         });
         console.log(`FILTERED NON_APP`,filteredInternational);
-        let filteredUsers=[];
-        console.log(`FOR USERS`,filteredUsers,users,eventEntryBefore);
+
+
+        let newUsers=[];
+        let hashes=[];
+        users.forEach(e=>{
+            hashes.push(e._id.toHexString())
+        });
+        eventEntryBefore.users.forEach(e=>{
+            if (hashes.indexOf(e.toHexString())===-1) {
+                newUsers.push(e);
+            }
+        });
+        console.log(`NEW USERS NOW ARE`,newUsers);
 
 
         remove(request.email,emails);
