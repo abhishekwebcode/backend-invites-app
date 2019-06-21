@@ -144,7 +144,7 @@ module.exports = function (app) {
         });
         console.log(`FILTERED NON_APP`,filteredInternational);
 
-
+        console.log(`---`,users,eventEntryBefore.users,`---`);
         let newUsers=[];
         let hashes=[];
         users.forEach(e=>{
