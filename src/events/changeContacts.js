@@ -56,10 +56,10 @@ async function temPtoken(token,eventIdObject,fcm,sends) {
             eventId:eventIdObject.toString()
         }
     };
-    console.log(`FOR DEBUG`,fcm,message);
+    //console.log(`FOR DEBUG`,fcm,message);
     let seObj=fcm(message).then(console.log).catch(console.log);
     sends.push(seObj);
-    console.dir(seObj)
+    //console.dir(seObj)
 }
 async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
     let allTokens=[];
@@ -92,6 +92,11 @@ async function sendSMS(nonRegisteredUsers) {
 async  function sendEmails(emails) {
 
 }
+async function continue_event(numbers, emails1, db,prefix,intlArray1,localArray1) {
+    let {users, localArray, emails, intlArray} = await searchUsers(intlArray1, localArray1, db, emails1);
+    console.log(users, localArray, emails, intlArray);
+    return {users, localArray, emails, intlArray};
+}
 async function createEvent(numbers, emails1, db,prefix) {
     console.log(arguments);
     let intlArray1 = [];
@@ -99,9 +104,7 @@ async function createEvent(numbers, emails1, db,prefix) {
     numbers.forEach(e => parsePhone(e, intlArray1, localArray1,prefix));
     intlArray1=(intlArray1).filter(onlyUnique);
     console.log(`intlArray`, intlArray1, `localArray`, localArray1);
-    let {users, localArray, emails, intlArray} = await searchUsers(intlArray1, localArray1, db, emails1);
-    console.log(users, localArray, emails, intlArray);
-    return {users, localArray, emails, intlArray};
+    return {intlArray1,localArray1};
 }
 async function getRealData(rawData) {
     let numbers1=[];
@@ -117,18 +120,33 @@ module.exports = function (app) {
         let prefix = `+`+request.User.phone.country_prefix;
         let eventObject = request.app.get(`id`)(request.fields.eventId);
         let eventEntryBefore = await app.get(`db`)().collection(`events`).findOne({_id:eventObject},{
-            unRegisteredNumbersInternational:1,
-            users:1
+            projection: {
+                unRegisteredNumbersInternational: 1,
+                users: 1
+            }
         });
         console.log(`DEBUG__`,eventObject,app.get(`db`)().collection(`events`));
         console.log(`EVENTS ENTRY BEFORE`,eventEntryBefore);
         console.log(`PREFIX`,prefix);
-        console.log(arguments);
         let rawData = JSON.parse(request.fields.data);
         let {numbers1,emails1} = await getRealData(rawData);
         let sms_invite_link=`the link of sms invite will go here`;
         //let numberResult = await app.get(`db`)().collection(`events`).find({});
-        let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`)(),prefix);
+        //let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`)(),prefix);
+        let {intlArray1,localArray1} =  await createEvent(numbers1, emails1, request.app.get(`db`)(),prefix);
+        let {users, localArray, emails, intlArray} = await continue_event(numbers1, emails1, request.app.get(`db`)(),prefix,intlArray1,localArray1);
+        let filteredInternational = [];
+        let parent = eventEntryBefore.unRegisteredNumbersInternational;
+        intlArray1.forEach(e=>{
+            if (parent.indexOf(e)===-1) {
+                filteredInternational.push(e);
+            }
+        });
+        console.log(`FILTERED NON_APP`,filteredInternational);
+        let filteredUsers=[];
+        console.log(`FOR USERS`,filteredUsers,users,eventEntryBefore);
+
+
         remove(request.email,emails);
         //remove(request.User.phone.national_number,localArray);
         remove(request.User.phone.number,intlArray);
