@@ -1,5 +1,5 @@
 var sendPush = function(fcm,message,userFCMTOKENS) {
-    message["to"]=userFCMTOKENS;
+    message["registration_ids"]=userFCMTOKENS;
     fcm(message).then(console.log).catch(console.log);
 }
 
@@ -110,9 +110,6 @@ module.exports = function (app) {
             let userOBJ= userIdObj._id;
             console.log(`SELE`,userOBJ);
             console.dir(eventID);
-            console.dir(await db.collection(`gifts`).find({
-                eventId:eventID,selected_by_id:userOBJ
-            }));
             await db.collection(`gifts`).findOneAndUpdate({
                 eventId:eventID,selected_by_id:userOBJ
             },{$set:{selected:false,selected_by_id: false}});
