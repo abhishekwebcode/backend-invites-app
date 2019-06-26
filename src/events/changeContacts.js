@@ -189,7 +189,7 @@ module.exports = function (app) {
         let phoneAllUnique = [...new Set(allNumbers)];
         console.log(`ALLL`,usersUniqueAll,phoneAllUnique);
         let toRespond = await app.get(`db`)().collection(`responses`).find({
-            email:emailsAll,eventID:eventObject
+            email:usersUniqueAll,eventID:eventObject
         }).project({email:1}).toArray();
         console.log(toRespond);
 
