@@ -184,8 +184,10 @@ module.exports = function (app) {
         }).project({email:1}).toArray();
         let allUsers = users.concat(exisitngUsers);
         let allNumbers = eventEntryBefore.unRegisteredNumbersInternational.concat(intlArray);
-        console.log(`ALLL`,allUsers,allNumbers);
-        let emailsAll=allUsers.map(e=>e.email);
+        let usersALLNEW = allUsers.map(e=>e.email);
+        let usersUniqueAll = [...new Set(usersALLNEW)];
+        let phoneAllUnique = [...new Set(allNumbers)];
+        console.log(`ALLL`,usersUniqueAll,phoneAllUnique);
         let toRespond = await app.get(`db`)().collection(`responses`).find({
             email:emailsAll,eventID:eventObject
         }).project({email:1}).toArray();
