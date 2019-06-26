@@ -122,7 +122,8 @@ module.exports = function (app) {
         let eventEntryBefore = await app.get(`db`)().collection(`events`).findOne({_id:eventObject},{
             projection: {
                 unRegisteredNumbersInternational: 1,
-                users: 1
+                users: 1,
+                FCM_TOKENS:1
             }
         });
         console.log(`DEBUG__`,eventObject,app.get(`db`)().collection(`events`));
@@ -181,19 +182,26 @@ module.exports = function (app) {
          */
         let exisitngUsers = await app.get(`db`)().collection(`users`).find({
             _id: { $in : eventEntryBefore.users }
-        }).project({email:1}).toArray();
+        }).project({email:1,FCM_TOKENS:1}).toArray();
         let allUsers = users.concat(exisitngUsers);
         let allNumbers = eventEntryBefore.unRegisteredNumbersInternational.concat(intlArray);
         let usersALLNEW = allUsers.map(e=>e.email);
         let usersUniqueAll = [...new Set(usersALLNEW)];
         let phoneAllUnique = [...new Set(allNumbers)];
         console.log(`ALLL`,usersUniqueAll,phoneAllUnique);
+        //TODO ADD SUPPORT FOR NON_RESPNDED PHONE NUMEBRS
         let toRespond = await app.get(`db`)().collection(`responses`).find({
             email: {$in : usersUniqueAll },
             eventID:eventObject
-        }).project({email:1}).toArray();
-        console.log(`TORESPOND`,toRespond);
-
+        }).project({email:1,FCM_TOKENS:1}).toArray();
+        let respndedEmails = toRespond.map(e=>e.email);
+        let hjhj=[];
+        usersUniqueAll.forEach(rawEmail=>{
+            if (respndedEmails.indexOf(rawEmail)===-1) {
+                hjhj.push(rawEmail);
+            }
+        });
+        console.log(`EMAILS`,hjhj)
         //sendPush(newUsers,usersIdsobjs,request.app.get(`db`)(),eventObject,app);
         //sendSMS([...localArray, ...intlArray]);
         let sendString="";
