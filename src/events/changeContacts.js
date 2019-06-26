@@ -68,6 +68,7 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
         allTokens.push(...registeredUsers[key]);
     }
     let fcm = app.get(`FCM`);
+    console.log(`ARGS`,arguments);
     /*
     registeredUsers.forEach(e=>{
         try {
