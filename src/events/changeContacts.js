@@ -130,7 +130,7 @@ module.exports = function (app) {
             projection: {
                 unRegisteredNumbersInternational: 1,
                 users: 1,
-                FCM_TOKENS:1
+                FCM_Tokens:1
             }
         });
         console.log(`DEBUG__`,eventObject,app.get(`db`)().collection(`events`));
@@ -200,7 +200,7 @@ module.exports = function (app) {
         let toRespond = await app.get(`db`)().collection(`responses`).find({
             email: {$in : usersUniqueAll },
             eventID:eventObject
-        }).project({email:1,FCM_TOKENS:1}).toArray();
+        }).project({email:1,FCM_Tokens:1}).toArray();
         let respndedEmails = toRespond.map(e=>e.email);
         let hjhj=[];
         usersUniqueAll.forEach(rawEmail=>{

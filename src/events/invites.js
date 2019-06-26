@@ -1,3 +1,9 @@
+var sendPush = function(fcm,message,userFCMTOKENS) {
+    message["to"]=userFCMTOKENS;
+    fcm(message).then(console.log).catch(console.log);
+}
+
+
 module.exports = function (app) {
     app.post(`/invites/list`, async function (request, response) {
         console.dir(arguments);
@@ -110,21 +116,33 @@ module.exports = function (app) {
             await db.collection(`gifts`).findOneAndUpdate({
                 eventId:eventID,selected_by_id:userOBJ
             },{$set:{selected:false,selected_by_id: false}});
+
+            /*
+                        ownerTokens.forEach(async token=>{
+                            console.log(`FOR DEBUG`,fcm,message);
+                            let seObj=fcm(message);
+                            console.dir(seObj)
+                        });
+                         */
             let fcm = app.get(`FCM`);
-            let ownerTokens = userIdObj.FCM_Tokens;
-            ownerTokens.forEach(async token=>{
-                let message = {
-                    to: token,
-                    collapse_key: 'New Invite',
-                    data: {
-                        type:`INVITE_RESPOND`,
-                        eventId:eventID.toString()
-                    }
-                };
-                console.log(`FOR DEBUG`,fcm,message);
-                let seObj=fcm(message);
-                console.dir(seObj)
-            });
+            let ownerEmail1 = await db.collection(`events`).findOne({_id:eventID},{projection:{created_by: 1,childName:1}});
+            let ownerEmail=ownerEmail1.created_by;
+            let ownerTokens = await db.collection(`users`).findOne({email:ownerEmail},{projection:{FCM_Tokens:1}});
+            ownerTokens=ownerTokens.FCM_Tokens;
+            let message = {
+                collapse_key: 'New Invite',
+                data: {
+                    type:`INVITE_RESPOND`,
+                    eventId:eventID.toString(),
+                    userName:userIdObj.name,
+                    eventName:ownerEmail1.childName,
+                    Action:`REJECT`,
+                    Date:Date.now()
+                }
+            };
+            sendPush(fcm,message,ownerTokens);
+
+
             response.json({
                 success: true
             })
@@ -176,6 +194,26 @@ module.exports = function (app) {
                 });
             }
             else {
+
+                let fcm = app.get(`FCM`);
+                let ownerEmail1 = await db.collection(`events`).findOne({_id:eventID},{projection:{created_by: 1,childName:1}});
+                let ownerEmail=ownerEmail1.created_by;
+                let ownerTokens = await db.collection(`users`).findOne({email:ownerEmail},{projection:{FCM_Tokens:1}});
+                ownerTokens=ownerTokens.FCM_Tokens;
+                let message = {
+                    collapse_key: 'New Invite',
+                    data: {
+                        type:`INVITE_RESPOND`,
+                        eventId:eventID.toString(),
+                        userName:userIdObj.name,
+                        eventName:ownerEmail1.childName,
+                        Action:`ACCEPT`,
+                        Date:Date.now()
+                    }
+                };
+                sendPush(fcm,message,ownerTokens);
+
+
                 response.json({
                     success: true
                 });
@@ -186,8 +224,6 @@ module.exports = function (app) {
         return ;
     });
 
-    app.post(`/invites/check`, async function (request, response) {
-        response.end();
-    });
+
 
 };

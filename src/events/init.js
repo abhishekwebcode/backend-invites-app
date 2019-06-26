@@ -10,5 +10,7 @@ module.exports=function(app) {
     require(`./responses`)(app);
     // register change contacts handler
     require(`./changeContacts`)(app);
+    //attendees handler
+    require(`./attendees`)(app);
 };
 
