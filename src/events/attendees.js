@@ -2,11 +2,11 @@ module.exports=function (app) {
     app.post(`/event/getAttendees`,async function(request,response,next) {
         let db = request.app.get(`db`)();
         let eventIDObject = request.app.get(`id`)(request.fields.eventId);
-        let eventDetails = db.collection(`events`).find({_id:eventIDObject}).project({users:1,unRegisteredNumbersInternational:1}).toArray();
+        let eventDetails = await db.collection(`events`).find({_id:eventIDObject}).project({users:1,unRegisteredNumbersInternational:1}).toArray();
         console.dir(eventDetails);
         console.dir(eventIDObject);
         let numbers = eventDetails.unRegisteredNumbersInternational;
-        let users = db.collection(`users`).find({
+        let users = await db.collection(`users`).find({
             _id: { $in : eventDetails.users }
         }).project({name:1,"phone.number":1}).toArray();
         let usersFinal=users;
@@ -19,8 +19,10 @@ module.exports=function (app) {
         }
         response.json({
             success:true,
-            users:usersFinal,
-            numbers:numbersFinal
+            data : {
+                users:usersFinal,
+                numbers:numbersFinal
+            }
         })
         return ;
     })
