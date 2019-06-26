@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/events/changeContacts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/changeContacts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/start.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/events/changeContacts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="140" column="88" selection-start-line="140" selection-start-column="88" selection-end-line="140" selection-end-column="88" />
+            <state relative-caret-position="506">
+              <caret line="183" column="48" selection-start-line="183" selection-start-column="48" selection-end-line="183" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -389,12 +387,12 @@
       <workItem from="1561121161598" duration="135000" />
       <workItem from="1561121805641" duration="75000" />
       <workItem from="1561122874866" duration="5460000" />
-      <workItem from="1561519169872" duration="1134000" />
+      <workItem from="1561519169872" duration="2224000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="185694000" />
+    <option name="totallyTimeSpent" value="186784000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -779,8 +777,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/events/changeContacts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="140" column="88" selection-start-line="140" selection-start-column="88" selection-end-line="140" selection-end-column="88" />
+        <state relative-caret-position="506">
+          <caret line="183" column="48" selection-start-line="183" selection-start-column="48" selection-end-line="183" selection-end-column="48" />
         </state>
       </provider>
     </entry>

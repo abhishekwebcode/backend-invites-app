@@ -135,15 +135,17 @@ module.exports = function (app) {
         //let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`)(),prefix);
         let {intlArray1,localArray1} =  await createEvent(numbers1, emails1, request.app.get(`db`)(),prefix);
         let {users, localArray, emails, intlArray} = await continue_event(numbers1, emails1, request.app.get(`db`)(),prefix,intlArray1,localArray1);
+
         let filteredInternational = [];
-        console.log(`UN-FILTERED NON_PHONE`,eventEntryBefore.unRegisteredNumbersInternational);
-        let parent = eventEntryBefore.unRegisteredNumbersInternational;
-        console.log(`PHONE DATA`,`EVENT ENTRY`,eventEntryBefore,`readphones`,intlArray);
-        intlArray1.forEach(e=>{
-            if (parent.indexOf(e)===-1) {
-                filteredInternational.push(e);
+        let entryPhones = eventEntryBefore.unRegisteredNumbersInternational;
+        let newPhones = intlArray;
+        newPhones.forEach(phone=>{
+            if (entryPhones.indexOf(phone)!==-1) {
+                filteredInternational.push(phone);
             }
         });
+        console.log(`NEW RAW NUMBERS`,filteredInternational);
+
 
         console.log(`---`,users,eventEntryBefore.users,`---`);
         let hashes=[];
@@ -155,8 +157,6 @@ module.exports = function (app) {
             }
         });
         console.log(`NEW USERS NOW ARE`,newUsers);
-
-
         remove(request.email,emails);
         //remove(request.User.phone.national_number,localArray);
         remove(request.User.phone.number,intlArray);
@@ -166,22 +166,35 @@ module.exports = function (app) {
         let eventsUpdate = await app.get(`db`)().collection(`events`).findOneAndUpdate(
             {_id:eventObject},
             {
-                $push : {
-                    users: {$each:usersIdsobjs} ,
+                $addToSet : {
+                    users: {$each:newUsers} ,
                     unRegisteredNumbersLocal: {$each:localArray},
-                    unRegisteredNumbersInternational: {$each:intlArray},
+                    unRegisteredNumbersInternational: {$each:filteredInternational},
                     unRegisteredEmails: {$each: emails}
                 }
             }
         );
         console.log(`UPDATE EVENT CONTACTS DETAIL`,eventsUpdate);
-        sendPush(newUsers,usersIdsobjs,request.app.get(`db`)(),eventObject,app);
+
+        /**
+         * Filtering users to respond to only un-responded ones
+         */
+        let allUsers = users.concat(eventEntryBefore.users);
+        let allNumbers = eventEntryBefore.unRegisteredNumbersInternational.concat(intlArray);
+        console.log(`ALLL`,allUsers,allNumbers);
+        let emailsAll=allUsers.map(e=>e.email);
+        let toRespond = await app.get(`db`)().collection(`responses`).find({
+            email:emailsAll,eventID:eventObject
+        }).project({email:1}).toArray();
+        console.log(toRespond);
+
+        //sendPush(newUsers,usersIdsobjs,request.app.get(`db`)(),eventObject,app);
         //sendSMS([...localArray, ...intlArray]);
         let sendString="";
         //sendEmails(emails);
         let send_sms = intlArray.length>0;
         if (eventsUpdate.ok===1) {
-            response.json({success: true,send_sms,sms_invite_link,send_sms_datas:intlArray.join(";")})
+            response.json({success: true,send_sms,sms_invite_link,send_sms_datas:filteredInternational.join(";")})
         } else {
             response.json({success: false, message: `Error creating your party`});
         }
