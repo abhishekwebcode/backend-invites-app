@@ -189,9 +189,10 @@ module.exports = function (app) {
         let phoneAllUnique = [...new Set(allNumbers)];
         console.log(`ALLL`,usersUniqueAll,phoneAllUnique);
         let toRespond = await app.get(`db`)().collection(`responses`).find({
-            email:usersUniqueAll,eventID:eventObject
+            //email:usersUniqueAll,
+            eventID:eventObject
         }).project({email:1}).toArray();
-        console.log(toRespond);
+        console.log(`TORESPOND`,toRespond);
 
         //sendPush(newUsers,usersIdsobjs,request.app.get(`db`)(),eventObject,app);
         //sendSMS([...localArray, ...intlArray]);
