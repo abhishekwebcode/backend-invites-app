@@ -47,13 +47,17 @@ async function searchUsers(intlArray,localarray1,  db, emails) {
     }
     return {users: final,localArray:localarray1, emails, intlArray};
 }
-async function temPtoken(token,eventIdObject,fcm,sends) {
+async function temPtoken(token,eventIdObject,fcm,sends,OwnerName,childname) {
     let message = {
         to: token,
         collapse_key: 'New Invite',
         data: {
             type:`NEW_INVITE`,
-            eventId:eventIdObject.toString()
+            eventId:eventIdObject.toString(),
+            Date:Date.now(),
+            OwnerName,
+            Action:`INVITE`,
+            childname
         }
     };
     //console.log(`FOR DEBUG`,fcm,message);
@@ -61,7 +65,7 @@ async function temPtoken(token,eventIdObject,fcm,sends) {
     sends.push(seObj);
     //console.dir(seObj)
 }
-async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
+async function sendPush(registeredUsers,ids,db,eventIdObject,app,ownerName,childName) {
     let allTokens=[];
     let kjsf=[];
     for (let key in registeredUsers) {
@@ -82,7 +86,7 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
     let sends=[];
     for (let i = 0; i < allTokens.length ; i++) {
         let token = allTokens[i];
-        temPtoken(token,eventIdObject,fcm,sends).catch(console.log);
+        temPtoken(token,eventIdObject,fcm,sends,ownerName,childName).catch(console.log);
     }
     return 1;
     /*db.collection(`users`).updateMany(
@@ -131,7 +135,8 @@ module.exports = function (app) {
             projection: {
                 unRegisteredNumbersInternational: 1,
                 users: 1,
-                FCM_Tokens:1
+                FCM_Tokens:1,
+                childName:1
             }
         });
         console.log(`DEBUG__`,eventObject,app.get(`db`)().collection(`events`));
@@ -220,7 +225,10 @@ module.exports = function (app) {
                 }
             }
         });
-        sendPush(tokensList,usersIdsobjs,request.app.get(`db`)(),eventObject,app);
+
+        let userIdObj = await app.get(`db`)().collection(`users`).findOne({email:request.email},{projection:{name:1}});
+        let named=userIdObj.name;
+        sendPush(tokensList,usersIdsobjs,request.app.get(`db`)(),eventObject,app,named,eventEntryBefore.childName);
         //sendSMS([...localArray, ...intlArray]);
         let sendString="";
         //sendEmails(emails);
