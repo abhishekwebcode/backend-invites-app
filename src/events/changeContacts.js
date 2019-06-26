@@ -136,13 +136,14 @@ module.exports = function (app) {
         let {intlArray1,localArray1} =  await createEvent(numbers1, emails1, request.app.get(`db`)(),prefix);
         let {users, localArray, emails, intlArray} = await continue_event(numbers1, emails1, request.app.get(`db`)(),prefix,intlArray1,localArray1);
         let filteredInternational = [];
+        console.log(`UN-FILTERED NON_PHONE`,eventEntryBefore.unRegisteredNumbersInternational);
         let parent = eventEntryBefore.unRegisteredNumbersInternational;
+        console.log(`PHONE DATA`,`EVENT ENTRY`,eventEntryBefore,`readphones`,intlArray);
         intlArray1.forEach(e=>{
             if (parent.indexOf(e)===-1) {
                 filteredInternational.push(e);
             }
         });
-        console.log(`FILTERED NON_APP`,filteredInternational);
 
         console.log(`---`,users,eventEntryBefore.users,`---`);
         let hashes=[];

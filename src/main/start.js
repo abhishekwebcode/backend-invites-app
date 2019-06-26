@@ -62,7 +62,7 @@ app.use(function (err, req, res, next) {
 });
 // enable event handlers and functions
 require(`../events/init`)(app);
-// enable todo functions
+// enable to-do functions
 require(`../todo/init`)(app);
 // enable gifts functions
 require(`../gifts/init`)(app);
