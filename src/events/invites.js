@@ -140,8 +140,8 @@ module.exports = function (app) {
                     Date:Date.now()
                 }
             };
+            console.log(`NOTIFICATION`,fcm,message,ownerTokens);
             sendPush(fcm,message,ownerTokens);
-
 
             response.json({
                 success: true
@@ -211,6 +211,7 @@ module.exports = function (app) {
                         Date:Date.now()
                     }
                 };
+                console.log(`NOTIFICATION`,fcm,message,ownerTokens);
                 sendPush(fcm,message,ownerTokens);
 
 
