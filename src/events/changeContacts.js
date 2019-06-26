@@ -140,11 +140,11 @@ module.exports = function (app) {
         let entryPhones = eventEntryBefore.unRegisteredNumbersInternational;
         let newPhones = intlArray;
         newPhones.forEach(phone=>{
-            if (entryPhones.indexOf(phone)!==-1) {
+            if (entryPhones.indexOf(phone)===-1) {
                 filteredInternational.push(phone);
             }
         });
-        console.log(`NEW RAW NUMBERS`,filteredInternational);
+        console.log(`NEW RAW NUMBERS`,filteredInternational,`--++--`,entryPhones,newPhones);
 
 
         console.log(`---`,users,eventEntryBefore.users,`---`);
