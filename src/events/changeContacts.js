@@ -201,7 +201,7 @@ module.exports = function (app) {
                 hjhj.push(rawEmail);
             }
         });
-        console.log(`EMAILS`,hjhj)
+        console.log(`EMAILS`,hjhj,allUsers)
         //sendPush(newUsers,usersIdsobjs,request.app.get(`db`)(),eventObject,app);
         //sendSMS([...localArray, ...intlArray]);
         let sendString="";
