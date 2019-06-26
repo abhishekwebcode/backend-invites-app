@@ -179,7 +179,10 @@ module.exports = function (app) {
         /**
          * Filtering users to respond to only un-responded ones
          */
-        let allUsers = users.concat(eventEntryBefore.users);
+        let exisitngUsers = await app.get(`db`)().collection(`users`).find({
+            _id: { $in : eventEntryBefore.users }
+        }).project({email:1}).toArray();
+        let allUsers = users.concat(exisitngUsers);
         let allNumbers = eventEntryBefore.unRegisteredNumbersInternational.concat(intlArray);
         console.log(`ALLL`,allUsers,allNumbers);
         let emailsAll=allUsers.map(e=>e.email);
