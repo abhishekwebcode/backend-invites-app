@@ -63,7 +63,12 @@ async function temPtoken(token,eventIdObject,fcm,sends) {
 }
 async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
     let allTokens=[];
+    let kjsf=[];
+    for (let key in registeredUsers) {
+        allTokens.push(...registeredUsers[key]);
+    }
     let fcm = app.get(`FCM`);
+    /*
     registeredUsers.forEach(e=>{
         try {
             allTokens.push(...(e.FCM_Tokens));
@@ -71,6 +76,8 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
             console.warn(`ERROR`,e);
         }
     });
+     */
+    console.dir(allTokens)
     let sends=[];
     for (let i = 0; i < allTokens.length ; i++) {
         let token = allTokens[i];
@@ -202,7 +209,16 @@ module.exports = function (app) {
             }
         });
         console.log(`EMAILS`,hjhj,allUsers)
-        //sendPush(newUsers,usersIdsobjs,request.app.get(`db`)(),eventObject,app);
+        let tokensList = {};
+        hjhj.forEach(email=>{
+            for (let i = 0; i <allUsers.length; i++) {
+                if (allUsers[i].email===email) {
+                    tokensList[email]=allUsers[i].FCM_Tokens;
+                    break;
+                }
+            }
+        });
+        sendPush(tokensList,usersIdsobjs,request.app.get(`db`)(),eventObject,app);
         //sendSMS([...localArray, ...intlArray]);
         let sendString="";
         //sendEmails(emails);
