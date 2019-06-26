@@ -182,7 +182,7 @@ module.exports = function (app) {
          */
         let exisitngUsers = await app.get(`db`)().collection(`users`).find({
             _id: { $in : eventEntryBefore.users }
-        }).project({email:1,FCM_TOKENS:1}).toArray();
+        }).project({email:1,FCM_Tokens:1}).toArray();
         let allUsers = users.concat(exisitngUsers);
         let allNumbers = eventEntryBefore.unRegisteredNumbersInternational.concat(intlArray);
         let usersALLNEW = allUsers.map(e=>e.email);
