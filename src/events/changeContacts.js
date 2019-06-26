@@ -176,7 +176,7 @@ module.exports = function (app) {
             {_id:eventObject},
             {
                 $addToSet : {
-                    users: {$each:newUsers} ,
+                    users: {$each:usersIdsobjs} ,
                     unRegisteredNumbersLocal: {$each:localArray},
                     unRegisteredNumbersInternational: {$each:filteredInternational},
                     unRegisteredEmails: {$each: emails}
