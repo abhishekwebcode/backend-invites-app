@@ -5,6 +5,7 @@ module.exports=function (app) {
         let eventDetails = await db.collection(`events`).find({_id:eventIDObject}).project({users:1,unRegisteredNumbersInternational:1}).toArray();
         //console.dir(eventDetails);
         console.dir(eventIDObject);
+        console.dir(eventDetails);
         let numbers = eventDetails.unRegisteredNumbersInternational;
         console.log(eventDetails.users,`array $In`);
         let users = await db.collection(`users`).find({
