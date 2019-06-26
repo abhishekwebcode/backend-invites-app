@@ -192,6 +192,9 @@ module.exports = function (app) {
             }
             else {
 
+                let userIdObj234 = await app.get(`db`)().collection(`users`).findOne({email:request.email},{projection:{name:1}});
+                let named=userIdObj234.name;
+
                 let fcm = app.get(`FCM`);
                 let ownerEmail1 = await db.collection(`events`).findOne({_id:eventID},{projection:{created_by: 1,childName:1}});
                 let ownerEmail=ownerEmail1.created_by;
@@ -202,7 +205,7 @@ module.exports = function (app) {
                     data: {
                         type:`INVITE_RESPOND`,
                         eventId:eventID.toString(),
-                        userName:userIdObj.name,
+                        userName:named,
                         eventName:ownerEmail1.childName,
                         Action:`ACCEPT`,
                         Date:Date.now()
