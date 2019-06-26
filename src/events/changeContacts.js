@@ -203,6 +203,7 @@ module.exports = function (app) {
             eventID:eventObject
         }).project({email:1,FCM_Tokens:1}).toArray();
         let respndedEmails = toRespond.map(e=>e.email);
+        console.log(`LOOP START`,respndedEmails,usersUniqueAll);
         let hjhj=[];
         usersUniqueAll.forEach(rawEmail=>{
             if (respndedEmails.indexOf(rawEmail)===-1) {
@@ -210,7 +211,7 @@ module.exports = function (app) {
             }
         });
         console.log(`EMAILS`,hjhj,allUsers)
-        let tokensList = {};
+        let tokensList = [];
         hjhj.forEach(email=>{
             for (let i = 0; i <allUsers.length; i++) {
                 if (allUsers[i].email===email) {
