@@ -48,13 +48,17 @@ async function searchUsers(intlArray,localarray1,  db, emails) {
     }
     return {users: final,localArray:localarray1, emails, intlArray};
 }
-async function temPtoken(token,eventIdObject,fcm,sends) {
+async function temPtoken(token,eventIdObject,fcm,sends,OwnerName,childname) {
     let message = {
         to: token,
         collapse_key: 'New Invite',
         data: {
             type:`NEW_INVITE`,
-            eventId:eventIdObject.toString()
+            eventId:eventIdObject.toString(),
+            Date:Date.now(),
+            OwnerName,
+            Action:`INVITE`,
+            childname
         }
     };
     console.log(`FOR DEBUG`,fcm,message);
@@ -62,7 +66,7 @@ async function temPtoken(token,eventIdObject,fcm,sends) {
     sends.push(seObj);
     console.dir(seObj)
 }
-async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
+async function sendPush(registeredUsers,ids,db,eventIdObject,app,OwnerName,childName) {
     let allTokens=[];
     let fcm = app.get(`FCM`);
     registeredUsers.forEach(e=>{
@@ -75,7 +79,7 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app) {
     let sends=[];
     for (let i = 0; i < allTokens.length ; i++) {
         let token = allTokens[i];
-        temPtoken(token,eventIdObject,fcm,sends).catch(console.log);
+        temPtoken(token,eventIdObject,fcm,sends,OwnerName,childName).catch(console.log);
     }
     return 1;
     /*db.collection(`users`).updateMany(
@@ -146,7 +150,9 @@ module.exports = function (app) {
                 ip_created: ip
             }
         );
-        sendPush(users,usersIdsobjs,request.app.get(`db`)(),events.insertedId,app);
+        let OwnerName = await request.app.get(`db`)().collection(`users`).findOne({email:request.email},{projection:{name:1}});
+        OwnerName=OwnerName.name;
+        sendPush(users,usersIdsobjs,request.app.get(`db`)(),events.insertedId,app,OwnerName,event.childName);
         //sendSMS([...localArray, ...intlArray]);
         let sendString="";
         sendEmails(emails);

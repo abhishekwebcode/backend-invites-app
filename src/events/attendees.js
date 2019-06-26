@@ -12,19 +12,11 @@ module.exports=function (app) {
         let users = await db.collection(`users`).find({
             _id: { $in : eventDetails.users }
         }).project({name:1,"phone.number":1}).toArray();
-        let usersFinal=users;
-        let numbersFinal=numbers;
-        if (users.length>0) {
-            usersFinal[0].changeToUser=true;
-        }
-        if (numbersFinal.length>0) {
-            numbersFinal[0].changeToNumber=true;
-        }
         response.json({
             success:true,
             data : {
-                users:usersFinal,
-                numbers:numbersFinal
+                users:users,
+                numbers:numbers
             }
         })
         return ;
