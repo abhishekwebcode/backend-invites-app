@@ -109,7 +109,7 @@ module.exports = function (app) {
         let childName=IDsObj[0].childName;
         let emailOwner=IDsObj[0].created_by;
         let users = await db.collection(`users`).find({email:emailOwner}).limit(1).toArray();
-        let ownerName=users.name;
+        let ownerName=users[0].name;
         console.log(`OWNERNAME`,users);
         sendPush(request.app.get(`FCM`),AllTokens,eventIDObj,ownerName,childName).then(console.log).catch(console.log);
         response.json({
