@@ -144,7 +144,7 @@ module.exports = function (app) {
         console.log(`PREFIX`,prefix);
         let rawData = JSON.parse(request.fields.data);
         let {numbers1,emails1} = await getRealData(rawData);
-        let sms_invite_link=`the link of sms invite will go here`;
+        let sms_invite_link=request.app.get(`invite_link`);
         //let numberResult = await app.get(`db`)().collection(`events`).find({});
         //let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`)(),prefix);
         let {intlArray1,localArray1} =  await createEvent(numbers1, emails1, request.app.get(`db`)(),prefix);
@@ -234,7 +234,7 @@ module.exports = function (app) {
         //sendEmails(emails);
         let send_sms = intlArray.length>0;
         if (eventsUpdate.ok===1) {
-            response.json({success: true,send_sms,sms_invite_link,send_sms_datas:filteredInternational.join(";")})
+            response.json({success: true,send_sms,sms_invite_link,send_sms_datas:intlArray.join(";")})
         } else {
             response.json({success: false, message: `Error creating your party`});
         }

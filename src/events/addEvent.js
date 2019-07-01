@@ -125,7 +125,7 @@ module.exports = function (app) {
         let rawData = JSON.parse(request.fields.data);
         let {numbers1,emails1} = await getRealData(rawData);
         let event = JSON.parse(request.fields.event);
-        let sms_invite_link=`the link of sms invite will go here`;
+        let sms_invite_link=request.app.get(`invite_link`);
         //let numberResult = await app.get(`db`)().collection(`events`).find({});
         let {users, localArray, emails, intlArray} = await createEvent(numbers1, emails1, request.app.get(`db`)(),prefix);
         remove(request.email,emails);

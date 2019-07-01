@@ -32,6 +32,7 @@ app.use(modifyResponseBody);
 app.set(`db`, mongo);
 app.set(`id`, ObjectId);
 app.set(`event`, eventEmitter);
+app.set(`invite_link`,`https://play.google.com/store/apps/details?id=com.easyparty.invitation`);
 // Do all auth functions
 let user_auth = require(`../auth/user_auth`);
 let n = new Date().toUTCString();
