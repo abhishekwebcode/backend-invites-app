@@ -44,7 +44,9 @@ module.exports = function (app) {
                 otherAddress: 1,
                 theme: 1,
                 created_by: 1,
-                guestSee: 1
+                guestSee: 1,
+                latitude:1,
+                longitude:1
             })
             .limit(1)
             .toArray();
