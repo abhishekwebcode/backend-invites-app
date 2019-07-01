@@ -1,3 +1,19 @@
+var sendPush=async function(fcm,tokens,eventID,OwnerName,childName) {
+    let payload = {
+        collapse_key: 'New Invite',
+        data: {
+            type:`CHANGE_EVENT`,
+            eventId:eventID.toString(),
+            Date:Date.now(),
+            OwnerName,
+            Action:`INVITE`,
+            childName: childName
+        }
+    };
+    payload["registration_ids"]=tokens;
+    fcm(payload).then(console.log).catch(console.log);
+};
+
 module.exports = function (app) {
     app.post(`/events/list`, async function (request, response) {
         console.log(arguments);
@@ -72,12 +88,22 @@ module.exports = function (app) {
 
         let IDsObj = await db.collection(`events`)
             .find({_id: eventIDObj})
-            .project({users:1}).limit(1).toArray();
+            .project({users:1,childName:1,created_by:1}).limit(1).toArray();
         let Ids=IDsObj[0].users;
         let tokens = await db.collection(`users`).find({
             _id : { $in : Ids }
         }).project({FCM_Tokens:1}).toArray();
-        console.dir(tokens);
+
+        let AllTokens=[];
+        tokens.forEach(user=>{
+            AllTokens.concat(user.FCM_Tokens);
+        });
+
+        let childName=IDsObj[0].childName;
+        let emailOwner=IDsObj[0].created_by;
+        let users = await db.collection(`users`).find({email:emailOwner}).limit(1).toArray();
+        let ownerName=users.Name;
+        sendPush(AllTokens,AllTokens,request.fields.eventId,ownerName,childName).then(console.log).catch(console.log);
 
         response.json({
             success: (

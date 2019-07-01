@@ -58,7 +58,7 @@ async function temPtoken(token,eventIdObject,fcm,sends,OwnerName,childname) {
             Date:Date.now(),
             OwnerName,
             Action:`INVITE`,
-            childname
+            childName: childname
         }
     };
     console.log(`FOR DEBUG`,fcm,message);
