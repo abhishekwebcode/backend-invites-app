@@ -1,3 +1,19 @@
+var sendPush=async function(fcm,tokens,eventID,gift) {
+    let payload = {
+        collapse_key: 'New Invite',
+        data: {
+            type:`GIFT_ADD`,
+            gift,
+            eventId:eventID.toString(),
+            Date:Date.now(),
+            Action:`INVITE`,
+        }
+    };
+    payload["registration_ids"]=tokens;
+    console.dir(payload,fcm);
+    fcm(payload).then(console.log).catch(console.log);
+};
+
 module.exports=function (app) {
     app.post(`/gifts/list`,async function (request,response) {
         let eventId = request.app.get(`id`)(request.fields.eventId);
@@ -29,6 +45,20 @@ module.exports=function (app) {
     app.post(`/gifts/add`,async function (request,response) {
         let gift = request.fields.todo;
         let eventId = request.app.get(`id`)(request.fields.eventId);
+        let eventMemebers = await app.get(`db`)().collection(`events`).findOne({_id:eventId});
+        let userIds = eventMemebers.users;
+        let tokenss = await app.get(`db`)().collection(`users`).find({_id : {$in:userIds} }).project({FCM_Tokens:1}).toArray();
+        let AllTokens=[];
+        tokenss.forEach(user=>{
+            try {
+                AllTokens.push(...user.FCM_Tokens);
+                console.log(`IUHf`,user),AllTokens;
+            } catch (e) {
+                console.error(e,`ErRROR`);
+            }
+        });
+        sendPush(request.app.get(`FCM`),AllTokens,eventId,gift).then(console.log).catch(console.log);
+
         let todoIns = await app.get(`db`)().collection(`gifts`).insertOne({
             gift,eventId,created_by:request.email,date_created:Date.now(),selected:false,selected_by_id:null
         });
