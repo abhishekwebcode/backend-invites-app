@@ -69,11 +69,23 @@ module.exports = function (app) {
         event["guestSee"] = (event["guestSee"] === "true");
         let update = await db.collection(`events`).update({_id: eventIDObj}, {$set: event}, {});
         console.dir(update);
+
+        let IDsObj = await db.collection(`events`)
+            .find({_id: eventIDObj})
+            .project({users:1}).limit(1).toArray();
+        let Ids=IDsObj.users;
+        let tokens = await db.collection(`users`).find({
+            _id : { $in : Ids }
+        }).project({FCM_Tokens:1}).toArray();
+
+        console.dir(tokens);
+
         response.json({
             success: (
                 update.result.ok === 1
             )
         });
+        return ;
     });
 
     app.post(`/events/delete`, async function (request, response) {

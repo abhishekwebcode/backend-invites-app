@@ -27,7 +27,6 @@ module.exports = function (app) {
         })
     });
     app.post(`/invites/info`, async function (request, response) {
-
         let db1 = request.app.get(`db`)();
         let eventID = request.app.get(`id`)(request.fields.eventId);
         let check1 = await db1.collection(`responses`).findOne({
