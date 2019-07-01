@@ -11,7 +11,7 @@ var sendPush=async function(fcm,tokens,eventID,OwnerName,childName) {
         }
     };
     payload["registration_ids"]=tokens;
-    console.dir(arguments)
+    console.dir(payload,fcm);
     fcm(payload).then(console.log).catch(console.log);
 };
 
