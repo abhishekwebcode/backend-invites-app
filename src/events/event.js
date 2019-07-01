@@ -103,16 +103,13 @@ module.exports = function (app) {
             } catch (e) {
                 console.error(e,`ErRROR`);
             }
-
-
         });
 
         let childName=IDsObj[0].childName;
         let emailOwner=IDsObj[0].created_by;
         let users = await db.collection(`users`).find({email:emailOwner}).limit(1).toArray();
-        let ownerName=users.Name;
+        let ownerName=users.name;
         sendPush(request.app.get(`FCM`),AllTokens,eventIDObj,ownerName,childName).then(console.log).catch(console.log);
-
         response.json({
             success: (
                 update.result.ok === 1
