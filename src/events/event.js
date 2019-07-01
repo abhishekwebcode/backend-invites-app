@@ -74,7 +74,7 @@ module.exports = function (app) {
             .find({_id: eventIDObj})
             .project({users:1}).limit(1).toArray();
         let Ids=IDsObj.users;
-        console.dir(Ids,IDsObj);
+        console.log(Ids,IDsObj);
         let tokens = await db.collection(`users`).find({
             _id : { $in : Ids }
         }).project({FCM_Tokens:1}).toArray();
