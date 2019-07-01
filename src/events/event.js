@@ -73,6 +73,7 @@ module.exports = function (app) {
         let IDsObj = await db.collection(`events`)
             .find({_id: eventIDObj})
             .project({users:1}).limit(1).toArray();
+        console.dir(IDsObj);
         let Ids=IDsObj.users;
         let tokens = await db.collection(`users`).find({
             _id : { $in : Ids }
