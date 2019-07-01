@@ -45,7 +45,7 @@ module.exports=function (app) {
     app.post(`/gifts/add`,async function (request,response) {
         let gift = request.fields.todo;
         let eventId = request.app.get(`id`)(request.fields.eventId);
-        let eventMemebers = await app.get(`db`)().collection(`responses`).find({eventID:eventId}).project({email:1}).toArray();
+        let eventMemebers = await app.get(`db`)().collection(`responses`).find({eventID:eventId,intention:true}).project({email:1}).toArray();
         let emailsAll=[];
         eventMemebers.forEach(response=>{
             emailsAll.push(response.email);
