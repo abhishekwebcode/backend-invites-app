@@ -45,9 +45,12 @@ module.exports=function (app) {
     app.post(`/gifts/add`,async function (request,response) {
         let gift = request.fields.todo;
         let eventId = request.app.get(`id`)(request.fields.eventId);
-        let eventMemebers = await app.get(`db`)().collection(`events`).findOne({_id:eventId});
-        let userIds = eventMemebers.users;
-        let tokenss = await app.get(`db`)().collection(`users`).find({_id : {$in:userIds} }).project({FCM_Tokens:1}).toArray();
+        let eventMemebers = await app.get(`db`)().collection(`responses`).find({eventID:eventId}).project({email:1}).toArray();
+        let emailsAll=[];
+        eventMemebers.forEach(response=>{
+            emailsAll.push(response.email);
+        })
+        let tokenss = await app.get(`db`)().collection(`users`).find({email : {$in:emailsAll} }).project({FCM_Tokens:1}).toArray();
         let AllTokens=[];
         tokenss.forEach(user=>{
             try {
