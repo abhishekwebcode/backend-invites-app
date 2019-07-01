@@ -5,9 +5,10 @@ var sendPush=async function(fcm,tokens,eventID,OwnerName,childName) {
             type:`CHANGE_EVENT`,
             eventId:eventID.toString(),
             Date:Date.now(),
-            OwnerName,
+            OwnerName:OwnerName,
             Action:`INVITE`,
-            childName: childName
+            childname: childName
+
         }
     };
     payload["registration_ids"]=tokens;
