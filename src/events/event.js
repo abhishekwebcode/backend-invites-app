@@ -97,8 +97,14 @@ module.exports = function (app) {
 
         let AllTokens=[];
         tokens.forEach(user=>{
-            AllTokens.concat(user.FCM_Tokens);
-            console.log(`IUHf`,user);
+            try {
+                AllTokens.push(...user.FCM_Tokens);
+                console.log(`IUHf`,user),AllTokens;
+            } catch (e) {
+                console.error(e,`ErRROR`);
+            }
+
+
         });
 
         let childName=IDsObj[0].childName;
