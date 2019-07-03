@@ -57,7 +57,7 @@ async function temPtoken(token,eventIdObject,fcm,sends,OwnerName,childname) {
             Date:Date.now(),
             OwnerName,
             Action:`INVITE`,
-            childName: childname
+            childname: childname
         }
     };
     //console.log(`FOR DEBUG`,fcm,message);
@@ -160,7 +160,6 @@ module.exports = function (app) {
         });
         console.log(`NEW RAW NUMBERS`,filteredInternational,`--++--`,entryPhones,newPhones);
 
-
         console.log(`---`,users,eventEntryBefore.users,`---`);
         let hashes=[];
         let newUsers=[];
@@ -228,13 +227,18 @@ module.exports = function (app) {
 
         let userIdObj = await app.get(`db`)().collection(`users`).findOne({email:request.email},{projection:{name:1}});
         let named=userIdObj.name;
+
+        /*
+        Get All unregistered Numbers
+         */
+
         sendPush(tokensList,usersIdsobjs,request.app.get(`db`)(),eventObject,app,named,eventEntryBefore.childName);
         //sendSMS([...localArray, ...intlArray]);
         let sendString="";
         //sendEmails(emails);
         let send_sms = intlArray.length>0;
         if (eventsUpdate.ok===1) {
-            response.json({success: true,send_sms,sms_invite_link,send_sms_datas:intlArray.join(";")})
+            response.json({success: true,send_sms,sms_invite_link,send_sms_datas:phoneAllUnique.join(";")})
         } else {
             response.json({success: false, message: `Error creating your party`});
         }
