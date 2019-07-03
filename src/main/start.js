@@ -73,9 +73,9 @@ app.use((err, req, res, next) => {
     console.debug(arguments);
     res.json({success:false,message:`Server error occurred`});
     return;
-})
+});
 app.listen(
-    process.env.PORT || 3000,
+    process.env.PORT || 2082,
     () =>
         console.log(
             `Example app listening on port ${process.env.PORT || 3000} !`

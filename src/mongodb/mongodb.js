@@ -30,6 +30,7 @@ function createDBconnection() {
                 console.log('Connection closed');
             });
             db.s.topology.on('reconnect', () => console.log('Reconnected MONGODB'));
+
         } catch (e) {
             console.error(e);
         }
@@ -44,6 +45,13 @@ MongoClient.connect(uri, options, function (err, client) {
     db = client.db(`test`);
     console.log(`MONGODB CONNECTED NOW`);
     try {
+        db.on('error', function (err) {
+            if (err)  {
+                createDBconnection();
+                return err;
+            }
+            return ;
+        });
         db.on('reconnectFailed', (err) => {
             console.log(`MONGODB ERROR RECONNECT FAILED`);
             console.warn(err);

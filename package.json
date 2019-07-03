@@ -1,9 +1,9 @@
 {
-  "name": "myjobs-backend",
+  "name": "izyparty0backend",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --inspect ./src/main/start.js"
+    "start": "node --inspect ./src/main/start.js"
   },
   "dependencies": {
     "@coolgk/facebook-sign-in": "^1.0.3",
