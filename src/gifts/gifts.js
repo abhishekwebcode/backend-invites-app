@@ -1,4 +1,4 @@
-var sendPush=async function(fcm,tokens,eventID,gift) {
+var sendPush=async function(fcm,tokens,eventID,gift,childname,ownername) {
     let payload = {
         collapse_key: 'New Invite',
         data: {
@@ -7,6 +7,8 @@ var sendPush=async function(fcm,tokens,eventID,gift) {
             eventId:eventID.toString(),
             Date:Date.now(),
             Action:`INVITE`,
+            childname:childname,
+            OwnerName:ownername
         }
     };
     payload["registration_ids"]=tokens;
@@ -56,6 +58,12 @@ module.exports=function (app) {
         let eventMemebers = await app.get(`db`)().collection(`responses`).find({eventID:eventId,intention:true}).project({email:1}).toArray();
         let eventMemebers2 = await app.get(`db`)().collection(`responses`).find({eventID:eventId,intention:true}).project({email:1}).toArray();
 
+        let eventDetails = await app.get(`db`)().collection(`events`).find({_id:eventId}).limit(1).toArray();
+        let childName=eventDetails[0].childName;
+        let created_by = eventDetails[0].created_by;
+        let username =  await app.get(`db`)().collection(`users`).find({email:created_by}).project({name:1}).limit(1).toArray();
+        let name = username[0].name;
+
         let emailsAll=[];
         eventMemebers.forEach(response=>{
             emailsAll.push(response.email);
@@ -70,7 +78,7 @@ module.exports=function (app) {
                 console.error(e,`ErRROR`);
             }
         });
-        sendPush(request.app.get(`FCM`),AllTokens,eventId,gift).then(console.log).catch(console.log);
+        sendPush(request.app.get(`FCM`),AllTokens,eventId,gift,childName,name).then(console.log).catch(console.log);
 
         let todoIns = await app.get(`db`)().collection(`gifts`).insertOne({
             gift,eventId,created_by:request.email,date_created:Date.now(),selected:false,selected_by_id:null
