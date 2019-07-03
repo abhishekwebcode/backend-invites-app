@@ -15,6 +15,14 @@ var sendPush=async function(fcm,tokens,eventID,gift) {
 };
 
 module.exports=function (app) {
+    app.post(`/gifts/getResponseId`,async function (request,response) {
+        let eventId = request.app.get(`id`)(request.fields.eventId);
+        let eventIDQuery= await request.app.get(`db`)().collection(`responses`).findOne({email:request.User.email,eventID:eventId});
+        response.json({
+            success:true,responseId:eventIDQuery._id.toString()
+        });
+        return ;
+    });
     app.post(`/gifts/list`,async function (request,response) {
         let eventId = request.app.get(`id`)(request.fields.eventId);
         let gifts = await app.get(`db`)().collection(`gifts`).find({
@@ -46,16 +54,18 @@ module.exports=function (app) {
         let gift = request.fields.todo;
         let eventId = request.app.get(`id`)(request.fields.eventId);
         let eventMemebers = await app.get(`db`)().collection(`responses`).find({eventID:eventId,intention:true}).project({email:1}).toArray();
+        let eventMemebers2 = await app.get(`db`)().collection(`responses`).find({eventID:eventId,intention:true}).project({email:1}).toArray();
+
         let emailsAll=[];
         eventMemebers.forEach(response=>{
             emailsAll.push(response.email);
-        })
+        });
         let tokenss = await app.get(`db`)().collection(`users`).find({email : {$in:emailsAll} }).project({FCM_Tokens:1}).toArray();
         let AllTokens=[];
         tokenss.forEach(user=>{
             try {
                 AllTokens.push(...user.FCM_Tokens);
-                console.log(`IUHf`,user),AllTokens;
+                console.log(`IUHf`,user,AllTokens);
             } catch (e) {
                 console.error(e,`ErRROR`);
             }
