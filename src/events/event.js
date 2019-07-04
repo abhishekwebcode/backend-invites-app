@@ -12,7 +12,7 @@ var sendPush = async function (fcm, tokens, eventID, OwnerName, childName) {
         }
     };
     payload["registration_ids"] = tokens;
-    console.dir(payload, fcm);
+    console.log(payload, fcm);
     fcm(payload).then(console.log).catch(console.log);
 };
 
@@ -27,7 +27,7 @@ module.exports = function (app) {
             childName: 1,
             theme: 1
         }).sort({date: -1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
-        console.dir(events);
+        console.log(events);
         let send = [];
         events.forEach(item => {
             send.push({
@@ -69,7 +69,7 @@ module.exports = function (app) {
             .limit(1)
             .toArray();
         event = event[0];
-        console.dir(event);
+        console.log(event);
         response.json({
             success: true,
             event
@@ -86,7 +86,7 @@ module.exports = function (app) {
         event["isSpecialTheme"] = (event["isSpecialTheme"] === "true");
         event["guestSee"] = (event["guestSee"] === "true");
         let update = await db.collection(`events`).update({_id: eventIDObj}, {$set: event}, {});
-        console.dir(update);
+        console.log(update);
 
         let IDsObj = await db.collection(`events`)
             .find({_id: eventIDObj})

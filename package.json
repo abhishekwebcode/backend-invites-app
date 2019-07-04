@@ -8,6 +8,7 @@
   "dependencies": {
     "@coolgk/facebook-sign-in": "^1.0.3",
     "@paralect/node-mongo": "^1.0.0",
+    "@types/node": "^12.0.12",
     "accountkit-server": "^0.45.2",
     "api-mongodb": "*",
     "awesome-phonenumber": "^2.10.0",
@@ -31,9 +32,9 @@
     "node-accountkit": "^1.1.6",
     "node-mongo": "^0.0.1",
     "promised-mongo": "^1.2.0",
+    "request": "latest",
     "requestify": "^0.2.5",
-    "winston": "^3.2.1",
-    "request": "latest"
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@types/express": "*",

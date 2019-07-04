@@ -21,15 +21,15 @@ function remove(element, array) {
     return array;
 }
 async function searchUsers(intlArray,localarray1,  db, emails) {
-    console.dir(db);
-    console.dir(intlArray)
+    console.log(db);
+    console.log(intlArray)
     let attendees = await db.collection(`users`).find({
         $or: [
             {"phone.number": {$in: intlArray}},
             {email: {$in: emails}}
         ]
     }).project({_id: 1, phone: 1, email: 1,FCM_Tokens:1}).toArray();
-    console.dir(attendees);
+    console.log(attendees);
     let final = [];
     for (i = 0; i < attendees.length; i++) {
         let item = attendees[i];
@@ -64,7 +64,7 @@ async function temPtoken(token,eventIdObject,fcm,sends,OwnerName,childname) {
     console.log(`FOR DEBUG`,fcm,message);
     let seObj=fcm(message).then(console.log).catch(console.log);
     sends.push(seObj);
-    console.dir(seObj)
+    console.log(seObj)
 }
 async function sendPush(registeredUsers,ids,db,eventIdObject,app,OwnerName,childName) {
     let allTokens=[];
@@ -156,7 +156,7 @@ module.exports = function (app) {
         //sendSMS([...localArray, ...intlArray]);
         let sendString="";
         sendEmails(emails);
-        console.dir(events);
+        console.log(events);
         let send_sms = intlArray.length>0;
         if (events.insertedCount === 1) {
             response.json({success: true,send_sms,sms_invite_link,send_sms_datas:intlArray.join(";")})

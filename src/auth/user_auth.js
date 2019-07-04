@@ -79,7 +79,7 @@ var userLogIn = async function (request,response) {
         let updateToken=await request.app.get('db')().collection('users').findOneAndUpdate({email,password},{
             $push: { FCM_Tokens: request.fields.token }
         });
-        console.dir(updateToken);
+        console.log(updateToken);
         let token_new=await (require("../auth/jwt/jwt")).generateToken({phone:res[0].phone,email:res[0].email,time:Date.now()});
         response.json({success:true,CODE:`USER_SUCCESS`,email,token:token_new});
         return;
@@ -106,7 +106,7 @@ var userSignUp = async function (request,response) {
         try {
             var response1 = await resolveAccountKit(request.fields.code);
             phone = response1.phone;
-            console.dir(phone);
+            console.log(phone);
         } catch (e) {
             console.error(e);
             response.json({success:false});return ;

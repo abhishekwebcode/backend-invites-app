@@ -6,10 +6,10 @@ var sendPush = function(fcm,message,userFCMTOKENS) {
 
 module.exports = function (app) {
     app.post(`/invites/list`, async function (request, response) {
-        console.dir(arguments);
+        console.log(arguments);
         let db = request.app.get(`db`)();
-        console.dir(`inInviesliSt`);
-        console.dir(db);
+        console.log(`inInviesliSt`);
+        console.log(db);
         let id = await db.collection(`users`).find({email: request.User.email}).limit(1).toArray();
         let _id = id[0]._id;
         let userID = request.app.get(`id`)(_id);
@@ -35,7 +35,7 @@ module.exports = function (app) {
             registered: true,
         });
         console.log(`CHECKING EXISTING INVITE`);
-        console.dir(check1);
+        console.log(check1);
         var checkObj ;
         if (check1===null) {
             checkObj=({
@@ -108,7 +108,7 @@ module.exports = function (app) {
             let userIdObj = await db.collection(`users`).findOne({email:request.email});
             let userOBJ= userIdObj._id;
             console.log(`SELE`,userOBJ);
-            console.dir(eventID);
+            console.log(eventID);
             await db.collection(`gifts`).findOneAndUpdate({
                 eventId:eventID,selected_by_id:userOBJ
             },{$set:{selected:false,selected_by_id: false}});
@@ -117,7 +117,7 @@ module.exports = function (app) {
                         ownerTokens.forEach(async token=>{
                             console.log(`FOR DEBUG`,fcm,message);
                             let seObj=fcm(message);
-                            console.dir(seObj)
+                            console.log(seObj)
                         });
                          */
             let fcm = app.get(`FCM`);
@@ -176,9 +176,9 @@ module.exports = function (app) {
                     {selected:false}
                 ]
             }).toArray();
-            console.dir(db.collection(`gifts`));
-            console.dir(gifts);
-            console.dir({
+            console.log(db.collection(`gifts`));
+            console.log(gifts);
+            console.log({
                 eventId:eventID,
             });
             if (gifts.length!==0) {

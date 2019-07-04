@@ -1,8 +1,22 @@
+//logging for all requests
+var fs = require('fs');
+var util = require('util');
 
+d = new Date();
+utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+nd = new Date(utc + (3600000*5.5));
+var logFile = fs.createWriteStream(`./logs/LOG_${nd}_${Date.now()}`, { flags: 'a+' });
+// Or 'w' to truncate the file every time the process starts.
+var logStdout = process.stdout;
+var tempLog = console.log;
+console.log = function () {
+    tempLog.call(0,arguments);
+    fs.appendFileSync('newlog.log',util.format.apply(null, arguments) + '\n',{flags:'a+'});
+}
+console.error = console.log;
 // initialize express app
 var path = require('path');
 const formidableMiddleware = require('express-formidable');
-const fs = require(`fs`);
 global.fs = fs;
 const events = require(`events`);
 const eventEmitter = new events.EventEmitter();
@@ -17,11 +31,11 @@ const app = express();
 app.set(`FCM`,fcm);
 app.use(formidableMiddleware());
 function modifyResponseBody(req, res, next) {
-    console.dir(req);
+    console.log(req);
     var oldSend = res.send;
     res.send = function (data) {
         // arguments[0] (or `data`) contains the response body
-        console.dir(data);
+        console.log(`OUTPUT\n`,data);
         oldSend.apply(res, arguments);
     }
     next();
@@ -78,7 +92,7 @@ app.listen(
     process.env.PORT || 2082,
     () =>
         console.log(
-            `Example app listening on port ${process.env.PORT || 3000} !`
+            `Example app listening on port ${process.env.PORT || 2082} !`
         )
 );
 process.on("uncaughtException", function () {
@@ -87,4 +101,4 @@ process.on("uncaughtException", function () {
 process.on("uncaughtRejection", function () {
     console.log(arguments);
 })
-console.dir(app);
+console.log(app);

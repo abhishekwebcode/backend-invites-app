@@ -12,7 +12,7 @@ var sendPush=async function(fcm,tokens,eventID,gift,childname,ownername) {
         }
     };
     payload["registration_ids"]=tokens;
-    console.dir(payload,fcm);
+    console.log(payload,fcm);
     fcm(payload).then(console.log).catch(console.log);
 };
 
