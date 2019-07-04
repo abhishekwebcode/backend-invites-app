@@ -5,13 +5,24 @@ var util = require('util');
 d = new Date();
 utc = d.getTime() + (d.getTimezoneOffset() * 60000);
 nd = new Date(utc + (3600000*5.5));
-var logFile = fs.createWriteStream(`./logs/LOG_${nd}_${Date.now()}`, { flags: 'a+' });
+//var logFile = fs.createWriteStream(`./logs/LOG_${nd}_${Date.now()}`, { flags: 'a+' });
 // Or 'w' to truncate the file every time the process starts.
 var logStdout = process.stdout;
 var tempLog = console.log;
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+var today = mm + '/' + dd + '/' + yyyy;
 console.log = function () {
-    tempLog.call(0,arguments);
-    fs.appendFileSync('newlog.log',util.format.apply(null, arguments) + '\n',{flags:'a+'});
+    try {
+        tempLog.call(0, ...arguments);
+    } catch (e) {
+    }
+    try {
+        fs.appendFileSync(`${today}.log`,util.format.apply(null, arguments) + '\n',{flags:'a+'});
+    } catch (e) {
+    }
 }
 console.error = console.log;
 // initialize express app
