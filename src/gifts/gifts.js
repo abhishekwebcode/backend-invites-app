@@ -16,6 +16,22 @@ var sendPush=async function(fcm,tokens,eventID,gift,childname,ownername) {
     fcm(payload).then(console.log).catch(console.log);
 };
 
+var sendPushGiftSelected = async function(fcm,tokens,eventID,childName,InviteeName) {
+    let payload = {
+        collapse_key: 'New Invite',
+        data: {
+            type:`GIFT_SELECTED`,
+            Date:Date.now(),
+            eventId:eventID.toString(),
+            childname:childName,
+            InviteeName:InviteeName
+        }
+    };
+    payload["registration_ids"]=tokens;
+    console.log(payload,fcm);
+    fcm(payload).then(console.log).catch(console.log);
+}
+
 module.exports=function (app) {
     app.post(`/gifts/delete`,async function (request,response) {
         let id = request.fields.giftId;
@@ -117,10 +133,19 @@ module.exports=function (app) {
         let responseObj = request.app.get(`id`)(request.fields.responseId);
         let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
         let userIdObj = email._id;
+        let currentUserName  = email.name;
         let giftUnselect = await db.collection(`gifts`).findOneAndUpdate({selected_by_id:userIdObj,eventId:eventId},{
             $set:{selected:false,selected_by_id:false}
         });
         console.log(giftUnselect);
+
+        let eventOwner = await db.collection(`events`).findOne({_id:eventId},{projection:{created_by:1,childName:1}});
+        let emailOwner = eventOwner.created_by;
+        let childName=eventOwner.childName;
+        let user = await db.collection(`users`).findOne({email:emailOwner},{projection:{FCM_Tokens:1}});
+        let tokens = user.FCM_Tokens;
+        sendPushGiftSelected(request.app.get(`FCM`),tokens,eventId,childName,currentUserName).then(console.log).catch(console.log);
+
         let gidtUpdate = await db.collection(`gifts`).findOneAndUpdate({_id:gift},{
             $set:{selected:true,selected_by_id:userIdObj}
         });
