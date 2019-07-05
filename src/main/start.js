@@ -15,7 +15,6 @@ console.log = function () {
     } catch (e) {
     }
     try {
-        tempLog.call(0,`${today}.log`);
         fs.appendFileSync(`LOG.log`,util.format.apply(null, arguments) + '\n',{flags:'as+'});
     } catch (e) {
     }
@@ -72,7 +71,7 @@ app.all(`/login`, user_auth.login);
 app.all('/google_auth', user_auth.google_auth);
 app.all('/facebook_auth', user_auth.facebook);
 app.use(function (a,b,c,d) {
-    console.log(arguments, this);
+    //console.log(arguments, this);
 });
 // require auth to proceed
 require(`../classes/jwt-check`)(app);
@@ -80,7 +79,7 @@ require(`../classes/jwt-check`)(app);
 //enable self identity functions
 require(`../me/init`)(app);
 app.use(function (err, req, res, next) {
-    console.log(`ERROR`, arguments);
+    //console.log(`ERROR`, arguments);
 });
 // enable event handlers and functions
 require(`../events/init`)(app);
@@ -108,4 +107,4 @@ process.on("uncaughtException", function () {
 process.on("uncaughtRejection", function () {
     console.log(arguments);
 })
-console.log(app);
+//console.log(app);

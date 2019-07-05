@@ -22,6 +22,16 @@ module.exports = function (app) {
         }).project({
             _id: 1, childName: 1, date: 1,guestSee:1
         }).sort({date: -1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
+        for (i=0;i<invites.length;i++) {
+            try {
+                let eventId=invites[i]._id;
+                let response = await db.collection(`responses`).findOne({eventID:eventId,intention:false});
+                if (response!=null) {
+                    invites[i].showGiftOption=true;
+                    invites[i].response_id=response._id.toString()
+                }
+            } catch (e) {console.log(e)}
+        }
         response.json({
             success: true, invites
         })
