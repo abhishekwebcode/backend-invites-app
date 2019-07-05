@@ -47,16 +47,30 @@ module.exports=function (app) {
         let event_id_obj = request.app.get(`id`)(request.fields.eventId);
         let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
         let userIdObj = email._id;
+        /**
+         * Get selected gifts if there are any
+         */
+        let giftSelected = await app.get(`db`)().collection(`gifts`).findOne({
+            eventId:event_id_obj,
+            $or : [
+                {
+                    selected_by_id:userIdObj
+                }
+            ]
+        },{
+            projection:{_id:1,gift:1,selected:1,date_created:1}
+        });
+        /**
+         * Get non-selected gifts
+         */
         let gifts = await app.get(`db`)().collection(`gifts`).find({
             eventId:event_id_obj,
             $or : [
-                { selected:false },{
-                selected_by_id:userIdObj
-                }
+                { selected:false }
             ]
         }).project({_id:1,gift:1,selected:1,date_created:1}).sort({gift:1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
         response.json({
-            success:true,gifts
+            success:true,gifts,giftSelected
         });
         return ;
     })
