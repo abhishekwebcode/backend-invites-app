@@ -191,6 +191,35 @@ module.exports = function (app) {
             console.log({
                 eventId:eventID,
             });
+
+            /*
+            This code should work for both the cases!
+             */
+
+
+            let userIdObj234 = await app.get(`db`)().collection(`users`).findOne({email:request.email},{projection:{name:1}});
+            let named=userIdObj234.name;
+
+            let fcm = app.get(`FCM`);
+            let ownerEmail1 = await db.collection(`events`).findOne({_id:eventID},{projection:{created_by: 1,childName:1}});
+            let ownerEmail=ownerEmail1.created_by;
+            let ownerTokens = await db.collection(`users`).findOne({email:ownerEmail},{projection:{FCM_Tokens:1}});
+            ownerTokens=ownerTokens.FCM_Tokens;
+            let message = {
+                collapse_key: 'New Invite',
+                data: {
+                    type:`INVITE_RESPOND`,
+                    eventId:eventID.toString(),
+                    userName:named,
+                    eventName:ownerEmail1.childName,
+                    Action:`ACCEPT`,
+                    Date:Date.now()
+                }
+            };
+            console.log(`NOTIFICATION`,fcm,message,ownerTokens);
+            sendPush(fcm,message,ownerTokens);
+
+
             if (gifts.length!==0) {
                 response.json({
                     success: true,
@@ -200,30 +229,6 @@ module.exports = function (app) {
                 });
             }
             else {
-
-                let userIdObj234 = await app.get(`db`)().collection(`users`).findOne({email:request.email},{projection:{name:1}});
-                let named=userIdObj234.name;
-
-                let fcm = app.get(`FCM`);
-                let ownerEmail1 = await db.collection(`events`).findOne({_id:eventID},{projection:{created_by: 1,childName:1}});
-                let ownerEmail=ownerEmail1.created_by;
-                let ownerTokens = await db.collection(`users`).findOne({email:ownerEmail},{projection:{FCM_Tokens:1}});
-                ownerTokens=ownerTokens.FCM_Tokens;
-                let message = {
-                    collapse_key: 'New Invite',
-                    data: {
-                        type:`INVITE_RESPOND`,
-                        eventId:eventID.toString(),
-                        userName:named,
-                        eventName:ownerEmail1.childName,
-                        Action:`ACCEPT`,
-                        Date:Date.now()
-                    }
-                };
-                console.log(`NOTIFICATION`,fcm,message,ownerTokens);
-                sendPush(fcm,message,ownerTokens);
-
-
                 response.json({
                     success: true
                 });

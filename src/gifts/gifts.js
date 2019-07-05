@@ -103,6 +103,10 @@ module.exports=function (app) {
         let responseObj = request.app.get(`id`)(request.fields.responseId);
         let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
         let userIdObj = email._id;
+        let giftUnselect = await db.collection(`gifts`).findOneAndUpdate({selected_by_id:userIdObj,eventId:eventId},{
+            $set:{selected:false,selected_by_id:false}
+        });
+        console.log(giftUnselect);
         let gidtUpdate = await db.collection(`gifts`).findOneAndUpdate({_id:gift},{
             $set:{selected:true,selected_by_id:userIdObj}
         });
