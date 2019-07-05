@@ -1,5 +1,13 @@
 const ObjectID = require('mongodb').ObjectID;
 module.exports=function (app) {
+    app.post(`/todos/delete`,async function (request,response) {
+        let id = request.fields.todoId;
+        let todoId = request.app.get(`id`)(id);
+        let delete2 = await request.app.get(`db`)().collection(`todo`).remove({_id:todoId});
+        response.json({
+            success:delete2.result.n===1
+        })
+    });
     app.post(`/todos/list`,async function (request,response) {
         console.log(arguments);
         let todos = await app.get(`db`)().collection(`todo`).find({

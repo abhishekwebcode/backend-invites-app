@@ -17,6 +17,14 @@ var sendPush=async function(fcm,tokens,eventID,gift,childname,ownername) {
 };
 
 module.exports=function (app) {
+    app.post(`/gifts/delete`,async function (request,response) {
+        let id = request.fields.giftId;
+        let giftId = request.app.get(`id`)(id);
+        let delete2 = await request.app.get(`db`)().collection(`gifts`).remove({_id:giftId});
+        response.json({
+            success:delete2.result.n===1
+        })
+    });
     app.post(`/gifts/getResponseId`,async function (request,response) {
         let eventId = request.app.get(`id`)(request.fields.eventId);
         let eventIDQuery= await request.app.get(`db`)().collection(`responses`).findOne({email:request.User.email,eventID:eventId});
