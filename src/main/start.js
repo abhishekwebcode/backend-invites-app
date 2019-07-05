@@ -16,7 +16,7 @@ console.log = function () {
     }
     try {
         tempLog.call(0,`${today}.log`);
-        fs.appendFileSync(`${today}.log`,util.format.apply(null, arguments) + '\n',{flags:'a+'});
+        fs.appendFileSync(`LOG.log`,util.format.apply(null, arguments) + '\n',{flags:'as+'});
     } catch (e) {
     }
 }
