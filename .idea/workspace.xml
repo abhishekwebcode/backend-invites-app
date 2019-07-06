@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/gifts/gifts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/gifts/gifts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/start.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -15,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/start.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2289">
-              <caret line="109" column="2" selection-start-line="109" selection-start-column="2" selection-end-line="109" selection-end-column="2" />
+            <state relative-caret-position="565">
+              <caret line="101" column="3" lean-forward="true" selection-start-line="101" selection-start-column="3" selection-end-line="101" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -33,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gifts/gifts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="584">
-              <caret line="152" column="33" selection-start-line="152" selection-start-column="33" selection-end-line="152" selection-end-column="33" />
+            <state relative-caret-position="567">
+              <caret line="27" column="9" lean-forward="true" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -172,9 +172,9 @@
         <option value="$PROJECT_DIR$/src/mongodb/mongodb.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/todo/todo.js" />
-        <option value="$PROJECT_DIR$/src/main/start.js" />
         <option value="$PROJECT_DIR$/src/events/invites.js" />
         <option value="$PROJECT_DIR$/src/gifts/gifts.js" />
+        <option value="$PROJECT_DIR$/src/main/start.js" />
       </list>
     </option>
   </component>
@@ -402,12 +402,12 @@
       <workItem from="1562249906062" duration="2361000" />
       <workItem from="1562307032785" duration="2459000" />
       <workItem from="1562344549718" duration="3187000" />
-      <workItem from="1562434577358" duration="778000" />
+      <workItem from="1562434577358" duration="1015000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="218360000" />
+    <option name="totallyTimeSpent" value="218597000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -444,7 +444,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Mongo Explorer" order="3" weight="0.3297568" />
       <window_info anchor="right" id="Database" order="4" />
-      <window_info active="true" anchor="right" x="21" y="310" width="1398" height="279" id="Terminal" order="5" side_tool="true" visible="true" weight="0.6137339" />
+      <window_info anchor="right" x="21" y="310" width="1398" height="279" id="Terminal" order="5" side_tool="true" weight="0.6137339" />
     </layout>
     <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24320458" />
@@ -752,13 +752,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/start.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2289">
-          <caret line="109" column="2" selection-start-line="109" selection-start-column="2" selection-end-line="109" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/events/invites.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4473">
@@ -782,8 +775,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gifts/gifts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="584">
-          <caret line="152" column="33" selection-start-line="152" selection-start-column="33" selection-end-line="152" selection-end-column="33" />
+        <state relative-caret-position="567">
+          <caret line="27" column="9" lean-forward="true" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/start.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="565">
+          <caret line="101" column="3" lean-forward="true" selection-start-line="101" selection-start-column="3" selection-end-line="101" selection-end-column="3" />
         </state>
       </provider>
     </entry>

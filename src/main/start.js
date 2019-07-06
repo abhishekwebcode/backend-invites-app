@@ -70,17 +70,11 @@ app.all('/signup', user_auth.sign_up);
 app.all(`/login`, user_auth.login);
 app.all('/google_auth', user_auth.google_auth);
 app.all('/facebook_auth', user_auth.facebook);
-app.use(function (a,b,c,d) {
-    //console.log(arguments, this);
-});
 // require auth to proceed
 require(`../classes/jwt-check`)(app);
 //All other session related functions below
 //enable self identity functions
 require(`../me/init`)(app);
-app.use(function (err, req, res, next) {
-    //console.log(`ERROR`, arguments);
-});
 // enable event handlers and functions
 require(`../events/init`)(app);
 // enable to-do functions
@@ -92,6 +86,7 @@ app.use((err, req, res, next) => {
     // log the error...
     console.debug(arguments);
     res.json({success:false,message:`Server error occurred`});
+    res.end();
     return;
 });
 app.listen(
