@@ -28,17 +28,24 @@ module.exports = function (app) {
                 console.log(isGuest,objCurrent.giftSelected,`GIFT SHOW`);
                 if (!isGuest) {
                     if (objCurrent.giftSelected && objCurrent.giftSelected!=="" && objCurrent.giftSelected!==false && objCurrent.giftSelected!==null && objCurrent.giftSelected!==undefined) {
-                        let giftID = request.app.get(`id`)( objCurrent.giftSelected );
-                        let gift = await db.collection(`gifts`).findOne({
-                            _id: giftID
-                        },{
-                            gift:1
-                        });
-                        //let userGIFTID = request.app.get(`id`)(gift.selected_by_id );
-                        //let user_full_name = await db.collection(`users`).findOne({_id:userGIFTID}, {name:1});
-                        //let users_final_name = user_full_name.name;
-                        responses[i].gift=gift.gift;
-                        responses[i].isGift=true;
+                        if (false) {
+                            let giftID = request.app.get(`id`)(objCurrent.giftSelected);
+                            let gift = await db.collection(`gifts`).findOne({
+                                _id: giftID
+                            }, {
+                                gift: 1
+                            });
+                            //let userGIFTID = request.app.get(`id`)(gift.selected_by_id );
+                            //let user_full_name = await db.collection(`users`).findOne({_id:userGIFTID}, {name:1});
+                            //let users_final_name = user_full_name.name;
+                        }
+                        let email = await app.get(`db`)().collection(`users`).findOne({email:responses[i].email});
+                        let userIdObject = email._id;
+                        let gift = await db.collection(`gifts`).findOne({selected:true,selected_by_id:userIdObject,eventId:eventIdObject});
+                        if (gift!=null) {
+                            responses[i].gift=gift.gift;
+                            responses[i].isGift=true;
+                        }
                     }
                 }
             } catch (e) {
