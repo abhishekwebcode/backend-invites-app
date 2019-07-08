@@ -106,6 +106,7 @@ module.exports=function (app) {
         eventMemebers.forEach(response=>{
             emailsAll.push(response.email);
         });
+        console.log(`ALL EMAILS`,emailsAll);
         let tokenss = await app.get(`db`)().collection(`users`).find({email : {$in:emailsAll} }).project({FCM_Tokens:1}).toArray();
         let AllTokens=[];
         tokenss.forEach(user=>{
