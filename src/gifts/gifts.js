@@ -93,8 +93,7 @@ module.exports=function (app) {
     app.post(`/gifts/add`,async function (request,response) {
         let gift = request.fields.todo;
         let eventId = request.app.get(`id`)(request.fields.eventId);
-        let eventMemebers = await app.get(`db`)().collection(`responses`).find({eventID:eventId,intention:true}).project({email:1}).toArray();
-        let eventMemebers2 = await app.get(`db`)().collection(`responses`).find({eventID:eventId,intention:true}).project({email:1}).toArray();
+        let eventMembers = await app.get(`db`)().collection(`responses`).find({eventID:eventId,intention:true}).project({email:1}).toArray();
 
         let eventDetails = await app.get(`db`)().collection(`events`).find({_id:eventId}).limit(1).toArray();
         let childName=eventDetails[0].childName;
@@ -103,7 +102,7 @@ module.exports=function (app) {
         let name = username[0].name;
 
         let emailsAll=[];
-        eventMemebers.forEach(response=>{
+        eventMembers.forEach(response=>{
             emailsAll.push(response.email);
         });
         console.log(`ALL EMAILS`,emailsAll);
