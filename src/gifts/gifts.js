@@ -147,7 +147,6 @@ module.exports=function (app) {
         let user = await db.collection(`users`).findOne({email:emailOwner},{projection:{FCM_Tokens:1}});
         let tokens = user.FCM_Tokens;
         sendPushGiftSelected(request.app.get(`FCM`),tokens,eventId,childName,currentUserName).then(console.log).catch(console.log);
-
         let gidtUpdate = await db.collection(`gifts`).findOneAndUpdate({_id:gift},{
             $set:{selected:true,selected_by_id:userIdObj}
         });
