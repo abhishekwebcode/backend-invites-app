@@ -134,12 +134,17 @@ module.exports=function (app) {
         let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
         let userIdObj = email._id;
         let currentUserName  = email.name;
-        let giftUnselect = await db.collection(`gifts`).findOneAndUpdate({selected_by_id:userIdObj,eventId:eventId},{
-            $set:{selected:false,selected_by_id:false}
+        let giftUnselect = await db.collection(`gifts`).findOneAndUpdate({
+            selected_by_id: userIdObj,
+            eventId: eventId
+        }, {
+            $set: {selected: false, selected_by_id: false}
         });
-        let responseUpdateForDeletion = await db.collection(`responses`).findOneAndUpdate({_id: responseObj}, {
-            $unset:{giftSelected: 1}
-        });
+        try {
+            let responseUpdateForDeletion = await db.collection(`responses`).findOneAndUpdate({_id: responseObj}, {
+                $unset:{giftSelected: 1}
+            });
+        } catch(e) {console.error(e);}
         console.log(giftUnselect);
         let eventOwner = await db.collection(`events`).findOne({_id:eventId},{projection:{created_by:1,childName:1}});
         let emailOwner = eventOwner.created_by;
