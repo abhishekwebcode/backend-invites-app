@@ -18,6 +18,7 @@ module.exports=function (app) {
         } catch (e) {
             console.error(e);
             res.json({success:false,loggedOutError:true})
+            return ;
         }
     });
 };

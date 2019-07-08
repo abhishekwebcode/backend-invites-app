@@ -138,7 +138,6 @@ module.exports=function (app) {
             $set:{selected:false,selected_by_id:false}
         });
         console.log(giftUnselect);
-
         let eventOwner = await db.collection(`events`).findOne({_id:eventId},{projection:{created_by:1,childName:1}});
         let emailOwner = eventOwner.created_by;
         let childName=eventOwner.childName;

@@ -106,6 +106,11 @@ module.exports = function (app) {
             eventID,
             registered:true
         });
+        let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
+        let userIdObj = email._id;
+        let giftUnselect = await db.collection(`gifts`).findOneAndUpdate({selected_by_id:userIdObj,eventId:eventID},{
+            $set:{selected:false,selected_by_id:false}
+        });
         let ins = await db.collection(`responses`).insertOne({
             registered:true,
             intention:false,
