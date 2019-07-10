@@ -47,6 +47,7 @@ var google_auth=async function (request,response) {
 };
 var forgotPassword = async function(request,response) {
     let newPassword = request.fields.password;
+    let db = request.app.get(`db`)();
     try {
         var response1 = await resolveAccountKit(request.fields.code);
         phone = response1.phone;
