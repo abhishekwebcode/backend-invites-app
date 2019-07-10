@@ -54,8 +54,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/auth/user_auth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="106" column="95" lean-forward="true" selection-start-line="106" selection-start-column="95" selection-end-line="106" selection-end-column="95" />
+            <state relative-caret-position="459">
+              <caret line="112" column="118" selection-start-line="112" selection-start-column="118" selection-end-line="112" selection-end-column="118" />
             </state>
           </provider>
         </entry>
@@ -392,12 +392,12 @@
       <workItem from="1562579366875" duration="343000" />
       <workItem from="1562593873728" duration="967000" />
       <workItem from="1562687324709" duration="2302000" />
-      <workItem from="1562775542613" duration="1628000" />
+      <workItem from="1562775542613" duration="1680000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="231257000" />
+    <option name="totallyTimeSpent" value="231309000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -786,8 +786,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/auth/user_auth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="106" column="95" lean-forward="true" selection-start-line="106" selection-start-column="95" selection-end-line="106" selection-end-column="95" />
+        <state relative-caret-position="459">
+          <caret line="112" column="118" selection-start-line="112" selection-start-column="118" selection-end-line="112" selection-end-column="118" />
         </state>
       </provider>
     </entry>

@@ -110,7 +110,7 @@ var userLogIn = async function (request,response) {
         return;
     }
     else {
-        let updateToken=await request.app.get('db')().collection('users').findOneAndUpdate({email,password},{
+        let updateToken=await request.app.get('db')().collection('users').findOneAndUpdate({"phone.number":phoneNumber,password},{
             $addToSet: { FCM_Tokens: request.fields.token }
         });
         console.log(updateToken);
