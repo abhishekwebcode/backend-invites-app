@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/auth/user_auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth/user_auth.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -54,8 +54,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/auth/user_auth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="104" column="90" selection-start-line="104" selection-start-column="90" selection-end-line="104" selection-end-column="90" />
+            <state relative-caret-position="312">
+              <caret line="105" column="61" selection-start-line="105" selection-start-column="61" selection-end-line="105" selection-end-column="61" />
             </state>
           </provider>
         </entry>
@@ -392,12 +392,12 @@
       <workItem from="1562579366875" duration="343000" />
       <workItem from="1562593873728" duration="967000" />
       <workItem from="1562687324709" duration="2302000" />
-      <workItem from="1562775542613" duration="1476000" />
+      <workItem from="1562775542613" duration="1569000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="231105000" />
+    <option name="totallyTimeSpent" value="231198000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -410,6 +410,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24248926" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -433,7 +434,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Mongo Explorer" order="3" weight="0.3297568" />
       <window_info anchor="right" id="Database" order="4" />
-      <window_info active="true" anchor="right" x="21" y="310" width="1398" height="279" id="Terminal" order="5" side_tool="true" visible="true" weight="0.6137339" />
+      <window_info anchor="right" x="21" y="310" width="1398" height="279" id="Terminal" order="5" side_tool="true" weight="0.6137339" />
     </layout>
     <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24320458" />
@@ -785,8 +786,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/auth/user_auth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="104" column="90" selection-start-line="104" selection-start-column="90" selection-end-line="104" selection-end-column="90" />
+        <state relative-caret-position="312">
+          <caret line="105" column="61" selection-start-line="105" selection-start-column="61" selection-end-line="105" selection-end-column="61" />
         </state>
       </provider>
     </entry>
