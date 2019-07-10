@@ -45,6 +45,38 @@ var google_auth=async function (request,response) {
         return ;
     }
 };
+var changePassword = async function(request,response) {
+    let tokenFacebook = request.fields.facebookToken;
+    let email = request.fields.email;
+    let newPassword = request.fields.password;
+    try {
+        var response1 = await resolveAccountKit(request.fields.code);
+        phone = response1.phone;
+        let existing = await db.collection(`users`).findOne({
+            email,
+            "phone.number":phone.number
+        });
+        if (existing==null) {
+
+        }
+        else {
+            let update = await db.collection(`users`).findOneAndUpdate({_id:existing._id},{
+                $set : {
+                    password:newPassword
+                }
+            });
+            if (update) {
+                response.json({success:true});
+            }
+        }
+        console.log(phone);
+    } catch (e) {
+        console.error(e);
+        response.json({success:false,CODE:`INVALID_FAK`});
+        response.end();
+        return ;
+    }
+}
 var googleSignUp = async function (request,response,new_one) {
     let insResult = await request.app.get("db")().collection(`users`).insertOne({
         google_meta:new_one,
@@ -70,7 +102,7 @@ var googleSignIn = async function (request,response,existing_one) {
 var userLogIn = async function (request,response) {
     let email=request.fields.email;
     let password=request.fields.password;
-    let res = await request.app.get('db')().collection('users').find({email,password}).limit(1).toArray();
+    let res = await request.app.get('db')().collection('users').find({"phone.number":email,password}).limit(1).toArray();
     if (res.length===0) {
         response.json({success:false,CODE:`USER_DOESNT_EXIST`});
         return;

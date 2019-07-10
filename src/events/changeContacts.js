@@ -238,7 +238,7 @@ module.exports = function (app) {
         //sendEmails(emails);
         let send_sms = intlArray.length>0;
         if (eventsUpdate.ok===1) {
-            response.json({success: true,send_sms,sms_invite_link,send_sms_datas:phoneAllUnique.join(";")})
+            response.json({success: true,send_sms,sms_invite_link,send_sms_datas:intlArray.join(";")})
         } else {
             response.json({success: false, message: `Error creating your party`});
         }

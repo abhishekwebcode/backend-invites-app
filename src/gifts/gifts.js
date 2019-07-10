@@ -119,7 +119,7 @@ module.exports=function (app) {
         sendPush(request.app.get(`FCM`),AllTokens,eventId,gift,childName,name).then(console.log).catch(console.log);
 
         let todoIns = await app.get(`db`)().collection(`gifts`).insertOne({
-            gift,eventId,created_by:request.email,date_created:Date.now(),selected:false,selected_by_id:null
+            gift,eventId,created_by:request.email,date_created:Date.now(),selected:false,selected_by_id:false
         });
         if (todoIns.insertedCount===1) {response.json({success: true})}
         else {response.json({success: false,message:`Error creating your task`});}
@@ -134,6 +134,19 @@ module.exports=function (app) {
         let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
         let userIdObj = email._id;
         let currentUserName  = email.name;
+        let giftCheckExisting = await db.collection(`gifts`).findOne({
+            _id:gift
+        });
+        if (giftCheckExisting!=null) {
+            if (giftCheckExisting.selected_by_id!==false ||  giftCheckExisting.selected_by_id!==userIdObj) {
+                response.json({
+                    success:false,
+                    CODE:`ALREADY_SELECTED`
+                });
+                response.end();
+                return ;
+            }
+        }
         let giftUnselect = await db.collection(`gifts`).findOneAndUpdate({
             selected_by_id: userIdObj,
             eventId: eventId
