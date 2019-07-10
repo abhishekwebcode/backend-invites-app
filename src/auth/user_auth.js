@@ -45,19 +45,18 @@ var google_auth=async function (request,response) {
         return ;
     }
 };
-var changePassword = async function(request,response) {
-    let tokenFacebook = request.fields.facebookToken;
-    let email = request.fields.email;
+var forgotPassword = async function(request,response) {
     let newPassword = request.fields.password;
     try {
         var response1 = await resolveAccountKit(request.fields.code);
         phone = response1.phone;
         let existing = await db.collection(`users`).findOne({
-            email,
             "phone.number":phone.number
         });
         if (existing==null) {
-
+            response.json({success:false,message:"USER_NOT_FOUND"});
+            response.end();
+            return ;
         }
         else {
             let update = await db.collection(`users`).findOneAndUpdate({_id:existing._id},{
@@ -67,6 +66,8 @@ var changePassword = async function(request,response) {
             });
             if (update) {
                 response.json({success:true});
+                response.end();
+                return ;
             }
         }
         console.log(phone);
@@ -223,3 +224,4 @@ module.exports.sign_up=userSignUp;
 module.exports.login=userLogIn;
 module.exports.google_auth=google_auth;
 module.exports.facebook=facebook;
+module.exports.resetPassword=forgotPassword;

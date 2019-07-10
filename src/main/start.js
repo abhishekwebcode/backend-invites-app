@@ -66,6 +66,8 @@ app.all(`/app/*`,function(req,res) {
     res.end();
     return;
 })
+
+app.all('/password/reset', user_auth.resetPassword);
 app.all('/signup', user_auth.sign_up);
 app.all(`/login`, user_auth.login);
 app.all('/google_auth', user_auth.google_auth);
