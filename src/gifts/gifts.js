@@ -33,6 +33,21 @@ var sendPushGiftSelected = async function(fcm,tokens,eventID,childName,InviteeNa
 }
 
 module.exports=function (app) {
+    app.post(`/gifts/check`,async function (request,response) {
+        let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
+        let userIdObj = email._id;
+        let eventIdObject = request.app.get(`id`)(request.fields.eventId);
+        let db = request.app.get(`db`)();
+        let giftObject = db.collection(`gifts`).findOne({selected_by_id:userIdObj,eventId:eventIdObject});
+        if (giftObject===null) {
+            response.json({success:true,NO_GIFT:true});
+            return ;
+        }
+        else {
+            response.json({success:true,GIFT:giftObject.gift});
+            return ;
+        }
+    });
     app.post(`/gifts/delete`,async function (request,response) {
         let id = request.fields.giftId;
         let giftId = request.app.get(`id`)(id);

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/auth/user_auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth/user_auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gifts/gifts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/gifts/gifts.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -15,6 +15,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/gifts/gifts.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="578">
+              <caret line="46" column="60" selection-start-line="46" selection-start-column="60" selection-end-line="46" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/start.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -24,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/auth/user_auth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
+            <state relative-caret-position="384">
+              <caret line="53" column="61" lean-forward="true" selection-start-line="53" selection-start-column="61" selection-end-line="53" selection-end-column="61" />
             </state>
           </provider>
         </entry>
@@ -44,7 +53,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>findOneand</find>
       <find>app.get(</find>
       <find>fineOne</find>
       <find>andupda</find>
@@ -74,6 +82,7 @@
       <find>.join(&quot;;&quot;</find>
       <find>.join(&quot;;&quot;)</find>
       <find>changePassword</find>
+      <find>responses</find>
     </findStrings>
     <replaceStrings>
       <replace>:googleSignInResult.</replace>
@@ -144,10 +153,10 @@
         <option value="$PROJECT_DIR$/src/events/responses.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/classes/User.js" />
-        <option value="$PROJECT_DIR$/src/gifts/gifts.js" />
         <option value="$PROJECT_DIR$/src/events/changeContacts.js" />
         <option value="$PROJECT_DIR$/src/main/start.js" />
         <option value="$PROJECT_DIR$/src/auth/user_auth.js" />
+        <option value="$PROJECT_DIR$/src/gifts/gifts.js" />
       </list>
     </option>
   </component>
@@ -365,12 +374,12 @@
       <workItem from="1562579366875" duration="343000" />
       <workItem from="1562593873728" duration="967000" />
       <workItem from="1562687324709" duration="2302000" />
-      <workItem from="1562775542613" duration="2971000" />
+      <workItem from="1562775542613" duration="3631000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="232600000" />
+    <option name="totallyTimeSpent" value="233260000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -736,13 +745,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gifts/gifts.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="136" column="39" selection-start-line="136" selection-start-column="39" selection-end-line="136" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/me/init.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
@@ -759,8 +761,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/auth/user_auth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
+        <state relative-caret-position="384">
+          <caret line="53" column="61" lean-forward="true" selection-start-line="53" selection-start-column="61" selection-end-line="53" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gifts/gifts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="46" column="60" selection-start-line="46" selection-start-column="60" selection-end-line="46" selection-end-column="60" />
         </state>
       </provider>
     </entry>
