@@ -25,7 +25,7 @@ module.exports = function (app) {
         for (i=0;i<invites.length;i++) {
             try {
                 let eventId=invites[i]._id;
-                let response = await db.collection(`responses`).findOne({eventID:eventId,intention:true});
+                let response = await db.collection(`responses`).findOne({eventID:eventId,intention:true,email:request.email});
                 if (response!=null && response.intention===true) {
                     console.dir(response);
                     invites[i].showGiftOption=true;
