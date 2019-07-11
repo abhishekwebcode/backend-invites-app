@@ -27,7 +27,7 @@ var sendPushToGiftInvitee = async function (fcm, db, existing) {
             Date: Date.now(),
             gift: existing.gift,
             eventId: existing.eventId,
-            eventName: existing.childName,
+            eventName: event.childName,
             organiser: organiser.name
         }
     };
