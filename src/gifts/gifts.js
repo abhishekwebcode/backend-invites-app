@@ -39,7 +39,7 @@ module.exports=function (app) {
         let eventIdObject = request.app.get(`id`)(request.fields.eventId);
         let db = request.app.get(`db`)();
         let giftObject = await db.collection(`gifts`).findOne({selected_by_id:userIdObj,eventId:eventIdObject});
-        console.log(({selected_by_id:userIdObj,eventId:eventIdObject});
+        console.log(({selected_by_id:userIdObj,eventId:eventIdObject}));
         if (giftObject===null) {
             response.json({success:true,NO_GIFT:true});
             return ;
