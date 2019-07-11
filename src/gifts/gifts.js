@@ -227,7 +227,7 @@ module.exports = function (app) {
         console.log(giftCheckExisting.selected_by_id !== userIdObj);
         console.log(userIdObj);
 
-        if (giftCheckExisting.selected_by_id === userIdObj) {
+        if (giftCheckExisting.selected_by_id.equals(userIdObj)) {
             console.log(`ALREADY SET IN DB`);
             response.json({
                 success: true
