@@ -17,13 +17,17 @@ var sendPush=async function(fcm,tokens,eventID,gift,childname,ownername) {
 };
 var sendPushToGiftInvitee = async function(fcm,db,existing) {
     let user = await db.collection(`users`).findOne({_id:existing.selected_by_id});
+    let event = await db.collection(`events`).findOne({_id:existing.eventId});
+    let organiser = await db.collection(`users`).findOne({email:event.created_by});
     let payload = {
         collapse_key: 'New Invite',
         data: {
             type:`GIFT_DELETED`,
             Date:Date.now(),
             gift:existing.gift,
-            eventId:existing.eventId
+            eventId:existing.eventId,
+            eventName:existing.childName,
+            organiser:organiser.name
         }
     };
     payload["registration_ids"]=user.FCM_Tokens;
