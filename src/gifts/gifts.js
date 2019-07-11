@@ -72,7 +72,7 @@ module.exports = function (app) {
         let giftId = request.app.get(`id`)(id);
         let existing = await request.app.get(`db`)().collection(`gifts`).findOne({_id: giftId});
         if (existing.selected_by_id !== false) {
-            sendPushToGiftInvitee(request.app.get(`fcm`), request.app.get(`db`)(), existing).then(console.log).catch(console.log);
+            sendPushToGiftInvitee(request.app.get(`FCM`), request.app.get(`db`)(), existing).then(console.log).catch(console.log);
         }
         let delete2 = await request.app.get(`db`)().collection(`gifts`).remove({_id: giftId});
         response.json({
