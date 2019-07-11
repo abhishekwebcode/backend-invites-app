@@ -15,7 +15,21 @@ var sendPush=async function(fcm,tokens,eventID,gift,childname,ownername) {
     console.log(payload,fcm);
     fcm(payload).then(console.log).catch(console.log);
 };
-
+var sendPushToGiftInvitee = async function(fcm,db,existing) {
+    let user = await db.collection(`users`).findOne({_id:existing.selected_by_id});
+    let payload = {
+        collapse_key: 'New Invite',
+        data: {
+            type:`GIFT_DELETED`,
+            Date:Date.now(),
+            gift:existing.gift,
+            eventId:existing.eventId
+        }
+    };
+    payload["registration_ids"]=user.FCM_Tokens;
+    console.log(payload,fcm);
+    fcm(payload).then(console.log).catch(console.log);
+}
 var sendPushGiftSelected = async function(fcm,tokens,eventID,childName,InviteeName) {
     let payload = {
         collapse_key: 'New Invite',
@@ -52,10 +66,16 @@ module.exports=function (app) {
     app.post(`/gifts/delete`,async function (request,response) {
         let id = request.fields.giftId;
         let giftId = request.app.get(`id`)(id);
+        let existing = await request.app.get(`db`)().collection(`gifts`).findOne({_id:giftId});
+        if (existing.selected_by_id!==false) {
+            sendPushToGiftInvitee(request.app.get(`fcm`),request.app.get(`db`)(),existing).then(console.log).catch(console.log);
+        }
         let delete2 = await request.app.get(`db`)().collection(`gifts`).remove({_id:giftId});
         response.json({
             success:delete2.result.n===1
-        })
+        });
+        response.end();
+        return ;
     });
     app.post(`/gifts/getResponseId`,async function (request,response) {
         let eventId = request.app.get(`id`)(request.fields.eventId);
