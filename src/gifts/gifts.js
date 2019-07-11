@@ -225,10 +225,17 @@ module.exports = function (app) {
         console.log(`GIFT CHECK EXIS`, giftCheckExisting);
         console.log(giftCheckExisting.selected_by_id !== false);
         console.log(giftCheckExisting.selected_by_id !== userIdObj);
-        if (giftCheckExisting.selected_by_id !== userIdObj) {
+        if (giftCheckExisting.selected_by_id === userIdObj) {
+            response.json({
+                success: true
+            });
+            response.end();
+            return;
+        }
+        if (giftCheckExisting.selected_by_id!==false) {
             response.json({
                 success: false,
-                CODE: `ALREADY_SELECTED`
+                CODE:"ALREADY_SELECTED"
             });
             response.end();
             return;
