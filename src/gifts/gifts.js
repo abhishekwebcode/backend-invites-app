@@ -201,6 +201,7 @@ module.exports=function (app) {
             _id:gift
         });
         console.log(`GIFT CHECK EXIS`,giftCheckExisting);
+        console.log((giftCheckExisting.selected_by_id!==false , giftCheckExisting.selected_by_id!==userIdObj))
             if (giftCheckExisting.selected_by_id!==false ||  giftCheckExisting.selected_by_id!==userIdObj) {
                 response.json({
                     success:false,
