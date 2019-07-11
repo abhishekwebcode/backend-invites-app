@@ -16,6 +16,7 @@ var sendPush = async function (fcm, tokens, eventID, gift, childname, ownername)
     fcm(payload).then(console.log).catch(console.log);
 };
 var sendPushToGiftInvitee = async function (fcm, db, existing) {
+    console.log(arguments,`DELETE GIFT`);
     let user = await db.collection(`users`).findOne({_id: existing.selected_by_id});
     let event = await db.collection(`events`).findOne({_id: existing.eventId});
     let organiser = await db.collection(`users`).findOne({email: event.created_by});
