@@ -26,7 +26,7 @@ module.exports = function (app) {
             try {
                 let eventId=invites[i]._id;
                 let response = await db.collection(`responses`).findOne({eventID:eventId,intention:true});
-                if (response!=null) {
+                if (response!=null && response.intention===true) {
                     invites[i].showGiftOption=true;
                     invites[i].response_id=response._id.toString()
                 }

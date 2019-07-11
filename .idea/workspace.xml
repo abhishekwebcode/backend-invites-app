@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="" />
+    <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/invites.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/invites.js" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -13,11 +16,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gifts/gifts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="27" column="37" lean-forward="true" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+            <state relative-caret-position="303">
+              <caret line="33" column="29" lean-forward="true" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/events/invites.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="237">
+              <caret line="28" column="64" selection-start-line="28" selection-start-column="64" selection-end-line="28" selection-end-column="64" />
             </state>
           </provider>
         </entry>
@@ -51,7 +63,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>app.get(</find>
       <find>fineOne</find>
       <find>andupda</find>
       <find>findOne()</find>
@@ -81,6 +92,7 @@
       <find>.join(&quot;;&quot;)</find>
       <find>changePassword</find>
       <find>responses</find>
+      <find>show</find>
     </findStrings>
     <replaceStrings>
       <replace>:googleSignInResult.</replace>
@@ -147,7 +159,6 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/todo/todo.js" />
         <option value="$PROJECT_DIR$/src/classes/jwt-check.js" />
-        <option value="$PROJECT_DIR$/src/events/invites.js" />
         <option value="$PROJECT_DIR$/src/events/responses.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/classes/User.js" />
@@ -155,6 +166,7 @@
         <option value="$PROJECT_DIR$/src/main/start.js" />
         <option value="$PROJECT_DIR$/src/auth/user_auth.js" />
         <option value="$PROJECT_DIR$/src/gifts/gifts.js" />
+        <option value="$PROJECT_DIR$/src/events/invites.js" />
       </list>
     </option>
   </component>
@@ -372,12 +384,12 @@
       <workItem from="1562579366875" duration="343000" />
       <workItem from="1562593873728" duration="967000" />
       <workItem from="1562687324709" duration="2302000" />
-      <workItem from="1562775542613" duration="6121000" />
+      <workItem from="1562775542613" duration="6766000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="235750000" />
+    <option name="totallyTimeSpent" value="236395000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -715,13 +727,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/events/invites.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="188" column="32" lean-forward="true" selection-start-line="188" selection-start-column="32" selection-end-line="188" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/events/attendees.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -766,8 +771,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gifts/gifts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="27" column="37" lean-forward="true" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+        <state relative-caret-position="303">
+          <caret line="33" column="29" lean-forward="true" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/events/invites.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="28" column="64" selection-start-line="28" selection-start-column="64" selection-end-line="28" selection-end-column="64" />
         </state>
       </provider>
     </entry>
