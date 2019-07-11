@@ -200,6 +200,7 @@ module.exports=function (app) {
         let giftCheckExisting = await db.collection(`gifts`).findOne({
             _id:gift
         });
+        console.log(`GIFT CHECK EXIS`,giftCheckExisting);
             if (giftCheckExisting.selected_by_id!==false ||  giftCheckExisting.selected_by_id!==userIdObj) {
                 response.json({
                     success:false,
