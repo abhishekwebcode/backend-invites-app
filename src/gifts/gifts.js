@@ -102,7 +102,7 @@ module.exports=function (app) {
             ]
         }).project({_id:1,gift:1,selected:1,date_created:1}).sort({gift:1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
         response.json({
-            success:true,gifts,giftSelected
+            success:true,gifts,giftSelected:giftSelected
         });
         return ;
     })
@@ -144,16 +144,38 @@ module.exports=function (app) {
     app.post(`/gifts/mark`,async function (request,response) {
         console.log(`MARKING`)
         let db=app.get(`db`)();
-        let gift = request.app.get(`id`)(request.fields.todo);
         let eventId = request.app.get(`id`)(request.fields.eventId);
-        let responseObj = request.app.get(`id`)(request.fields.responseId);
         let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
         let userIdObj = email._id;
         let currentUserName  = email.name;
+        let unselect = request.fields.unselect==="true";
+        if (unselect) {
+            let giftUnselect = await db.collection(`gifts`).findOneAndUpdate({
+                selected_by_id: userIdObj,
+                eventId: eventId
+            }, {
+                $set: {selected: false, selected_by_id: false}
+            });
+            if (giftUnselect.ok===1) {
+                response.json({success:true})
+                response.end();
+                let eventOwner = await db.collection(`events`).findOne({_id:eventId},{projection:{created_by:1,childName:1}});
+                let emailOwner = eventOwner.created_by;
+                let childName=eventOwner.childName;
+                let user = await db.collection(`users`).findOne({email:emailOwner},{projection:{FCM_Tokens:1}});
+                let tokens = user.FCM_Tokens;
+                sendPushGiftSelected(request.app.get(`FCM`),tokens,eventId,childName,currentUserName).then(console.log).catch(console.log);
+            }
+            else {
+                response.json({success:false})
+                response.end();
+            }
+            return ;
+        }
+        let gift = request.app.get(`id`)(request.fields.todo);
         let giftCheckExisting = await db.collection(`gifts`).findOne({
             _id:gift
         });
-        if (giftCheckExisting!=null) {
             if (giftCheckExisting.selected_by_id!==false ||  giftCheckExisting.selected_by_id!==userIdObj) {
                 response.json({
                     success:false,
@@ -162,18 +184,12 @@ module.exports=function (app) {
                 response.end();
                 return ;
             }
-        }
         let giftUnselect = await db.collection(`gifts`).findOneAndUpdate({
             selected_by_id: userIdObj,
             eventId: eventId
         }, {
             $set: {selected: false, selected_by_id: false}
         });
-        try {
-            let responseUpdateForDeletion = await db.collection(`responses`).findOneAndUpdate({_id: responseObj}, {
-                $unset:{giftSelected: 1}
-            });
-        } catch(e) {console.error(e);}
         console.log(giftUnselect);
         let eventOwner = await db.collection(`events`).findOne({_id:eventId},{projection:{created_by:1,childName:1}});
         let emailOwner = eventOwner.created_by;
@@ -186,14 +202,8 @@ module.exports=function (app) {
         });
         console.log(`gidupdate`,gidtUpdate);
         if (gidtUpdate.ok===1) {
-            console.log(responseObj);
-            let responseUpdate = await db.collection(`responses`).findOneAndUpdate({_id: responseObj}, {
-                $set:{giftSelected: gift}
-            });
-            if (responseUpdate.ok===1) {
-                response.json({success: true});
-                return ;
-            }
+            response.json({success: true});
+            return ;
         }
         response.json({success:false});
         console.log(`MARKING END`)
