@@ -27,7 +27,7 @@ module.exports = function (app) {
                 let eventId=invites[i]._id;
                 let response = await db.collection(`responses`).findOne({eventID:eventId,intention:true,email:request.email});
                 if (response!=null && response.intention===true) {
-                    if (response.marking===true) {
+                    if (true) {
                         let gifts = await db.collection(`gifts`).findOne({
                             eventId: eventId,
                             $or: [
