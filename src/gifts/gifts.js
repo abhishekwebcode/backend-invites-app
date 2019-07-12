@@ -57,8 +57,8 @@ module.exports = function (app) {
         let userIdObj = email._id;
         let eventIdObject = request.app.get(`id`)(request.fields.eventId);
         let db = request.app.get(`db`)();
-        let responseID = response.app.get(`id`)(request.fields.responseId);
         try {
+            let responseID = response.app.get(`id`)(request.fields.responseId);
             let directCheck = await db.collection(`responses`).findOne({_id:responseID});
         if (directCheck.marking!==true) {
             response.json({success:true,NEVER_SELECTED:true});
