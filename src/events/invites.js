@@ -27,9 +27,20 @@ module.exports = function (app) {
                 let eventId=invites[i]._id;
                 let response = await db.collection(`responses`).findOne({eventID:eventId,intention:true,email:request.email});
                 if (response!=null && response.intention===true) {
-                    console.dir(response);
-                    invites[i].showGiftOption=true;
-                    invites[i].response_id=response._id.toString()
+                    if (response.marking===true) {
+                        let gifts = await db.collection(`gifts`).findOne({
+                            eventId: eventId,
+                            $or: [
+                                {selected_by_id:userID},
+                                {selected: false}
+                            ]
+                        });
+                        if (gifts!==null) {
+                            console.dir(response);
+                            invites[i].showGiftOption=true;
+                            invites[i].response_id=response._id.toString()
+                        }
+                    }
                 }
             } catch (e) {console.log(e)}
         }

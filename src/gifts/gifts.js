@@ -185,13 +185,23 @@ module.exports = function (app) {
         return;
     })
     app.post(`/gifts/mark`, async function (request, response) {
-        console.log(`MARKING`)
+        console.log(`MARKING`);
         let db = app.get(`db`)();
         let eventId = request.app.get(`id`)(request.fields.eventId);
         let email = await app.get(`db`)().collection(`users`).findOne({email: request.email});
         let userIdObj = email._id;
         let currentUserName = email.name;
         let unselect = request.fields.unselect === "true";
+        let responseIDOBJECT = app.get(`id`)(request.fields.responseId);
+        try {
+            let markchoosing = await db.collection(`responses`).findOneAndUpdate({
+                _id:responseIDOBJECT
+            },{
+                $set : {marking:true}
+            });
+        } catch (e) {
+            console.error(e)
+        }
         if (unselect) {
             let giftUnselect = await db.collection(`gifts`).findOneAndUpdate({
                 selected_by_id: userIdObj,
