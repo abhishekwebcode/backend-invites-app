@@ -35,6 +35,28 @@ module.exports = function (app) {
                                 {selected: false}
                             ]
                         });
+                        console.dir(await db.collection(`gifts`).findOne({
+                            eventId: eventId,
+                            $or: [
+                                {selected_by_id:userID},
+                                {selected: false}
+                            ]
+                        }));
+                        console.dir(await db.collection(`gifts`).findOne({
+                            eventId: eventId,
+                            $or: [
+                                {selected_by_id:userID}
+                            ]
+                        }));
+                        console.dir(await db.collection(`gifts`).findOne({
+                            eventId: eventId,
+                            $or: [
+                                {selected: false}
+                            ]
+                        }))
+                        console.dir(await db.collection(`gifts`).findOne({
+                            eventId: eventId,
+                        }));
                         if (gifts!==null) {
                             console.dir(response);
                             invites[i].showGiftOption=true;
