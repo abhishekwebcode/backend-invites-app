@@ -16,7 +16,7 @@ var sendPush = async function (fcm, tokens, eventID, gift, childname, ownername)
     fcm(payload).then(console.log).catch(console.log);
 };
 var sendPushToGiftInvitee = async function (fcm, db, existing) {
-    console.log(arguments,`DELETE GIFT`);
+    console.log(arguments, `DELETE GIFT`);
     let user = await db.collection(`users`).findOne({_id: existing.selected_by_id});
     let event = await db.collection(`events`).findOne({_id: existing.eventId});
     let organiser = await db.collection(`users`).findOne({email: event.created_by});
@@ -58,12 +58,15 @@ module.exports = function (app) {
         let eventIdObject = request.app.get(`id`)(request.fields.eventId);
         let db = request.app.get(`db`)();
         try {
-            let responseID = response.app.get(`id`)(request.fields.responseId);
-            let directCheck = await db.collection(`responses`).findOne({_id:responseID});
-        if (directCheck.marking!==true) {
-            response.json({success:true,NEVER_SELECTED:true});
-            response.end();return ;
-        }
+            let directCheck = await db.collection(`responses`).findOne({
+                email: request.email,
+                eventID: eventIdObject
+            });
+            if (directCheck.marking !== true) {
+                response.json({success: true, NEVER_SELECTED: true});
+                response.end();
+                return;
+            }
         } catch (e) {
             console.error(e)
         }
@@ -206,9 +209,9 @@ module.exports = function (app) {
         let responseIDOBJECT = app.get(`id`)(request.fields.responseId);
         try {
             let markchoosing = await db.collection(`responses`).findOneAndUpdate({
-                _id:responseIDOBJECT
-            },{
-                $set : {marking:true}
+                _id: responseIDOBJECT
+            }, {
+                $set: {marking: true}
             });
         } catch (e) {
             console.error(e)
@@ -250,21 +253,21 @@ module.exports = function (app) {
         console.log(userIdObj);
 
         try {
-        if (giftCheckExisting.selected_by_id.equals(userIdObj)) {
-            console.log(`ALREADY SET IN DB`);
-            response.json({
-                success: true
-            });
-            response.end();
-            return;
-        }
+            if (giftCheckExisting.selected_by_id.equals(userIdObj)) {
+                console.log(`ALREADY SET IN DB`);
+                response.json({
+                    success: true
+                });
+                response.end();
+                return;
+            }
         } catch (e) {
             console.warn(e);
         }
-        if (giftCheckExisting.selected_by_id!==false) {
+        if (giftCheckExisting.selected_by_id !== false) {
             response.json({
                 success: false,
-                CODE:"ALREADY_SELECTED"
+                CODE: "ALREADY_SELECTED"
             });
             response.end();
             return;
