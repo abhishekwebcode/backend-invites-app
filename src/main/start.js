@@ -20,7 +20,7 @@ console.log = function () {
     }
 }
 */
-//console.error = console.log;
+//console.error =//console.log;
 // initialize express app
 var path = require('path');
 const formidableMiddleware = require('express-formidable');
@@ -42,7 +42,7 @@ function modifyResponseBody(req, res, next) {
     var oldSend = res.send;
     res.send = function (data) {
         // arguments[0] (or `data`) contains the response body
-        console.log(`OUTPUT\n`,data);
+       //console.log(`OUTPUT\n`,data);
         oldSend.apply(res, arguments);
     }
     next();
@@ -86,8 +86,8 @@ require(`../todo/init`)(app);
 // enable gifts functions
 require(`../gifts/init`)(app);
 app.use(function (a,b,c,d) {
-    console.log(`at last`);
-    console.log(arguments);
+   //console.log(`at last`);
+   //console.log(arguments);
     return;
 });
 // add error handler
@@ -100,16 +100,15 @@ app.use((err, req, res, next) => {
 });
 app.listen(
     process.env.PORT || 2082,
-    () =>
-        console.log(
-            `Example app listening on port ${process.env.PORT || 2082} !`
-        )
+    () => {
+        console.log(`Example app listening on port ${process.env.PORT || 2082} !`)
+    }
 );
 process.on("uncaughtException", function () {
-    console.log(arguments);
+   //console.log(arguments);
 });
 process.on("uncaughtRejection", function () {
-    console.log(arguments);
+   //console.log(arguments);
 });
 
 //console.log(app);

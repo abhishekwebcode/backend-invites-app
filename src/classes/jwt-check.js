@@ -5,9 +5,9 @@ module.exports=function (app) {
     app.all("*",asyncer( async function (req, res, next) {
         try {
             //let meta = require(`../auth/jwt/verify`)(res.token, res.email, res);
-            console.log("token is", req.token);
+           //console.log("token is", req.token);
             let meta = await (require("../auth/jwt/jwt").getPayloadFromToken(req.token));
-            console.log(meta);
+           //console.log(meta);
             if (!meta) {
                 res.json({success: false, loggedOutError:true});
                 res.end();

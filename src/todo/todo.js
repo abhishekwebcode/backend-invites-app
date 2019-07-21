@@ -11,7 +11,7 @@ module.exports=function (app) {
         return ;
     }));
     app.post(`/todos/list`,asyncer(async function (request,response) {
-        console.log(arguments);
+       //console.log(arguments);
         let todos = await app.get(`db`)().collection(`todo`).find({
             created_by:request.email,eventId:request.fields.eventId
         }).project({_id:1,todo:1,done:1,date_created:1}).sort({}).skip(parseInt(request.fields.offset)).limit(10).toArray();
@@ -21,13 +21,13 @@ module.exports=function (app) {
         return ;
     }));
     app.post(`/todos/update`,asyncer(async function (request,response) {
-        console.log(arguments);
+       //console.log(arguments);
         let todo = request.fields.itemID;
         let status = request.fields.status==="true";
-        console.log(todo);
-        console.log(status);
+       //console.log(todo);
+       //console.log(status);
         let result = await request.app.get(`db`)().collection(`todo`).updateOne({_id:request.app.get(`id`)(todo)},{$set:{done:status}},{upsert:true})
-        console.log(result);
+       //console.log(result);
         response.json({success:result.modifiedCount==1});
         return ;
     }));

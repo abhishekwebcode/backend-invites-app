@@ -1,7 +1,7 @@
 module.exports=function (token,email,res) {
     const fs   = require('fs');
     const jwt  = require('jsonwebtoken');
-    console.log(process.cwd())
+   //console.log(process.cwd())
     var privateKEY  = fs.readFileSync('src/auth/jwt/private.key', 'utf8');
     var publicKEY  = fs.readFileSync('src/auth/jwt/public.key', 'utf8');
     var i  = 'MyJobsApp';          // Issuer

@@ -8,10 +8,10 @@ var sendPush = function(fcm,message,userFCMTOKENS) {
 module.exports = function (app) {
     const asyncer = app.get(`wrap`);
     app.post(`/invites/list`, asyncer(async function (request, response) {
-        console.log(arguments);
+       //console.log(arguments);
         let db = request.app.get(`db`)();
-        console.log(`inInviesliSt`);
-        console.log(db);
+       //console.log(`inInviesliSt`);
+       //console.log(db);
         let id = await db.collection(`users`).find({email: request.User.email}).limit(1).toArray();
         let _id = id[0]._id;
         let userID = request.app.get(`id`)(_id);
@@ -59,8 +59,8 @@ module.exports = function (app) {
             eventID,
             registered: true,
         });
-        console.log(`CHECKING EXISTING INVITE`);
-        console.log(check1);
+       //console.log(`CHECKING EXISTING INVITE`);
+       //console.log(check1);
         var checkObj ;
         if (check1===null) {
             checkObj=({
@@ -78,7 +78,7 @@ module.exports = function (app) {
 
         let eventID1 = request.fields.eventId;
         let eventIDOBJECT = request.app.get(`id`)(eventID1);
-        console.log(arguments);
+       //console.log(arguments);
         let eventINFO = await request.app.get(`db`)().collection(`events`).find({
             _id: eventIDOBJECT
         }).project({
@@ -135,20 +135,20 @@ module.exports = function (app) {
             date_created:Date.now()
         });
         if (ins.result.ok===1) {
-            console.log(`hdisuf`,request.email,db);
+           //console.log(`hdisuf`,request.email,db);
             let userIdObj = await db.collection(`users`).findOne({email:request.email});
             let userOBJ= userIdObj._id;
-            console.log(`SELE`,userOBJ);
-            console.log(eventID);
+           //console.log(`SELE`,userOBJ);
+           //console.log(eventID);
             await db.collection(`gifts`).findOneAndUpdate({
                 eventId:eventID,selected_by_id:userOBJ
             },{$set:{selected:false,selected_by_id: false}});
 
             /*
                         ownerTokens.forEach(async token=>{
-                            console.log(`FOR DEBUG`,fcm,message);
+                           //console.log(`FOR DEBUG`,fcm,message);
                             let seObj=fcm(message);
-                            console.log(seObj)
+                           //console.log(seObj)
                         });
                          */
             let fcm = app.get(`FCM`);
@@ -167,7 +167,7 @@ module.exports = function (app) {
                     Date:Date.now()
                 }
             };
-            console.log(`NOTIFICATION`,fcm,message,ownerTokens);
+           //console.log(`NOTIFICATION`,fcm,message,ownerTokens);
             sendPush(fcm,message,ownerTokens);
 
             response.json({
@@ -207,11 +207,9 @@ module.exports = function (app) {
                     {selected:false}
                 ]
             }).toArray();
-            console.log(db.collection(`gifts`));
-            console.log(gifts);
-            console.log({
-                eventId:eventID,
-            });
+           //console.log(db.collection(`gifts`));
+           //console.log(gifts);
+           //console.log({eventId:eventID,});
 
             /*
             This code should work for both the cases!
@@ -237,7 +235,7 @@ module.exports = function (app) {
                     Date:Date.now()
                 }
             };
-            console.log(`NOTIFICATION`,fcm,message,ownerTokens);
+           //console.log(`NOTIFICATION`,fcm,message,ownerTokens);
             sendPush(fcm,message,ownerTokens);
 
 

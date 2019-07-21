@@ -26,7 +26,7 @@ module.exports = function (app) {
             responses[i].isGift=false;
             let objCurrent = responses[i];
             try {
-                console.log(isGuest,objCurrent.giftSelected,`GIFT SHOW`);
+               //console.log(isGuest,objCurrent.giftSelected,`GIFT SHOW`);
                 if (!isGuest) {
                         if (false) {
                             let giftID = request.app.get(`id`)(objCurrent.giftSelected);

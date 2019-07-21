@@ -71,7 +71,7 @@ var forgotPassword = async function(request,response) {
                 return ;
             }
         }
-        console.log(phone);
+       //console.log(phone);
     } catch (e) {
         console.error(e);
         response.json({success:false,CODE:`INVALID_FAK`});
@@ -115,7 +115,7 @@ var userLogIn = async function (request,response) {
         let updateToken=await request.app.get('db')().collection('users').findOneAndUpdate({"phone.number":phoneNumber,password},{
             $addToSet: { FCM_Tokens: request.fields.token }
         });
-        console.log(updateToken);
+       //console.log(updateToken);
         let token_new=await (require("../auth/jwt/jwt")).generateToken({phone:res[0].phone,email:res[0].email,time:Date.now()});
         response.json({success:true,CODE:`USER_SUCCESS`,number:res[0].phone,token:token_new});
         return;
@@ -142,12 +142,12 @@ var userSignUp = async function (request,response) {
         try {
             var response1 = await resolveAccountKit(request.fields.code);
             phone = response1.phone;
-            console.log(phone);
+           //console.log(phone);
         } catch (e) {
             console.error(e);
             response.json({success:false});return ;
         }
-        console.log(request.fields, "FIELDS");
+       //console.log(request.fields, "FIELDS");
         /**
          * Added email <b>AND</b> Mobile number duplicated check
          */
@@ -187,7 +187,7 @@ var userSignUp = async function (request,response) {
     return ;
 };
 async function facebook(request,response) {
-    console.log(arguments);
+   //console.log(arguments);
     let user = await facebookSignIn.verify(request.fields.facebook_token);
     if (!user) {
         response.json({success:false,CODE:`FACEBOOK_AUTH_FAILED`})

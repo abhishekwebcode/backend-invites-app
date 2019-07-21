@@ -12,7 +12,7 @@ var sendPush = async function (fcm, tokens, eventID, OwnerName, childName) {
         }
     };
     payload["registration_ids"] = tokens;
-    console.log(payload, fcm);
+   //console.log(payload, fcm);
     fcm(payload).then(console.log).catch(console.log);
     return ;
 };
@@ -20,7 +20,7 @@ var sendPush = async function (fcm, tokens, eventID, OwnerName, childName) {
 module.exports = function (app) {
     const asyncer = app.get(`wrap`);
     app.post(`/events/list`, asyncer(async function (request, response) {
-        console.log(arguments);
+       //console.log(arguments);
         let events = await app.get(`db`)().collection(`events`).find({
             created_by: request.email,
         }).project({
@@ -29,7 +29,7 @@ module.exports = function (app) {
             childName: 1,
             theme: 1
         }).sort({date: -1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
-        console.log(events);
+       //console.log(events);
         let send = [];
         events.forEach(item => {
             send.push({
@@ -72,7 +72,7 @@ module.exports = function (app) {
             .limit(1)
             .toArray();
         event = event[0];
-        console.log(event);
+       //console.log(event);
         response.json({
             success: true,
             event
@@ -90,7 +90,7 @@ module.exports = function (app) {
         event["isSpecialTheme"] = (event["isSpecialTheme"] === "true");
         event["guestSee"] = (event["guestSee"] === "true");
         let update = await db.collection(`events`).update({_id: eventIDObj}, {$set: event}, {});
-        console.log(update);
+       //console.log(update);
 
         let IDsObj = await db.collection(`events`)
             .find({_id: eventIDObj})
@@ -104,7 +104,7 @@ module.exports = function (app) {
         tokens.forEach(user => {
             try {
                 AllTokens.push(...user.FCM_Tokens);
-                console.log(`IUHf`, user), AllTokens;
+               //console.log(`IUHf`, user), AllTokens;
             } catch (e) {
                 console.error(e, `ErRROR`);
             }
@@ -114,7 +114,7 @@ module.exports = function (app) {
         let emailOwner = IDsObj[0].created_by;
         let users = await db.collection(`users`).find({email: emailOwner}).limit(1).toArray();
         let ownerName = users[0].name;
-        console.log(`OWNERNAME`, users);
+       //console.log(`OWNERNAME`, users);
         sendPush(request.app.get(`FCM`), AllTokens, eventIDObj, ownerName, childName).then(console.log).catch(console.log);
         response.json({
             success: (

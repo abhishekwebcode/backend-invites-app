@@ -21,15 +21,15 @@ function remove(element, array) {
     return array;
 }
 async function searchUsers(intlArray,localarray1,  db, emails) {
-    console.log(db);
-    console.log(intlArray)
+   //console.log(db);
+   //console.log(intlArray)
     let attendees = await db.collection(`users`).find({
         $or: [
             {"phone.number": {$in: intlArray}},
             {email: {$in: emails}}
         ]
     }).project({_id: 1, phone: 1, email: 1,FCM_Tokens:1}).toArray();
-    console.log(attendees);
+   //console.log(attendees);
     let final = [];
     for (i = 0; i < attendees.length; i++) {
         let item = attendees[i];
@@ -61,10 +61,10 @@ async function temPtoken(token,eventIdObject,fcm,sends,OwnerName,childname) {
             childname: childname
         }
     };
-    console.log(`FOR DEBUG`,fcm,message);
+   //console.log(`FOR DEBUG`,fcm,message);
     let seObj=fcm(message).then(console.log).catch(console.log);
     sends.push(seObj);
-    console.log(seObj)
+   //console.log(seObj)
     return ;
 }
 async function sendPush(registeredUsers,ids,db,eventIdObject,app,OwnerName,childName) {
@@ -99,14 +99,14 @@ async  function sendEmails(emails) {
 
 }
 async function createEvent(numbers, emails1, db,prefix) {
-    console.log(arguments);
+   //console.log(arguments);
     let intlArray1 = [];
     let localArray1 = [];
     numbers.forEach(e => parsePhone(e, intlArray1, localArray1,prefix));
     intlArray1=(intlArray1).filter(onlyUnique);
-    console.log(`intlArray`, intlArray1, `localArray`, localArray1);
+   //console.log(`intlArray`, intlArray1, `localArray`, localArray1);
     let {users, localArray, emails, intlArray} = await searchUsers(intlArray1, localArray1, db, emails1);
-    console.log(users, localArray, emails, intlArray);
+   //console.log(users, localArray, emails, intlArray);
     return {users, localArray, emails, intlArray};
 }
 async function getRealData(rawData) {
@@ -122,8 +122,8 @@ module.exports = function (app) {
     const asyncer = app.get(`wrap`);
     app.post(`/events/add`,asyncer( async function (request, response) {
         let prefix = `+`+request.User.phone.country_prefix;
-        console.log(`PREFIX`,prefix);
-        console.log(arguments);
+       //console.log(`PREFIX`,prefix);
+       //console.log(arguments);
         let rawData = JSON.parse(request.fields.data);
         let {numbers1,emails1} = await getRealData(rawData);
         let event = JSON.parse(request.fields.event);
@@ -138,7 +138,7 @@ module.exports = function (app) {
         event["date"] = new Date(parseInt(event["date"]));
         event["isSpecialTheme"] = (event["isSpecialTheme"] === "true");
         event["guestSee"] = (event["guestSee"] === "true");
-        console.log(event);
+       //console.log(event);
         var ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress || ``;
         let events = await app.get(`db`)().collection(`events`).insertOne(
             {
@@ -154,11 +154,11 @@ module.exports = function (app) {
         );
         let OwnerName = await request.app.get(`db`)().collection(`users`).findOne({email:request.email},{projection:{name:1}});
         OwnerName=OwnerName.name;
-        sendPush(users,usersIdsobjs,request.app.get(`db`)(),events.insertedId,app,OwnerName,event.childName);
+        sendPush(users,usersIdsobjs,request.app.get(`db`)(),events.insertedId,app,OwnerName,event.childName).then(()=>{}).catch(()=>{});
         //sendSMS([...localArray, ...intlArray]);
         let sendString="";
-        sendEmails(emails);
-        console.log(events);
+        sendEmails(emails).then(()=>{}).catch(()=>{});;
+       //console.log(events);
         let send_sms = intlArray.length>0;
         if (events.insertedCount === 1) {
             response.json({success: true,send_sms,sms_invite_link,send_sms_datas:intlArray.join(";")})

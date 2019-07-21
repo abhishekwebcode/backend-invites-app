@@ -2,7 +2,7 @@ module.exports=function (app) {
     const asyncer = app.get(`wrap`);
     app.all(`/me/profile`,asyncer(async function (request,response) {
         let email = request.email;
-        console.log(email);
+       //console.log(email);
         let res=await request.app.get("db")().collection(`users`).find({email}).project({email:1,name:1}).limit(1).toArray();
         response.json({
             success:true,

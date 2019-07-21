@@ -20,15 +20,15 @@ function remove(element, array) {
     return array;
 }
 async function searchUsers(intlArray,localarray1,  db, emails) {
-    console.log(db);
-    console.log(intlArray)
+   //console.log(db);
+   //console.log(intlArray)
     let attendees = await db.collection(`users`).find({
         $or: [
             {"phone.number": {$in: intlArray}},
             {email: {$in: emails}}
         ]
     }).project({_id: 1, phone: 1, email: 1,FCM_Tokens:1}).toArray();
-    console.log(attendees);
+   //console.log(attendees);
     let final = [];
     for (i = 0; i < attendees.length; i++) {
         let item = attendees[i];
@@ -73,7 +73,7 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app,ownerName,child
         allTokens.push(...registeredUsers[key]);
     }
     let fcm = app.get(`FCM`);
-    console.log(`ARGS`,arguments);
+   //console.log(`ARGS`,arguments);
     /*
     registeredUsers.forEach(e=>{
         try {
@@ -83,7 +83,7 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app,ownerName,child
         }
     });
      */
-    console.log(allTokens)
+   //console.log(allTokens)
     let sends=[];
     for (let i = 0; i < allTokens.length ; i++) {
         let token = allTokens[i];
@@ -107,16 +107,16 @@ async  function sendEmails(emails) {
 }
 async function continue_event(numbers, emails1, db,prefix,intlArray1,localArray1) {
     let {users, localArray, emails, intlArray} = await searchUsers(intlArray1, localArray1, db, emails1);
-    console.log(users, localArray, emails, intlArray);
+   //console.log(users, localArray, emails, intlArray);
     return {users, localArray, emails, intlArray};
 }
 async function createEvent(numbers, emails1, db,prefix) {
-    console.log(arguments);
+   //console.log(arguments);
     let intlArray1 = [];
     let localArray1 = [];
     numbers.forEach(e => parsePhone(e, intlArray1, localArray1,prefix));
     intlArray1=(intlArray1).filter(onlyUnique);
-    console.log(`intlArray`, intlArray1, `localArray`, localArray1);
+   //console.log(`intlArray`, intlArray1, `localArray`, localArray1);
     return {intlArray1,localArray1};
 }
 async function getRealData(rawData) {
@@ -141,9 +141,9 @@ module.exports = function (app) {
                 childName:1
             }
         });
-        console.log(`DEBUG__`,eventObject,app.get(`db`)().collection(`events`));
-        console.log(`EVENTS ENTRY BEFORE`,eventEntryBefore);
-        console.log(`PREFIX`,prefix);
+       //console.log(`DEBUG__`,eventObject,app.get(`db`)().collection(`events`));
+       //console.log(`EVENTS ENTRY BEFORE`,eventEntryBefore);
+       //console.log(`PREFIX`,prefix);
         let rawData = JSON.parse(request.fields.data);
         let {numbers1,emails1} = await getRealData(rawData);
         let sms_invite_link=request.app.get(`invite_link`);
@@ -160,9 +160,9 @@ module.exports = function (app) {
                 filteredInternational.push(phone);
             }
         });
-        console.log(`NEW RAW NUMBERS`,filteredInternational,`--++--`,entryPhones,newPhones);
+       //console.log(`NEW RAW NUMBERS`,filteredInternational,`--++--`,entryPhones,newPhones);
 
-        console.log(`---`,users,eventEntryBefore.users,`---`);
+       //console.log(`---`,users,eventEntryBefore.users,`---`);
         let hashes=[];
         let newUsers=[];
         eventEntryBefore.users.forEach(e=>hashes.push(e.toHexString()));
@@ -171,7 +171,7 @@ module.exports = function (app) {
                 newUsers.push(e);
             }
         });
-        console.log(`NEW USERS NOW ARE`,newUsers);
+       //console.log(`NEW USERS NOW ARE`,newUsers);
         remove(request.email,emails);
         //remove(request.User.phone.national_number,localArray);
         remove(request.User.phone.number,intlArray);
@@ -189,7 +189,7 @@ module.exports = function (app) {
                 }
             }
         );
-        console.log(`UPDATE EVENT CONTACTS DETAIL`,eventsUpdate);
+       //console.log(`UPDATE EVENT CONTACTS DETAIL`,eventsUpdate);
 
         /**
          * Filtering users to respond to only un-responded ones
@@ -202,21 +202,21 @@ module.exports = function (app) {
         let usersALLNEW = allUsers.map(e=>e.email);
         let usersUniqueAll = [...new Set(usersALLNEW)];
         let phoneAllUnique = [...new Set(allNumbers)];
-        console.log(`ALLL`,usersUniqueAll,phoneAllUnique);
+       //console.log(`ALLL`,usersUniqueAll,phoneAllUnique);
         //TODO ADD SUPPORT FOR NON_RESPNDED PHONE NUMEBRS
         let toRespond = await app.get(`db`)().collection(`responses`).find({
             email: {$in : usersUniqueAll },
             eventID:eventObject
         }).project({email:1,FCM_Tokens:1}).toArray();
         let respndedEmails = toRespond.map(e=>e.email);
-        console.log(`LOOP START`,respndedEmails,usersUniqueAll);
+       //console.log(`LOOP START`,respndedEmails,usersUniqueAll);
         let hjhj=[];
         usersUniqueAll.forEach(rawEmail=>{
             if (respndedEmails.indexOf(rawEmail)===-1) {
                 hjhj.push(rawEmail);
             }
         });
-        console.log(`EMAILS`,hjhj,allUsers)
+       //console.log(`EMAILS`,hjhj,allUsers)
         let tokensList = [];
         hjhj.forEach(email=>{
             for (let i = 0; i <allUsers.length; i++) {
@@ -234,7 +234,7 @@ module.exports = function (app) {
         Get All unregistered Numbers
          */
 
-        sendPush(tokensList,usersIdsobjs,request.app.get(`db`)(),eventObject,app,named,eventEntryBefore.childName);
+        sendPush(tokensList,usersIdsobjs,request.app.get(`db`)(),eventObject,app,named,eventEntryBefore.childName).then(()=>{}).catch(()=>{});
         //sendSMS([...localArray, ...intlArray]);
         let sendString="";
         //sendEmails(emails);

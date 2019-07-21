@@ -16,21 +16,22 @@ function createDBconnection() {
     MongoClient.connect(uri, options, function (err, client) {
         if (err) {
             console.error(err);
-            console.log(`DB FAILED CONNECTION`)
+           //console.log(`DB FAILED CONNECTION`)
         };
         db = client.db(`test`);
-        console.log(`MONGODB CONNECTED NOW`);
+       //console.log(`MONGODB CONNECTED NOW`);
         try {
             db.on('reconnectFailed', (err) => {
-                console.log(`MONGODB ERROR RECONNECT FAILED`);
+               //console.log(`MONGODB ERROR RECONNECT FAILED`);
                 console.warn(err);
                 createDBconnection()
             });
             db.s.topology.on('close', () => {
-                console.log('Connection closed');
+               //console.log('Connection closed');
             });
-            db.s.topology.on('reconnect', () => console.log('Reconnected MONGODB'));
-
+            db.s.topology.on('reconnect', () => {
+                //console.log('Reconnected MONGODB'));
+            });
         } catch (e) {
             console.error(e);
         }
@@ -40,10 +41,10 @@ function createDBconnection() {
 MongoClient.connect(uri, options, function (err, client) {
     if (err) {
         console.error(err);
-        console.log(`DB FAILED CONNECTION`)
+       //console.log(`DB FAILED CONNECTION`)
     };
     db = client.db(`test`);
-    console.log(`MONGODB CONNECTED NOW`);
+   //console.log(`MONGODB CONNECTED NOW`);
     try {
         db.on('error', function (err) {
             if (err)  {
@@ -53,14 +54,16 @@ MongoClient.connect(uri, options, function (err, client) {
             return ;
         });
         db.on('reconnectFailed', (err) => {
-            console.log(`MONGODB ERROR RECONNECT FAILED`);
+           //console.log(`MONGODB ERROR RECONNECT FAILED`);
             console.warn(err);
             createDBconnection()
         });
         db.s.topology.on('close', () => {
-            console.log('Connection closed');
+           //console.log('Connection closed');
         });
-        db.s.topology.on('reconnect', () => console.log('Reconnected MONGODB'));
+        db.s.topology.on('reconnect', () => {
+            //console.log('Reconnected MONGODB'));
+        });
     } catch (e) {
         console.error(e);
     }
