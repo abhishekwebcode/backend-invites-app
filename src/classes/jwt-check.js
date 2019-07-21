@@ -1,7 +1,8 @@
 const bearerToken = require('express-bearer-token');
 module.exports=function (app) {
+    const asyncer = app.get(`wrap`);
     app.use(bearerToken());
-    app.all("*", async function (req, res, next) {
+    app.all("*",asyncer( async function (req, res, next) {
         try {
             //let meta = require(`../auth/jwt/verify`)(res.token, res.email, res);
             console.log("token is", req.token);
@@ -15,10 +16,11 @@ module.exports=function (app) {
             req.User = meta;
             req.email = meta.email;
             next();
+            return ;
         } catch (e) {
             console.error(e);
-            res.json({success:false,loggedOutError:true})
+            res.json({success:false,loggedOutError:true});
             return ;
         }
-    });
+    }));
 };

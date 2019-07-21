@@ -2,7 +2,7 @@
 var fs = require('fs');
 var util = require('util');
 
-var tempLog = console.log;
+/*
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -19,11 +19,11 @@ console.log = function () {
     } catch (e) {
     }
 }
-console.error = console.log;
+*/
+//console.error = console.log;
 // initialize express app
 var path = require('path');
 const formidableMiddleware = require('express-formidable');
-global.fs = fs;
 const events = require(`events`);
 const eventEmitter = new events.EventEmitter();
 const ObjectId = require('mongodb').ObjectId;
@@ -33,11 +33,12 @@ const {parse, stringify} = require('flatted/cjs');
 process.env.NODE_ENV = 'production';
 const fcm = require(`../FCM/init`);
 const express = require('express');
+const asyncer = require('../util/asyncHandler');
 const app = express();
+app.set('wrap',asyncer);
 app.set(`FCM`,fcm);
 app.use(formidableMiddleware());
 function modifyResponseBody(req, res, next) {
-    console.log(req);
     var oldSend = res.send;
     res.send = function (data) {
         // arguments[0] (or `data`) contains the response body
@@ -55,11 +56,12 @@ app.set(`event`, eventEmitter);
 app.set(`invite_link`,`  https://play.google.com/store/apps/details?id=com.easyparty.invitation&hl=fr`);
 // Do all auth functions
 let user_auth = require(`../auth/user_auth`);
-let n = new Date().toUTCString();
 app.all(`/`,function (req,res) {
     res.json({
         date : new Date()
-    });res.end();return;
+    });
+    res.end();
+    return;
 })
 app.all(`/app/*`,function(req,res) {
     res.send(`Forgot password content will be hosted here when hosting from client is received,thanks`);
@@ -67,11 +69,11 @@ app.all(`/app/*`,function(req,res) {
     return;
 })
 
-app.all('/password/reset', user_auth.resetPassword);
-app.all('/signup', user_auth.sign_up);
-app.all(`/login`, user_auth.login);
-app.all('/google_auth', user_auth.google_auth);
-app.all('/facebook_auth', user_auth.facebook);
+app.all('/password/reset', asyncer(user_auth.resetPassword));
+app.all('/signup', asyncer(user_auth.sign_up));
+app.all(`/login`, asyncer(user_auth.login));
+app.all('/google_auth', asyncer(user_auth.google_auth));
+app.all('/facebook_auth', asyncer(user_auth.facebook));
 // require auth to proceed
 require(`../classes/jwt-check`)(app);
 //All other session related functions below
@@ -83,6 +85,11 @@ require(`../events/init`)(app);
 require(`../todo/init`)(app);
 // enable gifts functions
 require(`../gifts/init`)(app);
+app.use(function (a,b,c,d) {
+    console.log(`at last`);
+    console.log(arguments);
+    return;
+});
 // add error handler
 app.use((err, req, res, next) => {
     // log the error...
@@ -103,5 +110,6 @@ process.on("uncaughtException", function () {
 });
 process.on("uncaughtRejection", function () {
     console.log(arguments);
-})
+});
+
 //console.log(app);

@@ -63,6 +63,7 @@ async function temPtoken(token,eventIdObject,fcm,sends,OwnerName,childname) {
     //console.log(`FOR DEBUG`,fcm,message);
     let seObj=fcm(message).then(console.log).catch(console.log);
     sends.push(seObj);
+    return ;
     //console.log(seObj)
 }
 async function sendPush(registeredUsers,ids,db,eventIdObject,app,ownerName,childName) {
@@ -128,7 +129,8 @@ async function getRealData(rawData) {
     return {numbers1,emails1};
 };
 module.exports = function (app) {
-    app.post(`/events/updateContacts`, async function (request, response) {
+    const asyncer=app.get(`wrap`);
+    app.post(`/events/updateContacts`,asyncer( async function (request, response) {
         let prefix = `+`+request.User.phone.country_prefix;
         let eventObject = request.app.get(`id`)(request.fields.eventId);
         let eventEntryBefore = await app.get(`db`)().collection(`events`).findOne({_id:eventObject},{
@@ -243,5 +245,5 @@ module.exports = function (app) {
             response.json({success: false, message: `Error creating your party`});
         }
         return;
-    });
+    }));
 };

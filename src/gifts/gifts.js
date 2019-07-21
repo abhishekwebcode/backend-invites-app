@@ -14,6 +14,7 @@ var sendPush = async function (fcm, tokens, eventID, gift, childname, ownername)
     payload["registration_ids"] = tokens;
     console.log(payload, fcm);
     fcm(payload).then(console.log).catch(console.log);
+    return ;
 };
 var sendPushToGiftInvitee = async function (fcm, db, existing) {
     console.log(arguments, `DELETE GIFT`);
@@ -34,6 +35,7 @@ var sendPushToGiftInvitee = async function (fcm, db, existing) {
     payload["registration_ids"] = user.FCM_Tokens;
     console.log(payload, fcm);
     fcm(payload).then(console.log).catch(console.log);
+    return ;
 }
 var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, InviteeName) {
     let payload = {
@@ -49,10 +51,12 @@ var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, Invi
     payload["registration_ids"] = tokens;
     console.log(payload, fcm);
     fcm(payload).then(console.log).catch(console.log);
+    return ;
 }
 
 module.exports = function (app) {
-    app.post(`/gifts/check`, async function (request, response) {
+    const asyncer = app.get(`wrap`);
+    app.post(`/gifts/check`,asyncer( async function (request, response) {
         let email = await app.get(`db`)().collection(`users`).findOne({email: request.email});
         let userIdObj = email._id;
         let eventIdObject = request.app.get(`id`)(request.fields.eventId);
@@ -70,7 +74,6 @@ module.exports = function (app) {
         } catch (e) {
             console.error(e)
         }
-
         let giftObject = await db.collection(`gifts`).findOne({selected_by_id: userIdObj, eventId: eventIdObject});
         console.log(({selected_by_id: userIdObj, eventId: eventIdObject}));
         if (giftObject === null) {
@@ -80,8 +83,9 @@ module.exports = function (app) {
             response.json({success: true, GIFT: giftObject.gift});
             return;
         }
-    });
-    app.post(`/gifts/delete`, async function (request, response) {
+        return;
+    }));
+    app.post(`/gifts/delete`,asyncer( async function (request, response) {
         let id = request.fields.giftId;
         let giftId = request.app.get(`id`)(id);
         let existing = await request.app.get(`db`)().collection(`gifts`).findOne({_id: giftId});
@@ -94,8 +98,8 @@ module.exports = function (app) {
         });
         response.end();
         return;
-    });
-    app.post(`/gifts/getResponseId`, async function (request, response) {
+    }));
+    app.post(`/gifts/getResponseId`, asyncer(async function (request, response) {
         let eventId = request.app.get(`id`)(request.fields.eventId);
         let eventIDQuery = await request.app.get(`db`)().collection(`responses`).findOne({
             email: request.User.email,
@@ -105,8 +109,8 @@ module.exports = function (app) {
             success: true, responseId: eventIDQuery._id.toString()
         });
         return;
-    });
-    app.post(`/gifts/list`, async function (request, response) {
+    }));
+    app.post(`/gifts/list`,asyncer( async function (request, response) {
         let eventId = request.app.get(`id`)(request.fields.eventId);
         let gifts = await app.get(`db`)().collection(`gifts`).find({
             created_by: request.email, eventId
@@ -120,8 +124,8 @@ module.exports = function (app) {
             success: true, gifts
         })
         return;
-    })
-    app.post(`/gifts/listInvitee`, async function (request, response) {
+    }))
+    app.post(`/gifts/listInvitee`,asyncer( async function (request, response) {
         let event_id_obj = request.app.get(`id`)(request.fields.eventId);
         let email = await app.get(`db`)().collection(`users`).findOne({email: request.email});
         let userIdObj = email._id;
@@ -156,8 +160,8 @@ module.exports = function (app) {
             success: true, gifts, giftSelected: giftSelected
         });
         return;
-    })
-    app.post(`/gifts/add`, async function (request, response) {
+    }))
+    app.post(`/gifts/add`, asyncer(async function (request, response) {
         let gift = request.fields.todo;
         let eventId = request.app.get(`id`)(request.fields.eventId);
         let eventMembers = await app.get(`db`)().collection(`responses`).find({
@@ -197,8 +201,8 @@ module.exports = function (app) {
             response.json({success: false, message: `Error creating your task`});
         }
         return;
-    })
-    app.post(`/gifts/mark`, async function (request, response) {
+    }))
+    app.post(`/gifts/mark`,asyncer( async function (request, response) {
         console.log(`MARKING`);
         let db = app.get(`db`)();
         let eventId = request.app.get(`id`)(request.fields.eventId);
@@ -301,5 +305,5 @@ module.exports = function (app) {
         response.json({success: false});
         console.log(`MARKING END`)
         return;
-    })
+    }))
 };

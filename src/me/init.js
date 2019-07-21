@@ -1,5 +1,6 @@
 module.exports=function (app) {
-    app.all(`/me/profile`,async function (request,response) {
+    const asyncer = app.get(`wrap`);
+    app.all(`/me/profile`,asyncer(async function (request,response) {
         let email = request.email;
         console.log(email);
         let res=await request.app.get("db")().collection(`users`).find({email}).project({email:1,name:1}).limit(1).toArray();
@@ -7,8 +8,8 @@ module.exports=function (app) {
             success:true,
             data:(res.length==0)?[{email:"Not found",name:"..."}]:res[0]
         })
-    });
-    app.all(`/me/changePassword`,async function(request,response) {
+    }));
+    app.all(`/me/changePassword`,asyncer(async function(request,response) {
         let exisitng = request.fields.existing;
         let new1 = request.fields.new;
         let confirm = request.fields.confirm;
@@ -27,5 +28,5 @@ module.exports=function (app) {
             response.json({success:true});
             return ;
         }
-    })
+    }));
 }

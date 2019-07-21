@@ -1,5 +1,6 @@
 module.exports = function (app) {
-    app.post(`/events/listResponses`, async function (request, response) {
+    const asyncer= app.get(`wrap`);
+    app.post(`/events/listResponses`,asyncer( async function (request, response) {
         let db = request.app.get(`db`)();
         let isGuest = (request.fields.isGuest) === "true";
         let eventIdObject = request.app.get(`id`)(request.fields.eventId);
@@ -67,5 +68,5 @@ module.exports = function (app) {
             responses
         });
         return;
-    });
+    }));
 };

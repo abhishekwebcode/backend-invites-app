@@ -1,14 +1,16 @@
 const ObjectID = require('mongodb').ObjectID;
 module.exports=function (app) {
-    app.post(`/todos/delete`,async function (request,response) {
+    const asyncer = app.get(`wrap`);
+    app.post(`/todos/delete`,asyncer(async function (request,response) {
         let id = request.fields.todoId;
         let todoId = request.app.get(`id`)(id);
         let delete2 = await request.app.get(`db`)().collection(`todo`).remove({_id:todoId});
         response.json({
             success:delete2.result.n===1
         })
-    });
-    app.post(`/todos/list`,async function (request,response) {
+        return ;
+    }));
+    app.post(`/todos/list`,asyncer(async function (request,response) {
         console.log(arguments);
         let todos = await app.get(`db`)().collection(`todo`).find({
             created_by:request.email,eventId:request.fields.eventId
@@ -16,8 +18,9 @@ module.exports=function (app) {
         response.json({
             success:true,todos
         })
-    });
-    app.post(`/todos/update`,async function (request,response) {
+        return ;
+    }));
+    app.post(`/todos/update`,asyncer(async function (request,response) {
         console.log(arguments);
         let todo = request.fields.itemID;
         let status = request.fields.status==="true";
@@ -27,8 +30,8 @@ module.exports=function (app) {
         console.log(result);
         response.json({success:result.modifiedCount==1});
         return ;
-    });
-    app.post(`/todos/create`,async function (request,response) {
+    }));
+    app.post(`/todos/create`,asyncer(async function (request,response) {
         let todo = request.fields.todo;
         let eventId = request.fields.eventId;
         let todoIns = await app.get(`db`)().collection(`todo`).insertOne({
@@ -37,5 +40,5 @@ module.exports=function (app) {
         if (todoIns.insertedCount==1) {response.json({success: true})}
         else {response.json({success: false,message:`Error creating your task`});}
         return ;
-    });
+    }));
 };

@@ -14,10 +14,12 @@ var sendPush = async function (fcm, tokens, eventID, OwnerName, childName) {
     payload["registration_ids"] = tokens;
     console.log(payload, fcm);
     fcm(payload).then(console.log).catch(console.log);
+    return ;
 };
 
 module.exports = function (app) {
-    app.post(`/events/list`, async function (request, response) {
+    const asyncer = app.get(`wrap`);
+    app.post(`/events/list`, asyncer(async function (request, response) {
         console.log(arguments);
         let events = await app.get(`db`)().collection(`events`).find({
             created_by: request.email,
@@ -38,9 +40,10 @@ module.exports = function (app) {
             })
         });
         response.json({success: true, events: send});
-    });
+        return ;
+    }));
 
-    app.post(`/events/infodetail`, async function (request, response) {
+    app.post(`/events/infodetail`,asyncer( async function (request, response) {
         let db = request.app.get(`db`)();
         let eventIDObj = (request.app.get(`id`))(request.fields.eventId);
         let event = await db
@@ -74,9 +77,10 @@ module.exports = function (app) {
             success: true,
             event
         });
-    });
+        return ;
+    }));
 
-    app.post(`/events/update`, async function (request, response) {
+    app.post(`/events/update`,asyncer( async function (request, response) {
         let db = request.app.get(`db`)();
         let eventIDObj = (request.app.get(`id`))(request.fields.eventId);
         let fields = request.fields;
@@ -118,9 +122,9 @@ module.exports = function (app) {
             )
         });
         return;
-    });
+    }));
 
-    app.post(`/events/delete`, async function (request, response) {
+    app.post(`/events/delete`, asyncer(async function (request, response) {
         let db = request.app.get(`db`)();
         let eventIDObj = (request.app.get(`id`))(request.fields.eventId);
         let RESPONSE_DB = await db.collection(`events`).remove({_id: eventIDObj});
@@ -130,7 +134,7 @@ module.exports = function (app) {
             response.json({success: false});
         }
         return;
-    });
+    }));
 
 
 };

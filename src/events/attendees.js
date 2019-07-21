@@ -1,5 +1,6 @@
 module.exports=function (app) {
-    app.post(`/event/getAttendees`,async function(request,response,next) {
+    const asyncer = app.get(`wrap`);
+    app.post(`/event/getAttendees`,asyncer(async function(request,response,next) {
         let db = request.app.get(`db`)();
         let eventIDObject = request.app.get(`id`)(request.fields.eventId);
         let eventDetails = await db.collection(`events`).find({_id:eventIDObject}).project({users:1,unRegisteredNumbersInternational:1}).limit(1).toArray();
@@ -20,5 +21,5 @@ module.exports=function (app) {
             }
         })
         return ;
-    })
+    }));
 };

@@ -1,11 +1,13 @@
 var sendPush = function(fcm,message,userFCMTOKENS) {
     message["registration_ids"]=userFCMTOKENS;
     fcm(message).then(console.log).catch(console.log);
+    return;
 }
 
 
 module.exports = function (app) {
-    app.post(`/invites/list`, async function (request, response) {
+    const asyncer = app.get(`wrap`);
+    app.post(`/invites/list`, asyncer(async function (request, response) {
         console.log(arguments);
         let db = request.app.get(`db`)();
         console.log(`inInviesliSt`);
@@ -47,8 +49,9 @@ module.exports = function (app) {
         response.json({
             success: true, invites
         })
-    });
-    app.post(`/invites/info`, async function (request, response) {
+        return ;
+    }));
+    app.post(`/invites/info`,asyncer( async function (request, response) {
         let db1 = request.app.get(`db`)();
         let eventID = request.app.get(`id`)(request.fields.eventId);
         let check1 = await db1.collection(`responses`).findOne({
@@ -109,8 +112,9 @@ module.exports = function (app) {
             });
             return;
         }
-    });
-    app.post(`/invites/reject`, async function (request, response) {
+        return ;
+    }));
+    app.post(`/invites/reject`, asyncer(async function (request, response) {
         let db = request.app.get(`db`)();
         let eventID = request.app.get(`id`)(request.fields.eventId);
         await db.collection(`responses`).remove({
@@ -173,9 +177,9 @@ module.exports = function (app) {
             response.json({success:false})
         }
         return ;
-    });
+    }));
 
-    app.post(`/invites/accept`, async function (request, response) {
+    app.post(`/invites/accept`,asyncer( async function (request, response) {
         let db = request.app.get(`db`)();
         let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
         let userIdObj = email._id;
@@ -254,7 +258,7 @@ module.exports = function (app) {
             response.json({success:false})
         }
         return ;
-    });
+    }));
 
 
 
