@@ -12,5 +12,7 @@ module.exports=function(app) {
     require(`./changeContacts`)(app);
     //attendees handler
     require(`./attendees`)(app);
+    //events overview handler
+    require(`./overview`)(app);
 };
 

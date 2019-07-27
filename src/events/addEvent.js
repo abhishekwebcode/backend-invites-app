@@ -157,7 +157,7 @@ module.exports = function (app) {
         sendPush(users,usersIdsobjs,request.app.get(`db`)(),events.insertedId,app,OwnerName,event.childName).then(()=>{}).catch(()=>{});
         //sendSMS([...localArray, ...intlArray]);
         let sendString="";
-        sendEmails(emails).then(()=>{}).catch(()=>{});;
+        sendEmails(emails).then(()=>{}).catch(()=>{});
        //console.log(events);
         let send_sms = intlArray.length>0;
         if (events.insertedCount === 1) {
