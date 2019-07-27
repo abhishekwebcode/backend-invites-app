@@ -74,7 +74,8 @@ module.exports = function (app) {
             response.end();
             return;
         } catch (e) {
-            console.error(e);
+            //console.error(e);
+            response.json({success:false})
             return ;
         }
     }));
