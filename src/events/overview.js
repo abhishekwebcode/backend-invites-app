@@ -46,32 +46,37 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app,OwnerName,child
 module.exports = function (app) {
     const asyncer = app.get(`wrap`);
     app.post(`/events/overview`, asyncer(async function (request, response) {
-        //console.log(arguments);
-        let db = request.app.get(`db`)();
-        let eventIDObj = (request.app.get(`id`))(request.fields.eventId);
-        let events = await db.collection(`events`).find({
-            _id:eventIDObj
-        }).project({
-            users:1,
-            date:1,
-            timeStart:1
-        }).toArray();
-        let users = events[0].users;
-        let totalInvited = users.length;
-        let going = await db.collection(`responses`).find({
-            intention:true,
-            eventID:eventIDObj
-        }).count();
-        let notGoing = await db.collection(`responses`).find({
-            intention:false,
-            eventID:eventIDObj
-        }).count();
-        response.json({
-            success:true,
-            totalInvited,going,notGoing,date,time:events[0].timeStart
-        });
-        response.end();
-        return;
+        try {
+            //console.log(arguments);
+            let db = request.app.get(`db`)();
+            let eventIDObj = (request.app.get(`id`))(request.fields.eventId);
+            let events = await db.collection(`events`).find({
+                _id: eventIDObj
+            }).project({
+                users: 1,
+                date: 1,
+                timeStart: 1
+            }).toArray();
+            let users = events[0].users;
+            let totalInvited = users.length;
+            let going = await db.collection(`responses`).find({
+                intention: true,
+                eventID: eventIDObj
+            }).count();
+            let notGoing = await db.collection(`responses`).find({
+                intention: false,
+                eventID: eventIDObj
+            }).count();
+            response.json({
+                success: true,
+                totalInvited, going, notGoing, date, time: events[0].timeStart
+            });
+            response.end();
+            return;
+        } catch (e) {
+            console.error(e);
+            return ;
+        }
     }));
     app.post(`/events/resendNotifications`, asyncer(async function (request, response) {
         //console.log(arguments);
