@@ -99,13 +99,14 @@ module.exports = function (app) {
         for (let i = 0; i < returned.length ; i++) {
             //TODO redo this notification section
         }
-        sendPush(users,usersIdsobjs,request.app.get(`db`)(),events.insertedId,app,OwnerName,event.childName).then(()=>{}).catch(()=>{});
+        //sendPush(users,usersIdsobjs,request.app.get(`db`)(),events.insertedId,app,OwnerName,event.childName).then(()=>{}).catch(()=>{});
         let numbers = events.unRegisteredNumbersInternational;
         let sms_invite_link=request.app.get(`invite_link`);
         response.json({
             success:true,
             sms_invite_link,
-            send_sms_datas:numbers.join(`;`)
+            send_sms_datas:numbers.join(`;`),
+            send_sms:numbers.length!==0
         });
         response.end();
     }));
