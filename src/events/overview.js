@@ -69,7 +69,7 @@ module.exports = function (app) {
             }).count();
             response.json({
                 success: true,
-                totalInvited, going, notGoing, date, time: events[0].timeStart
+                totalInvited, going, notGoing, date:events[0].date, time: events[0].timeStart
             });
             response.end();
             return;
