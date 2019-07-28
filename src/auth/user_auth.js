@@ -104,8 +104,6 @@ var googleSignIn = async function (request,response,existing_one) {
 var userLogIn = async function (request,response) {
     let phoneNumber=request.fields.number;
     let password=request.fields.password;
-    //console.dir({"phone.number":phoneNumber,password});
-    //console.dir(request.app.get('db')().collection('users'));
     let res = await request.app.get('db')().collection('users').find({"phone.number":phoneNumber,password}).limit(1).toArray();
     if (res.length===0) {
         response.json({success:false,CODE:`USER_DOESNT_EXIST`});

@@ -85,9 +85,9 @@ app.post(`/logout`,function (request,response,next) {
    },{
        $set : {FCM_Tokens:[]}
    }).then((e)=>{
-       console.error(e);
+       //console.error(e);
    }).catch((e)=>{
-       console.error(e);
+       //console.error(e);
    });
    response.end();
    return;
