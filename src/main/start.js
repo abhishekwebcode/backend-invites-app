@@ -77,6 +77,17 @@ app.all('/facebook_auth', asyncer(user_auth.facebook));
 // require auth to proceed
 require(`../classes/jwt-check`)(app);
 //All other session related functions below
+//remove FIREBASE TOKEN on logout
+app.post(`/logout`,function (request,response,next) {
+   let db = request.app.get(`db`)();
+   db.collection(`users`).findOneAndUpdate({
+       email:request.email
+   },{
+       FCM_Tokens:[]
+   }).then(()=>{}).catch(()=>{});
+   response.end();
+   return;
+});
 //enable self identity functions
 require(`../me/init`)(app);
 // enable event handlers and functions

@@ -122,6 +122,19 @@ module.exports = function (app) {
             eventID,
             registered:true
         });
+        try {
+            let user = await db.collection(`users`).findOne({email: request.email});
+            let userID = user._id;
+            await db.collection(`gifts`).findOneAndUpdate({
+                eventId: eventID,
+                selected_by_id: userID
+            }, {
+                selected_by_id: false,
+                selected: false
+            });
+        } catch (e) {
+
+        }
         let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
         let userIdObj = email._id;
         let giftUnselect = await db.collection(`gifts`).findOneAndUpdate({selected_by_id:userIdObj,eventId:eventID},{
