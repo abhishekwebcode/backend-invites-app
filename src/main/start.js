@@ -84,7 +84,11 @@ app.post(`/logout`,function (request,response,next) {
        email:request.email
    },{
        FCM_Tokens:[]
-   }).then(()=>{}).catch(()=>{});
+   }).then((e)=>{
+       console.error(e);
+   }).catch((e)=>{
+       console.error(e);
+   });
    response.end();
    return;
 });
