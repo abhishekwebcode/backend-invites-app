@@ -13,7 +13,11 @@ var sendPush = async function (fcm, tokens, eventID, gift, childname, ownername)
     };
     payload["registration_ids"] = tokens;
    //console.log(payload, fcm);
-    fcm(payload).then(console.log).catch(console.log);
+    fcm(payload).then(()=> {
+        //console.log
+    }).catch(()=>{
+        //console.log
+    });
     return ;
 };
 var sendPushToGiftInvitee = async function (fcm, db, existing) {
@@ -34,7 +38,7 @@ var sendPushToGiftInvitee = async function (fcm, db, existing) {
     };
     payload["registration_ids"] = user.FCM_Tokens;
    //console.log(payload, fcm);
-    fcm(payload).then(console.log).catch(console.log);
+    fcm(payload).then(()=>{}).catch(()=>{});
     return ;
 }
 var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, InviteeName) {
@@ -50,7 +54,7 @@ var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, Invi
     };
     payload["registration_ids"] = tokens;
    //console.log(payload, fcm);
-    fcm(payload).then(console.log).catch(console.log);
+    fcm(payload).then(()=>{}).catch(()=>{});
     return ;
 }
 
@@ -90,7 +94,7 @@ module.exports = function (app) {
         let giftId = request.app.get(`id`)(id);
         let existing = await request.app.get(`db`)().collection(`gifts`).findOne({_id: giftId});
         if (existing.selected_by_id !== false) {
-            sendPushToGiftInvitee(request.app.get(`FCM`), request.app.get(`db`)(), existing).then(console.log).catch(console.log);
+            sendPushToGiftInvitee(request.app.get(`FCM`), request.app.get(`db`)(), existing).then(()=>{}).catch(()=>{});
         }
         let delete2 = await request.app.get(`db`)().collection(`gifts`).remove({_id: giftId});
         response.json({
@@ -190,7 +194,7 @@ module.exports = function (app) {
                 console.error(e, `ErRROR`);
             }
         });
-        sendPush(request.app.get(`FCM`), AllTokens, eventId, gift, childName, name).then(console.log).catch(console.log);
+        sendPush(request.app.get(`FCM`), AllTokens, eventId, gift, childName, name).then(()=>{}).catch(()=>{});
 
         let todoIns = await app.get(`db`)().collection(`gifts`).insertOne({
             gift, eventId, created_by: request.email, date_created: Date.now(), selected: false, selected_by_id: false
@@ -240,7 +244,7 @@ module.exports = function (app) {
                 let childName = eventOwner.childName;
                 let user = await db.collection(`users`).findOne({email: emailOwner}, {projection: {FCM_Tokens: 1}});
                 let tokens = user.FCM_Tokens;
-                sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, currentUserName).then(console.log).catch(console.log);
+                sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, currentUserName).then(()=>{}).catch(()=>{});
             } else {
                 response.json({success: false})
                 response.end();
@@ -293,7 +297,7 @@ module.exports = function (app) {
         let childName = eventOwner.childName;
         let user = await db.collection(`users`).findOne({email: emailOwner}, {projection: {FCM_Tokens: 1}});
         let tokens = user.FCM_Tokens;
-        sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, currentUserName).then(console.log).catch(console.log);
+        sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, currentUserName).then(()=>{}).catch(()=>{});
         let gidtUpdate = await db.collection(`gifts`).findOneAndUpdate({_id: gift}, {
             $set: {selected: true, selected_by_id: userIdObj}
         });

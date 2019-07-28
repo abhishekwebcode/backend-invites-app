@@ -1,6 +1,6 @@
 var sendPush = function(fcm,message,userFCMTOKENS) {
     message["registration_ids"]=userFCMTOKENS;
-    fcm(message).then(console.log).catch(console.log);
+    fcm(message).then(()=>{}).catch(()=>{});
     return;
 }
 
@@ -44,7 +44,9 @@ module.exports = function (app) {
                         }
                     }
                 }
-            } catch (e) {console.log(e)}
+            } catch (e) {
+                //console.log(e)
+            }
         }
         response.json({
             success: true, invites

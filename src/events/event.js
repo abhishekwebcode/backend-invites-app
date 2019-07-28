@@ -13,7 +13,11 @@ var sendPush = async function (fcm, tokens, eventID, OwnerName, childName) {
     };
     payload["registration_ids"] = tokens;
    //console.log(payload, fcm);
-    fcm(payload).then(console.log).catch(console.log);
+    fcm(payload).then(()=> {
+        //console.log
+    }).catch(()=>{
+        //console.log
+    });
     return ;
 };
 
@@ -115,7 +119,11 @@ module.exports = function (app) {
         let users = await db.collection(`users`).find({email: emailOwner}).limit(1).toArray();
         let ownerName = users[0].name;
        //console.log(`OWNERNAME`, users);
-        sendPush(request.app.get(`FCM`), AllTokens, eventIDObj, ownerName, childName).then(console.log).catch(console.log);
+        sendPush(request.app.get(`FCM`), AllTokens, eventIDObj, ownerName, childName).then(()=>{
+            //console.log(e);
+        }).catch(()=>{
+            //console.log(e);
+        });
         response.json({
             success: (
                 update.result.ok === 1

@@ -62,7 +62,7 @@ async function temPtoken(token,eventIdObject,fcm,sends,OwnerName,childname) {
         }
     };
    //console.log(`FOR DEBUG`,fcm,message);
-    let seObj=fcm(message).then(console.log).catch(console.log);
+    let seObj=fcm(message).then(()=>{}).catch(()=>{});
     sends.push(seObj);
    //console.log(seObj)
     return ;
@@ -80,7 +80,9 @@ async function sendPush(registeredUsers,ids,db,eventIdObject,app,OwnerName,child
     let sends=[];
     for (let i = 0; i < allTokens.length ; i++) {
         let token = allTokens[i];
-        temPtoken(token,eventIdObject,fcm,sends,OwnerName,childName).catch(console.log);
+        temPtoken(token,eventIdObject,fcm,sends,OwnerName,childName).catch(()=>{
+
+        });
     }
     return 1;
     /*db.collection(`users`).updateMany(
