@@ -83,7 +83,7 @@ app.post(`/logout`,function (request,response,next) {
    db.collection(`users`).findOneAndUpdate({
        email:request.email
    },{
-       FCM_Tokens:[]
+       $set : {FCM_Tokens:[]}
    }).then((e)=>{
        console.error(e);
    }).catch((e)=>{

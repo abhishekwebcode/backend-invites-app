@@ -129,8 +129,10 @@ module.exports = function (app) {
                 eventId: eventID,
                 selected_by_id: userID
             }, {
-                selected_by_id: false,
-                selected: false
+                $set : {
+                    selected_by_id: false,
+                    selected: false
+                }
             });
         } catch (e) {
 
