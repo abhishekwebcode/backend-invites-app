@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="" />
+    <list default="true" id="f1fe07a9-168d-400a-96d0-05fbdf95727d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,72 +31,6 @@
   <component name="ProjectId" id="1Oe0ITiub2vp3ErgjClCVxBCMcF" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
-  </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="invites app backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="invites app backend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="invites app backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="invites app backend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="invites app backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="invites app backend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="events" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="invites app backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="invites app backend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="FCM" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="invites app backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="invites app backend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gifts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="invites app backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="invites app backend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="invites app backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="invites app backend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="me" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="invites app backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="invites app backend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="mongodb" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="invites app backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="invites app backend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="todo" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -277,7 +213,7 @@
       <workItem from="1564252716811" duration="1236000" />
       <workItem from="1564322483696" duration="82000" />
       <workItem from="1564322682019" duration="326000" />
-      <workItem from="1564326475082" duration="1937000" />
+      <workItem from="1564326475082" duration="2903000" />
     </task>
     <servers />
   </component>

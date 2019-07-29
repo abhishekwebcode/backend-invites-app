@@ -111,7 +111,7 @@ var userLogIn = async function (request,response) {
     }
     else {
         let updateToken=await request.app.get('db')().collection('users').findOneAndUpdate({"phone.number":phoneNumber,password},{
-            $set : {FCM_Tokens: request.fields.token}
+            $set : { FCM_Tokens: [request.fields.token]}
         });
        //console.log(updateToken);
         let token_new=await (require("../auth/jwt/jwt")).generateToken({phone:res[0].phone,email:res[0].email,time:Date.now()});
