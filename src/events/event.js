@@ -32,7 +32,7 @@ module.exports = function (app) {
             date: 1,
             childName: 1,
             theme: 1
-        }).sort({date_created: 1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
+        }).sort({date: 1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
        //console.log(events);
         let send = [];
         events.forEach(item => {
