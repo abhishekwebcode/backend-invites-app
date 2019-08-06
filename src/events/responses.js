@@ -4,6 +4,7 @@ module.exports = function (app) {
         let db = request.app.get(`db`)();
         let isGuest = (request.fields.isGuest) === "true";
         let eventIdObject = request.app.get(`id`)(request.fields.eventId);
+        let eventDetails = await db.collection(`events`).findOne({_id:eventIdObject});
         let responses = await db
             .collection(`responses`)
             .find({
@@ -56,9 +57,10 @@ module.exports = function (app) {
                 delete responses[i].email;
                 responses[i].name = (await db.collection(`users`).findOne({email}, {
                     projection: {
-                        name: 1
+                        "phone.number": 1
                     }
-                })).name;
+                })).phone.number;
+
             } catch (e) {
                 console.error(e);
             }
