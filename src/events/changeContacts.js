@@ -171,7 +171,8 @@ module.exports = function (app) {
                 unRegisteredNumbersInternational: 1,
                 users: 1,
                 FCM_Tokens: 1,
-                childName: 1
+                childName: 1,
+                namesRefined:1
             }
         });
         //console.log(`DEBUG__`,eventObject,app.get(`db`)().collection(`events`));
@@ -220,9 +221,12 @@ module.exports = function (app) {
                     }
                 }
         ));
+        let namesRefinedEarlier = eventEntryBefore.namesRefined||{};
+        let updatedMap={...namesRefinedEarlier,...namesRefined};
         let eventsUpdate = await app.get(`db`)().collection(`events`).findOneAndUpdate(
             {_id: eventObject},
             {
+                $set: {namesRefined:updatedMap},
                 $addToSet: {
                     users: {$each: usersIdsobjs},
                     unRegisteredNumbersLocal: {$each: localArray},
