@@ -26,6 +26,7 @@ module.exports=function (app) {
         for (let i = 0; i < users.length; i++) {
             let number = users[i].phone.number;
             if (reverse[number]) {
+                delete usersMap[reverse[number]];
                 usersToSend[reverse[number]]=number;
             }
         }
@@ -33,7 +34,8 @@ module.exports=function (app) {
             success:true,
             data : {
                 users:usersToSend,
-                numbers:numbers
+                numbers:numbers,
+                left:usersMap
             }
         });
         console.dir(usersToSend);
