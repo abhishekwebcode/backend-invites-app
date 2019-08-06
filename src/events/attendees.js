@@ -23,10 +23,10 @@ module.exports=function (app) {
         let usersToSend = [];
         let usersMap = eventDetails.namesRefined;
         let reverse = reverseMap(usersMap);
-        console.log(usersMap,reverse,eventDetails);
         for (let i = 0; i < users.length; i++) {
             let number = users[i].phone.number;
-            console.log(number,typeof number);
+            console.dir(reverse);
+            console.dir(number);
             if (reverse[number.toString()]) {
                 usersToSend[reverse[number.toString()]]=number;
             }
