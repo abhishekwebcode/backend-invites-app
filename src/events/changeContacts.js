@@ -202,13 +202,13 @@ module.exports = function (app) {
                 newUsers.push(e);
             }
         });
-        console.log(`NEW USERS NOW ARE`,newUsers);
+        //console.log(`NEW USERS NOW ARE`,newUsers);
         remove(request.email, emails);
         //remove(request.User.phone.national_number,localArray);
         remove(request.User.phone.number, intlArray);
         let usersIdsobjs = [];
         newUsers.forEach(e => usersIdsobjs.push(e._id));
-
+        console.log(`here`);
         let eventsUpdate = await app.get(`db`)().collection(`events`).findOneAndUpdate(
             {_id: eventObject},
             {
