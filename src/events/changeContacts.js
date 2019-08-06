@@ -208,6 +208,7 @@ module.exports = function (app) {
         remove(request.User.phone.number, intlArray);
         let usersIdsobjs = [];
         newUsers.forEach(e => usersIdsobjs.push(e._id));
+        console.log(eventObject);
         console.log((
             {_id: eventObject},
                 {
