@@ -12,7 +12,11 @@ module.exports=function (app) {
        //console.log(eventDetails.users,`array $In`);
         let users = await db.collection(`users`).find({
             _id: { $in : eventDetails.users }
-        }).project({name:1,"phone.number":1}).toArray();
+        }).project({name:1,"phone.number":1,namesRefined:1}).toArray();
+        let usersToSend = [];
+        for (let i = 0; i < users.length; i++) {
+            let number = users[i].phone.number;
+        }
         response.json({
             success:true,
             data : {

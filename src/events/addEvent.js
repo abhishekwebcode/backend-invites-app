@@ -120,10 +120,27 @@ async function getRealData(rawData) {
     });
     return {numbers1,emails1};
 };
+var parseIt=function(names,prefix) {
+    let nameRefined={};
+    for (let name in names) {
+        let no = names[name];
+        let number;
+        if (isPlus(no)) {
+            number=(new PhoneNumber(no).getNumber());
+        }
+        else {
+            number=(prefix + parseInt(no).toString());
+        }
+        nameRefined[name]=number;
+    }
+  return nameRefined;
+};
 module.exports = function (app) {
     const asyncer = app.get(`wrap`);
     app.post(`/events/add`,asyncer( async function (request, response) {
         let prefix = `+`+request.User.phone.country_prefix;
+        var names1 = JSON.parse(request.fields.names);
+        var namesRefined=parseIt(names1,prefix);
        //console.log(`PREFIX`,prefix);
        //console.log(arguments);
         let rawData = JSON.parse(request.fields.data);
@@ -145,6 +162,7 @@ module.exports = function (app) {
         let events = await app.get(`db`)().collection(`events`).insertOne(
             {
                 ...event,
+                namesRefined,
                 created_by: request.email,
                 date_created: Date.now(),
                 users: usersIdsobjs,
