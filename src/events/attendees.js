@@ -26,7 +26,7 @@ module.exports=function (app) {
         console.log(usersMap,reverse,eventDetails);
         for (let i = 0; i < users.length; i++) {
             let number = users[i].phone.number;
-            console.log(number);
+            console.log(number,typeof number);
             if (reverse[number.toString()]) {
                 usersToSend[reverse[number.toString()]]=number;
             }
