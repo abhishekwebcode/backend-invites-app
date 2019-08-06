@@ -26,7 +26,7 @@ module.exports=function (app) {
         for (let i = 0; i < users.length; i++) {
             let number = users[i].phone.number;
             console.dir(reverse);
-            console.dir(number);
+            console.dir({number});
             if (reverse[number.toString()]) {
                 usersToSend[reverse[number.toString()]]=number;
             }
