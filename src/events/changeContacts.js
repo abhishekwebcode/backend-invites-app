@@ -208,12 +208,11 @@ module.exports = function (app) {
         remove(request.User.phone.number, intlArray);
         let usersIdsobjs = [];
         newUsers.forEach(e => usersIdsobjs.push(e._id));
-        console.log(eventObject);
         console.log((
             {_id: eventObject},
                 {
                     $addToSet: {
-                        namesRefined: {$each: namesRefined},
+
                         users: {$each: usersIdsobjs},
                         unRegisteredNumbersLocal: {$each: localArray},
                         unRegisteredNumbersInternational: {$each: filteredInternational},
@@ -225,7 +224,6 @@ module.exports = function (app) {
             {_id: eventObject},
             {
                 $addToSet: {
-                    namesRefined: {$each: namesRefined},
                     users: {$each: usersIdsobjs},
                     unRegisteredNumbersLocal: {$each: localArray},
                     unRegisteredNumbersInternational: {$each: filteredInternational},
