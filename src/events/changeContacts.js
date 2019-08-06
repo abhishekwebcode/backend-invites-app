@@ -208,7 +208,7 @@ module.exports = function (app) {
         remove(request.User.phone.number, intlArray);
         let usersIdsobjs = [];
         newUsers.forEach(e => usersIdsobjs.push(e._id));
-        console.dir((
+        console.log((
             {_id: eventObject},
                 {
                     $addToSet: {
