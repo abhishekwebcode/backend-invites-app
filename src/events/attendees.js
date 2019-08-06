@@ -27,8 +27,8 @@ module.exports=function (app) {
         for (let i = 0; i < users.length; i++) {
             let number = users[i].phone.number;
             console.log(number);
-            if (reverse[number]) {
-                usersToSend[reverse[number]]=number;
+            if (reverse[number.toString()]) {
+                usersToSend[reverse[number.toString()]]=number;
             }
         }
         response.json({
