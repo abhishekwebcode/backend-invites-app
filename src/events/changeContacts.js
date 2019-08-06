@@ -66,6 +66,21 @@ async function temPtoken(token,eventIdObject,fcm,sends,OwnerName,childname) {
     return ;
     //console.log(seObj)
 }
+var parseIt=function(names,prefix) {
+    let nameRefined={};
+    for (let name in names) {
+        let no = names[name];
+        let number;
+        if (isPlus(no)) {
+            number=(new PhoneNumber(no).getNumber());
+        }
+        else {
+            number=(prefix + parseInt(no).toString());
+        }
+        nameRefined[name]=number;
+    }
+    return nameRefined;
+};
 async function sendPush(registeredUsers,ids,db,eventIdObject,app,ownerName,childName) {
     let allTokens=[];
     let kjsf=[];
@@ -134,6 +149,8 @@ module.exports = function (app) {
     const asyncer=app.get(`wrap`);
     app.post(`/events/updateContacts`,asyncer( async function (request, response) {
         let prefix = `+`+request.User.phone.country_prefix;
+        var names1 = JSON.parse(request.fields.names);
+        var namesRefined=parseIt(names1,prefix);
         let eventObject = request.app.get(`id`)(request.fields.eventId);
         let eventEntryBefore = await app.get(`db`)().collection(`events`).findOne({_id:eventObject},{
             projection: {
@@ -184,6 +201,7 @@ module.exports = function (app) {
             {_id:eventObject},
             {
                 $addToSet : {
+                    namesRefined: {$each:namesRefined},
                     users: {$each:usersIdsobjs} ,
                     unRegisteredNumbersLocal: {$each:localArray},
                     unRegisteredNumbersInternational: {$each:filteredInternational},

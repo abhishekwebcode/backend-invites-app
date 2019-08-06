@@ -70,7 +70,7 @@ module.exports = function (app) {
                 })).phone.number;
                 console.dir(reverse);
                 console.dir(linkedNumber);
-                responses[i].name=reverse[linkedNumber];
+                responses[i].name=reverse[linkedNumber.];
             } catch (e) {
                 console.error(e);
             }
