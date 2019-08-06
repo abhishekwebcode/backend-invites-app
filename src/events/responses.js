@@ -68,7 +68,7 @@ module.exports = function (app) {
                         "phone.number": 1
                     }
                 })).phone.number;
-                responses[i].name=reverse(linkedNumber);
+                responses[i].name=reverse[linkedNumber];
             } catch (e) {
                 console.error(e);
             }
