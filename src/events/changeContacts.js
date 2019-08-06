@@ -208,7 +208,18 @@ module.exports = function (app) {
         remove(request.User.phone.number, intlArray);
         let usersIdsobjs = [];
         newUsers.forEach(e => usersIdsobjs.push(e._id));
-        console.log(`here`);
+        console.dir((
+            {_id: eventObject},
+                {
+                    $addToSet: {
+                        namesRefined: {$each: namesRefined},
+                        users: {$each: usersIdsobjs},
+                        unRegisteredNumbersLocal: {$each: localArray},
+                        unRegisteredNumbersInternational: {$each: filteredInternational},
+                        unRegisteredEmails: {$each: emails}
+                    }
+                }
+        ));
         let eventsUpdate = await app.get(`db`)().collection(`events`).findOneAndUpdate(
             {_id: eventObject},
             {
