@@ -1,3 +1,10 @@
+function reverseMap(map) {
+    let reverseMap={};
+    for (let key in map) {
+        reverseMap[map[key.toString()]]=key.toString();
+    }
+    return reverseMap;
+};
 module.exports = function (app) {
     const asyncer= app.get(`wrap`);
     app.post(`/events/listResponses`,asyncer( async function (request, response) {
@@ -51,16 +58,17 @@ module.exports = function (app) {
             } catch (e) {
                 console.error(e);
             }
+            let reverse=reverseMap(eventDetails.namesRefined);
             try {
                 if (responses[i].registered !== true) continue;
                 let email = responses[i].email;
                 delete responses[i].email;
-                responses[i].name = (await db.collection(`users`).findOne({email}, {
+                let linkedNumber= (await db.collection(`users`).findOne({email}, {
                     projection: {
                         "phone.number": 1
                     }
                 })).phone.number;
-
+                responses[i].name=reverse(linkedNumber);
             } catch (e) {
                 console.error(e);
             }
