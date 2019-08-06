@@ -38,7 +38,14 @@ module.exports=function (app) {
                 left:usersMap
             }
         });
-        console.dir(usersToSend);
+        console.dir({
+            success:true,
+            data : {
+                users:usersToSend,
+                numbers:numbers,
+                left:usersMap
+            }
+        });
         return ;
     }));
 };
