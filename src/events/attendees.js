@@ -20,13 +20,11 @@ module.exports=function (app) {
         let users = await db.collection(`users`).find({
             _id: { $in : eventDetails.users }
         }).project({name:1,"phone.number":1}).toArray();
-        let usersToSend = [];
+        let usersToSend = {};
         let usersMap = eventDetails.namesRefined;
         let reverse = reverseMap(usersMap);
         for (let i = 0; i < users.length; i++) {
             let number = users[i].phone.number;
-            console.dir(reverse);
-            console.dir({number});
             if (reverse[number]) {
                 usersToSend[reverse[number]]=number;
             }
