@@ -1,7 +1,7 @@
 function reverseMap(map) {
     let reverseMap={};
     for (let key in map) {
-        reverseMap[map[key]]=key;
+        reverseMap[map[key.toString()]]=key.toString();
     }
     return reverseMap;
 };
