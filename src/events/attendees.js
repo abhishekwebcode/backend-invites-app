@@ -1,3 +1,10 @@
+function reverseMap(map) {
+    let reverseMap={};
+    for (let key in map) {
+        reverseMap[map[key]]=key;
+    }
+    return reverseMap;
+};
 module.exports=function (app) {
     const asyncer = app.get(`wrap`);
     app.post(`/event/getAttendees`,asyncer(async function(request,response,next) {
@@ -14,16 +21,22 @@ module.exports=function (app) {
             _id: { $in : eventDetails.users }
         }).project({name:1,"phone.number":1,namesRefined:1}).toArray();
         let usersToSend = [];
+        let usersMap = eventDetails.namesRefined;
+        let reverse = reverseMap(usersMap);
         for (let i = 0; i < users.length; i++) {
             let number = users[i].phone.number;
+            if (reverse[number]) {
+                usersToSend[reverse[number]]=number;
+            }
         }
         response.json({
             success:true,
             data : {
-                users:users,
+                users:usersToSend,
                 numbers:numbers
             }
-        })
+        });
+        console.dir(usersToSend);
         return ;
     }));
 };
