@@ -175,7 +175,7 @@ module.exports = function (app) {
             }
         });
         //console.log(`DEBUG__`,eventObject,app.get(`db`)().collection(`events`));
-        console.log(`EVENTS ENTRY BEFORE`,eventEntryBefore);
+        //console.log(`EVENTS ENTRY BEFORE`,eventEntryBefore);
         //console.log(`PREFIX`,prefix);
         let rawData = JSON.parse(request.fields.data);
         let {numbers1, emails1} = await getRealData(rawData);
@@ -193,7 +193,7 @@ module.exports = function (app) {
             }
         });
         //console.log(`NEW RAW NUMBERS`,filteredInternational,`--++--`,entryPhones,newPhones);
-        console.log(`---`,users,eventEntryBefore.users,`---`);
+        //console.log(`---`,users,eventEntryBefore.users,`---`);
         let hashes = [];
         let newUsers = [];
         eventEntryBefore.users.forEach(e => hashes.push(e.toHexString()));
@@ -202,7 +202,7 @@ module.exports = function (app) {
                 newUsers.push(e);
             }
         });
-        //console.log(`NEW USERS NOW ARE`,newUsers);
+        console.log(`NEW USERS NOW ARE`,newUsers);
         remove(request.email, emails);
         //remove(request.User.phone.national_number,localArray);
         remove(request.User.phone.number, intlArray);
