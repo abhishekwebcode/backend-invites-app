@@ -34,16 +34,14 @@ module.exports=function (app) {
             success:true,
             data : {
                 users:usersToSend,
-                numbers:numbers,
-                left:usersMap
+                numbers:usersMap
             }
         });
         console.dir({
             success:true,
             data : {
                 users:usersToSend,
-                numbers:numbers,
-                left:usersMap
+                numbers:usersMap
             }
         });
         return ;
