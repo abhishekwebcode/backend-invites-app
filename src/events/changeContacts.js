@@ -163,9 +163,8 @@ module.exports = function (app) {
     const asyncer = app.get(`wrap`);
     app.post(`/events/updateContacts`, asyncer(async function (request, response) {
         let prefix = `+` + request.User.phone.country_prefix;
-        var names1 = JSON.parse(request.fields.names);
-        var namesRefined = parseIt(names1, prefix);
-        console.dir(namesRefined);
+        var names122 = JSON.parse(request.fields.names);
+        var namesRefined = parseIt(names122, prefix);
         let eventObject = request.app.get(`id`)(request.fields.eventId);
         let eventEntryBefore = await app.get(`db`)().collection(`events`).findOne({_id: eventObject}, {
             projection: {
@@ -222,6 +221,7 @@ module.exports = function (app) {
                 }
             }
         );
+        console.dir(eventsUpdate);
         //console.log(`UPDATE EVENT CONTACTS DETAIL`,eventsUpdate);
 
         /**
