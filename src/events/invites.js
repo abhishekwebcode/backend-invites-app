@@ -2,9 +2,14 @@ var sendPush = function(fcm,message,userFCMTOKENS) {
     message["registration_ids"]=userFCMTOKENS;
     fcm(message).then(()=>{}).catch(()=>{});
     return;
-}
-
-
+};
+function reverseMap(map) {
+    let reverseMap={};
+    for (let key in map) {
+        reverseMap[map[key.toString()]]=key.toString();
+    }
+    return reverseMap;
+};
 module.exports = function (app) {
     const asyncer = app.get(`wrap`);
     app.post(`/invites/list`, asyncer(async function (request, response) {
@@ -169,7 +174,11 @@ module.exports = function (app) {
                         });
                          */
             let fcm = app.get(`FCM`);
-            let ownerEmail1 = await db.collection(`events`).findOne({_id:eventID},{projection:{created_by: 1,childName:1}});
+            let ownerEmail1 = await db.collection(`events`).findOne({_id:eventID},{projection:{created_by: 1,childName:1,namesRefined:1}});
+            let names = ownerEmail1.namesRefined;
+            let reverse = reverseMap(names);
+            let myPhone=userIdObj.phone.number;
+            let myAlias = reverse[myPhone];
             let ownerEmail=ownerEmail1.created_by;
             let ownerTokens = await db.collection(`users`).findOne({email:ownerEmail},{projection:{FCM_Tokens:1}});
             ownerTokens=ownerTokens.FCM_Tokens;
@@ -178,7 +187,7 @@ module.exports = function (app) {
                 data: {
                     type:`INVITE_RESPOND`,
                     eventId:eventID.toString(),
-                    userName:userIdObj.name,
+                    userName:myAlias,
                     eventName:ownerEmail1.childName,
                     Action:`REJECT`,
                     Date:Date.now()
@@ -237,16 +246,20 @@ module.exports = function (app) {
             let named=userIdObj234.name;
 
             let fcm = app.get(`FCM`);
-            let ownerEmail1 = await db.collection(`events`).findOne({_id:eventID},{projection:{created_by: 1,childName:1}});
+            let ownerEmail1 = await db.collection(`events`).findOne({_id:eventID},{projection:{created_by: 1,childName:1,namesRefined: 1}});
             let ownerEmail=ownerEmail1.created_by;
             let ownerTokens = await db.collection(`users`).findOne({email:ownerEmail},{projection:{FCM_Tokens:1}});
             ownerTokens=ownerTokens.FCM_Tokens;
+            let names = ownerEmail1.namesRefined;
+            let reverse = reverseMap(names);
+            let myPhone=userIdObj.phone.number;
+            let myAlias = reverse[myPhone];
             let message = {
                 collapse_key: 'New Invite',
                 data: {
                     type:`INVITE_RESPOND`,
                     eventId:eventID.toString(),
-                    userName:named,
+                    userName:myAlias,
                     eventName:ownerEmail1.childName,
                     Action:`ACCEPT`,
                     Date:Date.now()

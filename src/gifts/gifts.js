@@ -20,6 +20,13 @@ var sendPush = async function (fcm, tokens, eventID, gift, childname, ownername)
     });
     return ;
 };
+function reverseMap(map) {
+    let reverseMap={};
+    for (let key in map) {
+        reverseMap[map[key.toString()]]=key.toString();
+    }
+    return reverseMap;
+};
 var sendPushToGiftInvitee = async function (fcm, db, existing) {
    //console.log(arguments, `DELETE GIFT`);
     let user = await db.collection(`users`).findOne({_id: existing.selected_by_id});
@@ -41,7 +48,7 @@ var sendPushToGiftInvitee = async function (fcm, db, existing) {
     fcm(payload).then(()=>{}).catch(()=>{});
     return ;
 }
-var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, InviteeName) {
+var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, linkedName) {
     let payload = {
         collapse_key: 'New Invite',
         data: {
@@ -49,7 +56,7 @@ var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, Invi
             Date: Date.now(),
             eventId: eventID.toString(),
             childname: childName,
-            InviteeName: InviteeName
+            InviteeName: linkedName
         }
     };
     payload["registration_ids"] = tokens;
@@ -213,6 +220,7 @@ module.exports = function (app) {
         let email = await app.get(`db`)().collection(`users`).findOne({email: request.email});
         let userIdObj = email._id;
         let currentUserName = email.name;
+        let myPhone = email.phone.number;
         let unselect = request.fields.unselect === "true";
         let responseIDOBJECT = app.get(`id`)(request.fields.responseId);
         try {
@@ -237,14 +245,18 @@ module.exports = function (app) {
                 let eventOwner = await db.collection(`events`).findOne({_id: eventId}, {
                     projection: {
                         created_by: 1,
-                        childName: 1
+                        childName: 1,
+                        namesRefined:1
                     }
                 });
+                let names = eventOwner.namesRefined;
+                let newMap = reverseMap(names);
+                let myalias = newMap[myPhone];
                 let emailOwner = eventOwner.created_by;
                 let childName = eventOwner.childName;
                 let user = await db.collection(`users`).findOne({email: emailOwner}, {projection: {FCM_Tokens: 1}});
                 let tokens = user.FCM_Tokens;
-                sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, currentUserName).then(()=>{}).catch(()=>{});
+                sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, myalias).then(()=>{}).catch(()=>{});
             } else {
                 response.json({success: false})
                 response.end();
@@ -290,14 +302,18 @@ module.exports = function (app) {
         let eventOwner = await db.collection(`events`).findOne({_id: eventId}, {
             projection: {
                 created_by: 1,
-                childName: 1
+                childName: 1,
+                namesRefined:1
             }
         });
+        let names = eventOwner.namesRefined;
+        let newMap = reverseMap(names);
+        let myalias = newMap[myPhone];
         let emailOwner = eventOwner.created_by;
         let childName = eventOwner.childName;
         let user = await db.collection(`users`).findOne({email: emailOwner}, {projection: {FCM_Tokens: 1}});
         let tokens = user.FCM_Tokens;
-        sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, currentUserName).then(()=>{}).catch(()=>{});
+        sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, myalias).then(()=>{}).catch(()=>{});
         let gidtUpdate = await db.collection(`gifts`).findOneAndUpdate({_id: gift}, {
             $set: {selected: true, selected_by_id: userIdObj}
         });
