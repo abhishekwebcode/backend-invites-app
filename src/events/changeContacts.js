@@ -175,7 +175,7 @@ module.exports = function (app) {
             }
         });
         //console.log(`DEBUG__`,eventObject,app.get(`db`)().collection(`events`));
-        //console.log(`EVENTS ENTRY BEFORE`,eventEntryBefore);
+        console.log(`EVENTS ENTRY BEFORE`,eventEntryBefore);
         //console.log(`PREFIX`,prefix);
         let rawData = JSON.parse(request.fields.data);
         let {numbers1, emails1} = await getRealData(rawData);
@@ -193,7 +193,7 @@ module.exports = function (app) {
             }
         });
         //console.log(`NEW RAW NUMBERS`,filteredInternational,`--++--`,entryPhones,newPhones);
-        //console.log(`---`,users,eventEntryBefore.users,`---`);
+        console.log(`---`,users,eventEntryBefore.users,`---`);
         let hashes = [];
         let newUsers = [];
         eventEntryBefore.users.forEach(e => hashes.push(e.toHexString()));
@@ -221,8 +221,8 @@ module.exports = function (app) {
                 }
             }
         );
-        console.dir(eventsUpdate);
-        //console.log(`UPDATE EVENT CONTACTS DETAIL`,eventsUpdate);
+
+        console.log(`UPDATE EVENT CONTACTS DETAIL`,eventsUpdate);
 
         /**
          * Filtering users to respond to only un-responded ones
