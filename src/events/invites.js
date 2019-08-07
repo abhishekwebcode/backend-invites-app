@@ -206,86 +206,95 @@ module.exports = function (app) {
     }));
 
     app.post(`/invites/accept`,asyncer( async function (request, response) {
-        let db = request.app.get(`db`)();
-        let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
-        let userIdObj = email._id;
-        let eventID = request.app.get(`id`)(request.fields.eventId);
-        await db.collection(`responses`).remove({
-            email:request.User.email,
-            eventID,
-            registered:true
-        });
-        let ins = await db.collection(`responses`).insertOne({
-            registered:true,
-            intention:true,
-            email:request.User.email,
-            eventID,
-            allergy1:request.fields.allergy1,
-            allergy2:request.fields.allergy2,
-            allergy3:request.fields.allergy3,
-            isAllergy:request.fields.isAllergy,
-            date_created:Date.now()
-        });
-        if (ins.result.ok===1) {
-            let gifts = await db.collection(`gifts`).find({
-                eventId:eventID,
-                $or : [
-                    {selected:false}
-                ]
-            }).toArray();
-           //console.log(db.collection(`gifts`));
-           //console.log(gifts);
-           //console.log({eventId:eventID,});
+        try {
+            let db = request.app.get(`db`)();
+            let email = await app.get(`db`)().collection(`users`).findOne({email: request.email});
+            let userIdObj = email._id;
+            let eventID = request.app.get(`id`)(request.fields.eventId);
+            await db.collection(`responses`).remove({
+                email: request.User.email,
+                eventID,
+                registered: true
+            });
+            let ins = await db.collection(`responses`).insertOne({
+                registered: true,
+                intention: true,
+                email: request.User.email,
+                eventID,
+                allergy1: request.fields.allergy1,
+                allergy2: request.fields.allergy2,
+                allergy3: request.fields.allergy3,
+                isAllergy: request.fields.isAllergy,
+                date_created: Date.now()
+            });
+            if (ins.result.ok === 1) {
+                let gifts = await db.collection(`gifts`).find({
+                    eventId: eventID,
+                    $or: [
+                        {selected: false}
+                    ]
+                }).toArray();
+                //console.log(db.collection(`gifts`));
+                //console.log(gifts);
+                //console.log({eventId:eventID,});
 
-            /*
-            This code should work for both the cases!
-             */
+                /*
+                This code should work for both the cases!
+                 */
 
 
-            let userIdObj234 = await app.get(`db`)().collection(`users`).findOne({email:request.email},{projection:{name:1}});
-            let named=userIdObj234.name;
+                let userIdObj234 = await app.get(`db`)().collection(`users`).findOne({email: request.email}, {projection: {name: 1}});
+                let named = userIdObj234.name;
 
-            let fcm = app.get(`FCM`);
-            let ownerEmail1 = await db.collection(`events`).findOne({_id:eventID},{projection:{created_by: 1,childName:1,namesRefined: 1}});
-            let ownerEmail=ownerEmail1.created_by;
-            let ownerTokens = await db.collection(`users`).findOne({email:ownerEmail},{projection:{FCM_Tokens:1}});
-            ownerTokens=ownerTokens.FCM_Tokens;
-            let names = ownerEmail1.namesRefined;
-            let reverse = reverseMap(names);
-            let myPhone=userIdObj.phone.number;
-            let myAlias = reverse[myPhone];
-            let message = {
-                collapse_key: 'New Invite',
-                data: {
-                    type:`INVITE_RESPOND`,
-                    eventId:eventID.toString(),
-                    userName:myAlias,
-                    eventName:ownerEmail1.childName,
-                    Action:`ACCEPT`,
-                    Date:Date.now()
+                let fcm = app.get(`FCM`);
+                let ownerEmail1 = await db.collection(`events`).findOne({_id: eventID}, {
+                    projection: {
+                        created_by: 1,
+                        childName: 1,
+                        namesRefined: 1
+                    }
+                });
+                let ownerEmail = ownerEmail1.created_by;
+                let ownerTokens = await db.collection(`users`).findOne({email: ownerEmail}, {projection: {FCM_Tokens: 1}});
+                ownerTokens = ownerTokens.FCM_Tokens;
+                let names = ownerEmail1.namesRefined;
+                let reverse = reverseMap(names);
+                let myPhone = userIdObj.phone.number;
+                let myAlias = reverse[myPhone];
+                let message = {
+                    collapse_key: 'New Invite',
+                    data: {
+                        type: `INVITE_RESPOND`,
+                        eventId: eventID.toString(),
+                        userName: myAlias,
+                        eventName: ownerEmail1.childName,
+                        Action: `ACCEPT`,
+                        Date: Date.now()
+                    }
+                };
+                //console.log(`NOTIFICATION`,fcm,message,ownerTokens);
+                sendPush(fcm, message, ownerTokens);
+
+
+                if (gifts.length !== 0) {
+                    response.json({
+                        success: true,
+                        chooseGifts: true,
+                        gifts,
+                        response_id: ins.insertedId.toString()
+                    });
+                } else {
+                    response.json({
+                        success: true
+                    });
                 }
-            };
-           //console.log(`NOTIFICATION`,fcm,message,ownerTokens);
-            sendPush(fcm,message,ownerTokens);
-
-
-            if (gifts.length!==0) {
-                response.json({
-                    success: true,
-                    chooseGifts:true,
-                    gifts,
-                    response_id:ins.insertedId.toString()
-                });
+            } else {
+                response.json({success: false})
             }
-            else {
-                response.json({
-                    success: true
-                });
-            }
-        } else {
-            response.json({success:false})
+            return;
+        } catch (e) {
+            console.error(e)
         }
-        return ;
     }));
 
 
