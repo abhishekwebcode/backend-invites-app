@@ -1,22 +1,25 @@
-var sendPush = function(fcm,message,userFCMTOKENS) {
-    message["registration_ids"]=userFCMTOKENS;
-    fcm(message).then(()=>{}).catch(()=>{});
+var sendPush = function (fcm, message, userFCMTOKENS) {
+    message["registration_ids"] = userFCMTOKENS;
+    fcm(message).then(() => {
+    }).catch(() => {
+    });
     return;
 };
+
 function reverseMap(map) {
-    let reverseMap={};
+    let reverseMap = {};
     for (let key in map) {
-        reverseMap[map[key.toString()]]=key.toString();
+        reverseMap[map[key.toString()]] = key.toString();
     }
     return reverseMap;
 };
 module.exports = function (app) {
     const asyncer = app.get(`wrap`);
     app.post(`/invites/list`, asyncer(async function (request, response) {
-       //console.log(arguments);
+        //console.log(arguments);
         let db = request.app.get(`db`)();
-       //console.log(`inInviesliSt`);
-       //console.log(db);
+        //console.log(`inInviesliSt`);
+        //console.log(db);
         let id = await db.collection(`users`).find({email: request.User.email}).limit(1).toArray();
         let _id = id[0]._id;
         let userID = request.app.get(`id`)(_id);
@@ -27,25 +30,29 @@ module.exports = function (app) {
                 ]
             }
         }).project({
-            _id: 1, childName: 1, date: 1,guestSee:1
-        }).sort({date: -1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
-        for (i=0;i<invites.length;i++) {
+            _id: 1, childName: 1, date: 1, guestSee: 1
+        }).sort({date: 1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
+        for (i = 0; i < invites.length; i++) {
             try {
-                let eventId=invites[i]._id;
-                let response = await db.collection(`responses`).findOne({eventID:eventId,intention:true,email:request.email});
-                if (response!=null && response.intention===true) {
+                let eventId = invites[i]._id;
+                let response = await db.collection(`responses`).findOne({
+                    eventID: eventId,
+                    intention: true,
+                    email: request.email
+                });
+                if (response != null && response.intention === true) {
                     if (true) {
                         let gifts = await db.collection(`gifts`).findOne({
                             eventId: eventId,
                             $or: [
-                                {selected_by_id:userID},
+                                {selected_by_id: userID},
                                 {selected: false}
                             ]
                         })
-                        if (gifts!==null) {
+                        if (gifts !== null) {
                             console.dir(response);
-                            invites[i].showGiftOption=true;
-                            invites[i].response_id=response._id.toString()
+                            invites[i].showGiftOption = true;
+                            invites[i].response_id = response._id.toString()
                         }
                     }
                 }
@@ -56,36 +63,34 @@ module.exports = function (app) {
         response.json({
             success: true, invites
         })
-        return ;
+        return;
     }));
-    app.post(`/invites/info`,asyncer( async function (request, response) {
+    app.post(`/invites/info`, asyncer(async function (request, response) {
         let db1 = request.app.get(`db`)();
         let eventID = request.app.get(`id`)(request.fields.eventId);
         let check1 = await db1.collection(`responses`).findOne({
-            email:request.User.email,
+            email: request.User.email,
             eventID,
             registered: true,
         });
-       //console.log(`CHECKING EXISTING INVITE`);
-       //console.log(check1);
-        var checkObj ;
-        if (check1===null) {
-            checkObj=({
-                sent:false
+        //console.log(`CHECKING EXISTING INVITE`);
+        //console.log(check1);
+        var checkObj;
+        if (check1 === null) {
+            checkObj = ({
+                sent: false
             });
-        }
-        else {
-            checkObj=({
-                sent:true,
-                intention:(check1.intention===true?`going`:`not going`)
+        } else {
+            checkObj = ({
+                sent: true,
+                intention: (check1.intention === true ? `going` : `not going`)
             })
         }
 
 
-
         let eventID1 = request.fields.eventId;
         let eventIDOBJECT = request.app.get(`id`)(eventID1);
-       //console.log(arguments);
+        //console.log(arguments);
         let eventINFO = await request.app.get(`db`)().collection(`events`).find({
             _id: eventIDOBJECT
         }).project({
@@ -98,8 +103,8 @@ module.exports = function (app) {
             date: 1,
             street: 1,
             childName: 1,
-            latitude:1,
-            longitude:1,
+            latitude: 1,
+            longitude: 1,
             district: 1,
             otherAddress: 1,
             theme: 1,
@@ -119,15 +124,15 @@ module.exports = function (app) {
             });
             return;
         }
-        return ;
+        return;
     }));
     app.post(`/invites/reject`, asyncer(async function (request, response) {
         let db = request.app.get(`db`)();
         let eventID = request.app.get(`id`)(request.fields.eventId);
         await db.collection(`responses`).remove({
-            email:request.User.email,
+            email: request.User.email,
             eventID,
-            registered:true
+            registered: true
         });
         try {
             let user = await db.collection(`users`).findOne({email: request.email});
@@ -136,7 +141,7 @@ module.exports = function (app) {
                 eventId: eventID,
                 selected_by_id: userID
             }, {
-                $set : {
+                $set: {
                     selected_by_id: false,
                     selected: false
                 }
@@ -144,27 +149,30 @@ module.exports = function (app) {
         } catch (e) {
 
         }
-        let email = await app.get(`db`)().collection(`users`).findOne({email:request.email});
+        let email = await app.get(`db`)().collection(`users`).findOne({email: request.email});
         let userIdObj = email._id;
-        let giftUnselect = await db.collection(`gifts`).findOneAndUpdate({selected_by_id:userIdObj,eventId:eventID},{
-            $set:{selected:false,selected_by_id:false}
+        let giftUnselect = await db.collection(`gifts`).findOneAndUpdate({
+            selected_by_id: userIdObj,
+            eventId: eventID
+        }, {
+            $set: {selected: false, selected_by_id: false}
         });
         let ins = await db.collection(`responses`).insertOne({
-            registered:true,
-            intention:false,
-            email:request.User.email,
+            registered: true,
+            intention: false,
+            email: request.User.email,
             eventID,
-            date_created:Date.now()
+            date_created: Date.now()
         });
-        if (ins.result.ok===1) {
-           //console.log(`hdisuf`,request.email,db);
-            let userIdObj = await db.collection(`users`).findOne({email:request.email});
-            let userOBJ= userIdObj._id;
-           //console.log(`SELE`,userOBJ);
-           //console.log(eventID);
+        if (ins.result.ok === 1) {
+            //console.log(`hdisuf`,request.email,db);
+            let userIdObj = await db.collection(`users`).findOne({email: request.email});
+            let userOBJ = userIdObj._id;
+            //console.log(`SELE`,userOBJ);
+            //console.log(eventID);
             await db.collection(`gifts`).findOneAndUpdate({
-                eventId:eventID,selected_by_id:userOBJ
-            },{$set:{selected:false,selected_by_id: false}});
+                eventId: eventID, selected_by_id: userOBJ
+            }, {$set: {selected: false, selected_by_id: false}});
 
             /*
                         ownerTokens.forEach(async token=>{
@@ -174,38 +182,44 @@ module.exports = function (app) {
                         });
                          */
             let fcm = app.get(`FCM`);
-            let ownerEmail1 = await db.collection(`events`).findOne({_id:eventID},{projection:{created_by: 1,childName:1,namesRefined:1}});
+            let ownerEmail1 = await db.collection(`events`).findOne({_id: eventID}, {
+                projection: {
+                    created_by: 1,
+                    childName: 1,
+                    namesRefined: 1
+                }
+            });
             let names = ownerEmail1.namesRefined;
             let reverse = reverseMap(names);
-            let myPhone=userIdObj.phone.number;
+            let myPhone = userIdObj.phone.number;
             let myAlias = reverse[myPhone];
-            let ownerEmail=ownerEmail1.created_by;
-            let ownerTokens = await db.collection(`users`).findOne({email:ownerEmail},{projection:{FCM_Tokens:1}});
-            ownerTokens=ownerTokens.FCM_Tokens;
+            let ownerEmail = ownerEmail1.created_by;
+            let ownerTokens = await db.collection(`users`).findOne({email: ownerEmail}, {projection: {FCM_Tokens: 1}});
+            ownerTokens = ownerTokens.FCM_Tokens;
             let message = {
                 collapse_key: 'New Invite',
                 data: {
-                    type:`INVITE_RESPOND`,
-                    eventId:eventID.toString(),
-                    userName:myAlias,
-                    eventName:ownerEmail1.childName,
-                    Action:`REJECT`,
-                    Date:Date.now()
+                    type: `INVITE_RESPOND`,
+                    eventId: eventID.toString(),
+                    userName: myAlias,
+                    eventName: ownerEmail1.childName,
+                    Action: `REJECT`,
+                    Date: Date.now()
                 }
             };
-           //console.log(`NOTIFICATION`,fcm,message,ownerTokens);
-            sendPush(fcm,message,ownerTokens);
+            //console.log(`NOTIFICATION`,fcm,message,ownerTokens);
+            sendPush(fcm, message, ownerTokens);
 
             response.json({
                 success: true
             })
         } else {
-            response.json({success:false})
+            response.json({success: false})
         }
-        return ;
+        return;
     }));
 
-    app.post(`/invites/accept`,asyncer( async function (request, response) {
+    app.post(`/invites/accept`, asyncer(async function (request, response) {
         try {
             let db = request.app.get(`db`)();
             let email = await app.get(`db`)().collection(`users`).findOne({email: request.email});
@@ -300,7 +314,6 @@ module.exports = function (app) {
             console.error(e)
         }
     }));
-
 
 
 };
