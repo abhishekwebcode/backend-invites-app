@@ -216,6 +216,7 @@ module.exports = function (app) {
                 eventID,
                 registered: true
             });
+            console.log(Date.now())
             let ins = await db.collection(`responses`).insertOne({
                 registered: true,
                 intention: true,
@@ -227,6 +228,7 @@ module.exports = function (app) {
                 isAllergy: request.fields.isAllergy,
                 date_created: Date.now()
             });
+            console.log(Date.now())
             if (ins.result.ok === 1) {
                 let gifts = await db.collection(`gifts`).find({
                     eventId: eventID,
@@ -245,7 +247,7 @@ module.exports = function (app) {
 
                 let userIdObj234 = await app.get(`db`)().collection(`users`).findOne({email: request.email}, {projection: {name: 1}});
                 let named = userIdObj234.name;
-
+                console.log(Date.now())
                 let fcm = app.get(`FCM`);
                 let ownerEmail1 = await db.collection(`events`).findOne({_id: eventID}, {
                     projection: {
@@ -261,6 +263,7 @@ module.exports = function (app) {
                 let reverse = reverseMap(names);
                 let myPhone = email.phone.number;
                 let myAlias = reverse[myPhone];
+                console.log(Date.now())
                 let message = {
                     collapse_key: 'New Invite',
                     data: {
@@ -274,7 +277,7 @@ module.exports = function (app) {
                 };
                 //console.log(`NOTIFICATION`,fcm,message,ownerTokens);
                 sendPush(fcm, message, ownerTokens);
-
+                console.log(Date.now())
 
                 if (gifts.length !== 0) {
                     response.json({
@@ -289,6 +292,7 @@ module.exports = function (app) {
                     });
                 }
             } else {
+                console.log(Date.now())
                 response.json({success: false})
             }
             return;
