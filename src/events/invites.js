@@ -259,7 +259,7 @@ module.exports = function (app) {
                 ownerTokens = ownerTokens.FCM_Tokens;
                 let names = ownerEmail1.namesRefined;
                 let reverse = reverseMap(names);
-                let myPhone = userIdObj.phone.number;
+                let myPhone = email.phone.number;
                 let myAlias = reverse[myPhone];
                 let message = {
                     collapse_key: 'New Invite',
