@@ -12,7 +12,6 @@ async function notifyUnResponded(event, DB, email, FCM) {
     }
     let owner = await DB.collection(`users`).findOne({email});
     let message = {
-        to: token,
         collapse_key: 'New Invite',
         data: {
             type: `NEW_INVITE`,
