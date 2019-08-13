@@ -10,7 +10,7 @@ async function notifyUnResponded(event, DB, email, FCM) {
             reReminderTokens.push(currentUserObject.FCM_Tokens[0]);
         } else continue;
     }
-    let owner = await DB.collection(`users`).findOne(email);
+    let owner = await DB.collection(`users`).findOne({email});
     let message = {
         to: token,
         collapse_key: 'New Invite',
