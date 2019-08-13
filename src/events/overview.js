@@ -1,6 +1,7 @@
 async function notifyUnResponded(event,DB,email) {
     let eventID=event._id;
     let reRemindTokens=[];
+    console.dir(event);
     for (let i = 0; i < event.users; i++) {
         let currentUser = event.users[i];
         console.dir(currentUser);
