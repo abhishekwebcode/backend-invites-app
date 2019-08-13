@@ -1,5 +1,17 @@
 async function notifyUnResponded(event,DB,email) {
-    console.dir(arguments);
+    let eventID=event._id;
+    let reRemindTokens=[];
+    for (let i = 0; i < event.users; i++) {
+        let currentUser = event.users[i];
+        let currentUserObject = await DB.collection(`users`).findOne({_id:currentUser});
+        if (currentUserObject===null) continue;
+        let response = await DB.collection(`responses`).findOne({eventID,email:currentUserObject.email});
+        if (response==null) {
+            reRemindTokens.push(currentUserObject.FCM_Tokens[0]);
+        }
+        else continue;
+    }
+    console.dir(reRemindTokens);
 
 }
 async function temPtoken(token,eventIdObject,fcm,sends,OwnerName,childname) {
