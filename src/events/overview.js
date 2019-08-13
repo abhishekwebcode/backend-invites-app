@@ -1,4 +1,7 @@
+async function notifyUnResponded(event,DB,email) {
+    console.dir(arguments);
 
+}
 async function temPtoken(token,eventIdObject,fcm,sends,OwnerName,childname) {
     let message = {
         to: token,
@@ -90,17 +93,8 @@ module.exports = function (app) {
             unRegisteredNumbersInternational:1
         }).toArray();
         events=events[0];
-        let users = events.users;
-        let userObjects=await db.collection(`users`).find({_id:{$in:users}}).project({email:1}).toArray();
-        let emails=[];
-        for (let i = 0; i < userObjects.length ; i++) {
-            emails.push(userObjects[i].email);
-        }
-        let returned = await db.collection(`responses`).find({eventID:eventIDObj,email:{$in:emails}}).toArray();
-        for (let i = 0; i < returned.length ; i++) {
-            //TODO redo this notification section
-        }
-        //sendPush(users,usersIdsobjs,request.app.get(`db`)(),events.insertedId,app,OwnerName,event.childName).then(()=>{}).catch(()=>{});
+        let emailPointer = JSON.parse(JSON.stringify(request.email));
+        notifyUnResponded(events,db,emailPointer).then(()=>{}).catch((e)=>{console.error(e)});
         let numbers = events.unRegisteredNumbersInternational;
         let sms_invite_link=request.app.get(`invite_link`);
         response.json({
