@@ -47,7 +47,7 @@ function modifyResponseBody(req, res, next) {
     }
     next();
 }
-app.use(function(req,res,next)) {
+app.use(function(req,res,next) {
     console.dir(req);
     next();
 });
