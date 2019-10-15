@@ -47,6 +47,10 @@ function modifyResponseBody(req, res, next) {
     }
     next();
 }
+app.use(function(req,res,next)) {
+    console.dir(req);
+    next();
+}
 app.use(modifyResponseBody);
 //app.use(express.urlencoded({extended: true}));
 //app.use(cookieParser());
