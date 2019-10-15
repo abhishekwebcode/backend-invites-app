@@ -32,7 +32,7 @@ async function searchUsers(intlArray, localarray1, db, emails) {
             {"phone.number": {$in: intlArray}},
             {email: {$in: emails}}
         ]
-    }).project({_id: 1, phone: 1, email: 1, FCM_Tokens: 1}).toArray();
+    }).project({_id: 1, phone: 1, email: 1, FCM_Tokens: 1,FCM_iOS:1}).toArray();
     //console.log(attendees);
     let final = [];
     for (i = 0; i < attendees.length; i++) {
@@ -91,16 +91,35 @@ async function sendPush(registeredUsers, ids, db, eventIdObject, app, OwnerName,
             temPtoken(token, eventIdObject, fcm, sends, OwnerName, childName).catch(() => {
         });
     }
-    console.log(`h`);
-    return 1;
-    /*db.collection(`users`).updateMany(
-        {_id:{$in:ids}},
-        {
-            $push:{
-                invited:app.get(`id`)(eventIdObject)
+    /*
+    iOS adaption to notifications
+     */
+    let iosTokens=[];
+    registeredUsers.forEach(e=>{
+        try {
+            if (e.FCM_iOS) {
+                iosTokens.push(e.FCM_iOS);
             }
+        } catch (e) {
+        }
+    });
+    let message = {
+        collapse_key: 'New Invite',
+        notification:{
+            title:"New invitation "
         },
-    )*/
+        data: {
+            type: `NEW_INVITE`,
+            eventId: eventIdObject.toString(),
+            Date: Date.now(),
+            OwnerName:OwnerName,
+            Action: `INVITE`,
+            childname: childName
+        },
+    };
+    message["registration_ids"] = iosTokens;
+
+    return 1;
 }
 
 async function sendSMS(nonRegisteredUsers) {

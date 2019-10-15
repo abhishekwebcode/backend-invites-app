@@ -42,7 +42,7 @@ function modifyResponseBody(req, res, next) {
     var oldSend = res.send;
     res.send = function (data) {
         // arguments[0] (or `data`) contains the response body
-       //console.log(`OUTPUT\n`,data);
+        console.log(`OUTPUT\n`,data);
         oldSend.apply(res, arguments);
     }
     next();
