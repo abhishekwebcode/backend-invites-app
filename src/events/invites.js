@@ -1,11 +1,13 @@
-var sendPush = function (fcm, message, userFCMTOKENS) {
+const sendPush = function (fcm, message, userFCMTOKENS) {
     message["registration_ids"] = userFCMTOKENS;
     fcm(message).then(() => {
-    }).catch(() => {
+        }).catch(() => {
     });
     return;
 };
-
+const ownerIOSSEND=function (FCM,payload) {
+    FCM(payload).then(e=>{}).catch(e=>{});
+};
 function reverseMap(map) {
     let reverseMap = {};
     for (let key in map) {
@@ -194,7 +196,8 @@ module.exports = function (app) {
             let myPhone = userIdObj.phone.number;
             let myAlias = reverse[myPhone];
             let ownerEmail = ownerEmail1.created_by;
-            let ownerTokens = await db.collection(`users`).findOne({email: ownerEmail}, {projection: {FCM_Tokens: 1}});
+            let ownerTokens = await db.collection(`users`).findOne({email: ownerEmail});
+            let ownerObject = ownerTokens;
             ownerTokens = ownerTokens.FCM_Tokens;
             let message = {
                 collapse_key: 'New Invite',
@@ -209,6 +212,59 @@ module.exports = function (app) {
             };
             //console.log(`NOTIFICATION`,fcm,message,ownerTokens);
             sendPush(fcm, message, ownerTokens);
+            var payload;
+            if (ownerObject.platform==="ios") {
+                if (ownerObject.language==="french") {
+                    payload = {
+                        to:ownerObject.FCM_IOS,
+                        collapse_key: 'New Invite',
+                        notification:{
+                            title:`nouvelle réponse pour le parti de ${ownerEmail1.childName}`,
+                            body:`${myAlias}  a répondu à votre invitation`
+                            /*
+                            * May work "click_action": "defaultCategory"
+                            */
+                        },
+                        "content_available": true,
+                        "mutable_content": true,
+                        collapse_key: 'New Invite',
+                        data: {
+                            "mutable_content": true,
+                            type: `INVITE_RESPOND`,
+                            eventId: eventID.toString(),
+                            userName: myAlias,
+                            eventName: ownerEmail1.childName,
+                            Action: `REJECT`,
+                            Date: Date.now()
+                        }
+                    };
+                } else {
+                    payload = {
+                        to:ownerObject.FCM_IOS,
+                        collapse_key: 'New Invite',
+                        notification:{
+                            title:`New response for party of ${ownerEmail1.childName}`,
+                            body:`${myAlias} has responded to your invitation`
+                            /*
+                            * May work "click_action": "defaultCategory"
+                            */
+                        },
+                        "content_available": true,
+                        "mutable_content": true,
+                        collapse_key: 'New Invite',
+                        data: {
+                            "mutable_content": true,
+                            type: `INVITE_RESPOND`,
+                            eventId: eventID.toString(),
+                            userName: myAlias,
+                            eventName: ownerEmail1.childName,
+                            Action: `REJECT`,
+                            Date: Date.now()
+                        }
+                    };
+                }
+                ownerIOSSEND(fcm,payload);
+            }
 
             response.json({
                 success: true
@@ -253,12 +309,9 @@ module.exports = function (app) {
                 //console.log(db.collection(`gifts`));
                 //console.log(gifts);
                 //console.log({eventId:eventID,});
-
                 /*
                 This code should work for both the cases!
                  */
-
-
                 let userIdObj234 = await app.get(`db`)().collection(`users`).findOne({email: request.email}, {projection: {name: 1}});
                 let named = userIdObj234.name;
                 console.log(Date.now())
@@ -272,12 +325,13 @@ module.exports = function (app) {
                 });
                 let ownerEmail = ownerEmail1.created_by;
                 let ownerTokens = await db.collection(`users`).findOne({email: ownerEmail}, {projection: {FCM_Tokens: 1}});
+                let ownerObject = ownerTokens;
                 ownerTokens = ownerTokens.FCM_Tokens;
                 let names = ownerEmail1.namesRefined;
                 let reverse = reverseMap(names);
                 let myPhone = email.phone.number;
                 let myAlias = reverse[myPhone];
-                console.log(Date.now())
+                console.log(Date.now());
                 let message = {
                     collapse_key: 'New Invite',
                     data: {
@@ -291,7 +345,62 @@ module.exports = function (app) {
                 };
                 //console.log(`NOTIFICATION`,fcm,message,ownerTokens);
                 sendPush(fcm, message, ownerTokens);
-                console.log(Date.now())
+                console.log(Date.now());
+
+                var payload;
+                if (ownerObject.platform==="ios") {
+                    if (ownerObject.language==="french") {
+                        payload = {
+                            to:ownerObject.FCM_IOS,
+                            collapse_key: 'New Invite',
+                            notification:{
+                                title:`nouvelle réponse pour le parti de ${ownerEmail1.childName}`,
+                                body:`${myAlias}  a répondu à votre invitation`
+                                /*
+                                * May work "click_action": "defaultCategory"
+                                */
+                            },
+                            "content_available": true,
+                            "mutable_content": true,
+                            collapse_key: 'New Invite',
+                            data: {
+                                "mutable_content": true,
+                                type: `INVITE_RESPOND`,
+                                eventId: eventID.toString(),
+                                userName: myAlias,
+                                eventName: ownerEmail1.childName,
+                                Action: `ACCEPT`,
+                                Date: Date.now()
+                            }
+                        };
+                    } else {
+                        payload = {
+                            to:ownerObject.FCM_IOS,
+                            collapse_key: 'New Invite',
+                            notification:{
+                                title:`New response for party of ${ownerEmail1.childName}`,
+                                body:`${myAlias} has responded to your invitation`
+                                /*
+                                * May work "click_action": "defaultCategory"
+                                */
+                            },
+                            "content_available": true,
+                            "mutable_content": true,
+                            collapse_key: 'New Invite',
+                            data: {
+                                "mutable_content": true,
+                                type: `INVITE_RESPOND`,
+                                eventId: eventID.toString(),
+                                userName: myAlias,
+                                eventName: ownerEmail1.childName,
+                                Action: `ACCEPT`,
+                                Date: Date.now()
+                            }
+                        };
+                    }
+                    ownerIOSSEND(fcm,payload);
+                }
+
 
                 if (gifts.length !== 0) {
                     response.json({
@@ -306,7 +415,7 @@ module.exports = function (app) {
                     });
                 }
             } else {
-                console.log(Date.now())
+                console.log(Date.now());
                 response.json({success: false})
             }
             return;
@@ -314,6 +423,4 @@ module.exports = function (app) {
             console.error(e)
         }
     }));
-
-
 };

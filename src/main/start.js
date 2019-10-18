@@ -1,25 +1,6 @@
 //logging for all requests
 var fs = require('fs');
 var util = require('util');
-
-/*
-var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-var yyyy = today.getFullYear();
-var today = mm + '/' + dd + '/' + yyyy;
-console.log(process.cwd());
-console.log = function () {
-    try {
-        tempLog.call(0, ...arguments);
-    } catch (e) {
-    }
-    try {
-        fs.appendFileSync(`LOG.log`,util.format.apply(null, arguments) + '\n',{flags:'as+'});
-    } catch (e) {
-    }
-}
-*/
 //console.error =//console.log;
 // initialize express app
 var path = require('path');
@@ -35,6 +16,21 @@ const fcm = require(`../FCM/init`);
 const express = require('express');
 const asyncer = require('../util/asyncHandler');
 const app = express();
+const getRawBody = require('raw-body');
+app.use(function (req, res, next) {
+    getRawBody(
+        stream = req,
+        options = {
+            length: req.headers['content-length'],
+            limit: '10kb',
+        },
+        callback = function (err, reslt) {
+            if (err) {
+                return res.status(500).end();
+            }
+            next();
+        })
+});
 app.set('wrap',asyncer);
 app.set(`FCM`,fcm);
 app.use(formidableMiddleware());
@@ -71,8 +67,7 @@ app.all(`/app/*`,function(req,res) {
     res.send(`Forgot password content will be hosted here when hosting from client is received,thanks`);
     res.end();
     return;
-})
-
+});
 app.all('/password/reset', asyncer(user_auth.resetPassword));
 app.all('/signup', asyncer(user_auth.sign_up));
 app.all(`/login`, asyncer(user_auth.login));
@@ -104,11 +99,8 @@ require(`../events/init`)(app);
 require(`../todo/init`)(app);
 // enable gifts functions
 require(`../gifts/init`)(app);
-app.use(function (a,b,c,d) {
-   //console.log(`at last`);
-   //console.log(arguments);
-    return;
-});
+// enable badges for iOS
+require(`../badges/badges`)(app);
 // add error handler
 app.use((err, req, res, next) => {
     // log the error...

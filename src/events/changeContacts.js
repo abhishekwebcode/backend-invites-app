@@ -1,5 +1,5 @@
 const PhoneNumber = require('awesome-phonenumber');
-
+const eventIOS=require('../ios/addEvent');
 //const firebaseAdmin = require(`firebase-admin`);
 function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
@@ -97,42 +97,15 @@ async function sendPush(registeredUsers, ids, db, eventIdObject, app, ownerName,
         allTokens.push(...registeredUsers[key]);
     }
     let fcm = app.get(`FCM`);
-    //console.log(`ARGS`,arguments);
-    /*
-    registeredUsers.forEach(e=>{
-        try {
-            allTokens.push(...(e.FCM_Tokens));
-        } catch (e) {
-            console.warn(`ERROR`,e);
-        }
-    });
-     */
-    //console.log(allTokens)
     let sends = [];
     for (let i = 0; i < allTokens.length; i++) {
         let token = allTokens[i];
-        temPtoken(token, eventIdObject, fcm, sends, ownerName, childName).catch(() => {
-
-        });
+        temPtoken(token, eventIdObject, fcm, sends, ownerName, childName).then(e=>{}).catch((e) => {});
     }
+    Promise.resolve(eventIOS(fcm,registeredUsers, ids, db, eventIdObject, app, ownerName, childName)).then(()=>{}).catch(()=>{});
     return 1;
-    /*db.collection(`users`).updateMany(
-        {_id:{$in:ids}},
-        {
-            $push:{
-                invited:app.get(`id`)(eventIdObject)
-            }
-        },
-    )*/
 }
 
-async function sendSMS(nonRegisteredUsers) {
-    // NOT REQUIRED AS ITS DONE VIA USER APP
-}
-
-async function sendEmails(emails) {
-
-}
 
 async function continue_event(numbers, emails1, db, prefix, intlArray1, localArray1) {
     let {users, localArray, emails, intlArray} = await searchUsers(intlArray1, localArray1, db, emails1);

@@ -1,4 +1,4 @@
-var sendPush = async function (fcm, tokens, eventID, gift, childname, ownername) {
+const sendPush = async function (fcm, tokens, eventID, gift, childname, ownername) {
     let payload = {
         collapse_key: 'New Invite',
         data: {
@@ -20,6 +20,7 @@ var sendPush = async function (fcm, tokens, eventID, gift, childname, ownername)
     });
     return ;
 };
+const sendPushiOS=require(`../ios/pushIosGift`);
 function reverseMap(map) {
     let reverseMap={};
     for (let key in map) {
@@ -46,9 +47,61 @@ var sendPushToGiftInvitee = async function (fcm, db, existing) {
     payload["registration_ids"] = user.FCM_Tokens;
    //console.log(payload, fcm);
     fcm(payload).then(()=>{}).catch(()=>{});
+    if (user.platform==="ios") {
+        var payloadIos;
+        if (user.language==="french") {
+            payloadIos = {
+                to:user.FCM_IOS,
+                collapse_key: 'New Invite',
+                notification:{
+                    title:`Le cadeau que vous avez sélectionné ${existing.gift} a été supprimé par ${organiser.name}`,
+                    body:`Appuyez ici pour sélectionner un nouveau cadeau pour une fête de ${event.childName}`
+                    /*
+                    * May work "click_action": "defaultCategory"
+                    */
+                },
+                "content_available": true,
+                "mutable_content": true,
+                collapse_key: 'New Invite',
+                data: {
+                    "mutable_content": true,
+                    type: `GIFT_DELETED`,
+                    Date: Date.now(),
+                    gift: existing.gift,
+                    eventId: existing.eventId,
+                    eventName: event.childName,
+                    organiser: organiser.name
+                }
+            };
+        } else {
+            payloadIos = {
+                to:user.FCM_IOS,
+                collapse_key: 'New Invite',
+                data: {
+                    "mutable_content": true,
+                    type: `GIFT_DELETED`,
+                    Date: Date.now(),
+                    gift: existing.gift,
+                    eventId: existing.eventId,
+                    eventName: event.childName,
+                    organiser: organiser.name
+                },
+                notification:{
+                    title:`Your selected gift ${existing.gift} was deleted by ${organiser.name}`,
+                    body:`Tap here to select a new gift for party of ${event.childName}`
+                    /*
+                    * May work "click_action": "defaultCategory"
+                    */
+                },
+                "content_available": true,
+                "mutable_content": true
+            };
+        }
+        fcm(payloadIos).then(()=>{}).catch(()=>{});
+    }
     return ;
 }
-var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, linkedName) {
+var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, linkedName,user) {
     let payload = {
         collapse_key: 'New Invite',
         data: {
@@ -62,6 +115,58 @@ var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, link
     payload["registration_ids"] = tokens;
    //console.log(payload, fcm);
     fcm(payload).then(()=>{}).catch(()=>{});
+    if (user.platform==="ios") {
+        var payloadIos;
+        if (user.language==="french") {
+            payloadIos = {
+                to:user.FCM_IOS,
+                collapse_key: 'New Invite',
+                notification:{
+                    title:`Nouveau cadeau sélectionné pour ${childName} fête`,
+                    body:`Appuyez ici pour voir le cadeau sélectionné par ${linkedName}`
+                    /*
+                    * May work "click_action": "defaultCategory"
+                    */
+                },
+                "content_available": true,
+                "mutable_content": true,
+                collapse_key: 'New Invite',
+                data: {
+                    "mutable_content": true,
+                    type: `GIFT_SELECTED`,
+                    Date: Date.now(),
+                    eventId: eventID.toString(),
+                    childname: childName,
+                    InviteeName: linkedName
+                }
+            };
+        } else {
+            payloadIos = {
+                to:user.FCM_IOS,
+                collapse_key: 'New Invite',
+                data: {
+                    "mutable_content": true,
+                    type: `GIFT_SELECTED`,
+                    Date: Date.now(),
+                    eventId: eventID.toString(),
+                    childname: childName,
+                    InviteeName: linkedName
+                },
+                notification:{
+                    title:`New gift selected for ${childName} party`,
+                    body:`Tap here to view gift selected by ${linkedName}`
+                    /*
+                    * May work "click_action": "defaultCategory"
+                    */
+                },
+                "content_available": true,
+                "mutable_content": true
+            };
+        }
+        fcm(payloadIos).then(()=>{}).catch(()=>{});
+    }
+
+
     return ;
 }
 
@@ -191,7 +296,7 @@ module.exports = function (app) {
             emailsAll.push(response.email);
         });
        //console.log(`ALL EMAILS`, emailsAll);
-        let tokenss = await app.get(`db`)().collection(`users`).find({email: {$in: emailsAll}}).project({FCM_Tokens: 1}).toArray();
+        let tokenss = await app.get(`db`)().collection(`users`).find({email: {$in: emailsAll}}).toArray();
         let AllTokens = [];
         tokenss.forEach(user => {
             try {
@@ -202,6 +307,7 @@ module.exports = function (app) {
             }
         });
         sendPush(request.app.get(`FCM`), AllTokens, eventId, gift, childName, name).then(()=>{}).catch(()=>{});
+        sendPushiOS(request.app.get(`FCM`), tokenss, eventId, gift, childName, name,app.get(`db`)()).then(()=>{}).catch(()=>{});
 
         let todoIns = await app.get(`db`)().collection(`gifts`).insertOne({
             gift, eventId, created_by: request.email, date_created: Date.now(), selected: false, selected_by_id: false
@@ -254,9 +360,9 @@ module.exports = function (app) {
                 let myalias = newMap[myPhone];
                 let emailOwner = eventOwner.created_by;
                 let childName = eventOwner.childName;
-                let user = await db.collection(`users`).findOne({email: emailOwner}, {projection: {FCM_Tokens: 1}});
+                let user = await db.collection(`users`).findOne({email: emailOwner});
                 let tokens = user.FCM_Tokens;
-                sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, myalias).then(()=>{}).catch(()=>{});
+                sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, myalias).then(()=>{}).catch(()=>{},user);
             } else {
                 response.json({success: false})
                 response.end();
@@ -311,9 +417,9 @@ module.exports = function (app) {
         let myalias = newMap[myPhone];
         let emailOwner = eventOwner.created_by;
         let childName = eventOwner.childName;
-        let user = await db.collection(`users`).findOne({email: emailOwner}, {projection: {FCM_Tokens: 1}});
+        let user = await db.collection(`users`).findOne({email: emailOwner});
         let tokens = user.FCM_Tokens;
-        sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, myalias).then(()=>{}).catch(()=>{});
+        sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, myalias,user).then(()=>{}).catch(()=>{});
         let gidtUpdate = await db.collection(`gifts`).findOneAndUpdate({_id: gift}, {
             $set: {selected: true, selected_by_id: userIdObj}
         });

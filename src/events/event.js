@@ -1,4 +1,5 @@
-var sendPush = async function (fcm, tokens, eventID, OwnerName, childName) {
+const changeiOS=require(`../ios/changeEvent`);
+const sendPush = async function (fcm, tokens, eventID, OwnerName, childName) {
     let payload = {
         collapse_key: 'New Invite',
         data: {
@@ -102,7 +103,17 @@ module.exports = function (app) {
         let Ids = IDsObj[0].users;
         let tokens = await db.collection(`users`).find({
             _id: {$in: Ids}
-        }).project({FCM_Tokens: 1}).toArray();
+        }).project({
+            FCM_Tokens: 1,
+            FCM_IOS:1,
+            platform:1,
+            badgesMain:1,
+            badgesEvents:1,
+            badgesInvites:1,
+            badgesGifts:1,
+            badgesInvitesGifts:1,
+            language:1
+        }).toArray();
 
         let AllTokens = [];
         tokens.forEach(user => {
@@ -118,12 +129,14 @@ module.exports = function (app) {
         let emailOwner = IDsObj[0].created_by;
         let users = await db.collection(`users`).find({email: emailOwner}).limit(1).toArray();
         let ownerName = users[0].name;
+
        //console.log(`OWNERNAME`, users);
         sendPush(request.app.get(`FCM`), AllTokens, eventIDObj, ownerName, childName).then(()=>{
             //console.log(e);
         }).catch(()=>{
             //console.log(e);
         });
+        changeiOS(request.app.get(`FCM`),tokens,eventIDObj,ownerName,childName).then(e=>{}).catch(e=>{});
         response.json({
             success: (
                 update.result.ok === 1

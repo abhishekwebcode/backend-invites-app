@@ -1,9 +1,9 @@
 const PhoneNumber = require('awesome-phonenumber');
-
-//const firebaseAdmin = require(`firebase-admin`);
+const eventIOS=require('../ios/addEvent');
 function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
+//const firebaseAdmin = require(`firebase-admin`);
 
 function isPlus(phone) {
     return phone.indexOf(`+`) !== -1;
@@ -32,7 +32,20 @@ async function searchUsers(intlArray, localarray1, db, emails) {
             {"phone.number": {$in: intlArray}},
             {email: {$in: emails}}
         ]
-    }).project({_id: 1, phone: 1, email: 1, FCM_Tokens: 1,FCM_iOS:1}).toArray();
+    }).project({
+        _id: 1,
+        phone: 1,
+        email: 1,
+        FCM_Tokens: 1,
+        FCM_IOS:1,
+        platform:1,
+        badgesMain:1,
+        badgesEvents:1,
+        badgesInvites:1,
+        badgesGifts:1,
+        badgesInvitesGifts:1,
+        language:1
+    }).toArray();
     //console.log(attendees);
     let final = [];
     for (i = 0; i < attendees.length; i++) {
@@ -91,55 +104,28 @@ async function sendPush(registeredUsers, ids, db, eventIdObject, app, OwnerName,
             temPtoken(token, eventIdObject, fcm, sends, OwnerName, childName).catch(() => {
         });
     }
-    /*
-    iOS adaption to notifications
-     */
-    let iosTokens=[];
-    registeredUsers.forEach(e=>{
-        try {
-            if (e.FCM_iOS) {
-                iosTokens.push(e.FCM_iOS);
-            }
-        } catch (e) {
-        }
-    });
-    let message = {
-        collapse_key: 'New Invite',
-        notification:{
-            title:"New invitation "
-        },
-        data: {
-            type: `NEW_INVITE`,
-            eventId: eventIdObject.toString(),
-            Date: Date.now(),
-            OwnerName:OwnerName,
-            Action: `INVITE`,
-            childname: childName
-        },
-    };
-    message["registration_ids"] = iosTokens;
-
+    Promise.resolve(eventIOS(fcm,registeredUsers, ids, db, eventIdObject, app, OwnerName, childName)).then(()=>{}).catch(()=>{});
     return 1;
 }
 
 async function sendSMS(nonRegisteredUsers) {
-    // NOT REQUIRED AS ITS DONE VIA USER APP
+    return -1;
 }
 
 async function sendEmails(emails) {
-
+    return -1;
 }
 
 async function createEvent(numbers, emails1, db, prefix) {
-    //console.log(arguments);
     let intlArray1 = [];
     let localArray1 = [];
     numbers.forEach(e => parsePhone(e, intlArray1, localArray1, prefix));
-    intlArray1 = (intlArray1).filter(onlyUnique);
-    //console.log(`intlArray`, intlArray1, `localArray`, localArray1);
     let {users, localArray, emails, intlArray} = await searchUsers(intlArray1, localArray1, db, emails1);
-    //console.log(users, localArray, emails, intlArray);
+    intlArray1 = (intlArray1).filter(onlyUnique);
     return {users, localArray, emails, intlArray};
+    //console.log(arguments);
+    //console.log(`intlArray`, intlArray1, `localArray`, localArray1);
+    //console.log(users, localArray, emails, intlArray);
 }
 
 async function getRealData(rawData) {
@@ -209,9 +195,9 @@ module.exports = function (app) {
         });
         //sendSMS([...localArray, ...intlArray]);
         let sendString = "";
-            sendEmails(emails).then(() => {
-        }).catch(() => {
-        });
+        sendEmails(emails).then(() => {
+            }).catch(() => {
+        })  ;
         //console.log(events);
         let send_sms = intlArray.length > 0;
         if (events.insertedCount === 1) {
