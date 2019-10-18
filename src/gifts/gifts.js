@@ -123,7 +123,7 @@ var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, link
                 collapse_key: 'New Invite',
                 notification:{
                     title:`Nouveau cadeau sélectionné pour ${childName} fête`,
-                    body:`Appuyez ici pour voir le cadeau sélectionné par ${linkedName}`
+                    body:`startAppuyez ici pour voir le cadeau sélectionné par ${linkedName}`
                     /*
                     * May work "click_action": "defaultCategory"
                     */
