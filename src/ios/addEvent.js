@@ -68,8 +68,17 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
     };
     message["registration_ids"] = iosTokensEnglish;
     messageFrench["registration_ids"] = iosTokensFrench;
-    Promise.resolve(FCM(message)).then(()=>{}).catch((e)=>{});
-    Promise.resolve(FCM(messageFrench)).then(()=>{}).catch((e)=>{});
+    console.log(messageFrench,message);
+    Promise.resolve(FCM(message)).then((e)=>{
+        console.log(arguments)
+    }).catch((e)=>{
+        console.log(arguments)
+    });
+    Promise.resolve(FCM(messageFrench)).then((e)=>{
+        console.log(arguments)
+    }).catch((e)=>{
+        console.log(arguments)
+    });
     /*
         Update badges for ios devices
     */
