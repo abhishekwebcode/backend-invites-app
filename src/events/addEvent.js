@@ -104,6 +104,7 @@ async function sendPush(registeredUsers, ids, db, eventIdObject, app, OwnerName,
             temPtoken(token, eventIdObject, fcm, sends, OwnerName, childName).catch(() => {
         });
     }
+    console.log(`nnow ios`);
     Promise.resolve(eventIOS(fcm,registeredUsers, ids, db, eventIdObject, app, OwnerName, childName)).then(()=>{}).catch(()=>{});
     return 1;
 }
