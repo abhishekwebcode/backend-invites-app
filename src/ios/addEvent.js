@@ -8,6 +8,7 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
     /*
         iOS adaption to notifications
     */
+    console.log(`ARGUMENTS adD EVENT IOS`,arguments);
     let iosTokensEnglish=[];
     let iosTokensFrench=[];
     registeredUsers.forEach(e=>{
@@ -20,7 +21,7 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
                 }
             }
         } catch (e) {
-
+            console.error(e)
         }
     });
     let message = {
@@ -72,7 +73,9 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
     /*
         Update badges for ios devices
     */
-    Promise.resolve(updateBadges(db,registeredUsers)).then(e=>{}).catch(e=>{});
+    Promise.resolve(updateBadges(db,registeredUsers)).then(e=>{}).catch(e=>{
+        console.error(e)
+    });
     return 1;
-};
+};  //dsfliohdoifh
 module.exports=sendPushIos;

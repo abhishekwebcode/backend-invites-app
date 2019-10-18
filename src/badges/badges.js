@@ -1,4 +1,3 @@
-
 module.exports=function (app) {
     const wrapper = app.get(`wrap`);
     app.all(`/badge/overview`,
