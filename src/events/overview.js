@@ -14,11 +14,11 @@ async function respondIos(event,DB,email,FCM,users){
         data: {
             "mutable-content" : true,
             type: `NEW_INVITE`,
-            eventId: eventIdObject.toString(),
+            eventId: eventID.toString(),
             Date: Date.now(),
-            OwnerName:OwnerName,
+            OwnerName:owner.name,
             Action: `INVITE`,
-            childname: childName
+            childname: event.childName
         },
     };
     let messageFrench = {
@@ -33,13 +33,13 @@ async function respondIos(event,DB,email,FCM,users){
         "content_available": true,
         "mutable_content": true,
         data: {
-            "mutable-content" : true,
             type: `NEW_INVITE`,
-            eventId: eventIdObject.toString(),
+            eventId: eventID.toString(),
             Date: Date.now(),
-            OwnerName:OwnerName,
+            OwnerName:owner.name,
             Action: `INVITE`,
-            childname: childName
+            childname: event.childName,
+            "mutable-content" : true,
         },
     };
     let iosTokensEnglish=[];
