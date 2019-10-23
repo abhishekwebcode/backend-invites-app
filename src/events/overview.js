@@ -44,6 +44,7 @@ async function respondIos(event,DB,email,FCM,users){
     };
     let iosTokensEnglish=[];
     let iosTokensFrench=[];
+    console.log(`remind ios`,arguments);
     users.forEach(e=>{
         try {
             if (e.FCM_IOS) {
