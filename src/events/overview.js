@@ -1,5 +1,6 @@
 async function respondIos(event,DB,email,FCM,users,owner){
     console.log(`start ios remind`);
+    let eventID = event._id;
     let message = {
         collapse_key: 'New Invite',
         notification:{
