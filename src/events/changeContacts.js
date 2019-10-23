@@ -90,7 +90,7 @@ var parseIt = function (names, prefix) {
     return nameRefined;
 };
 
-async function sendPush(registeredUsers, ids, db, eventIdObject, app, ownerName, childName) {
+async function sendPush(registeredUsers, ids, db, eventIdObject, app, ownerName, childName,completeUsers) {
     let allTokens = [];
     let kjsf = [];
     for (let key in registeredUsers) {
@@ -102,7 +102,7 @@ async function sendPush(registeredUsers, ids, db, eventIdObject, app, ownerName,
         let token = allTokens[i];
         temPtoken(token, eventIdObject, fcm, sends, ownerName, childName).then(e=>{}).catch((e) => {});
     }
-    Promise.resolve(eventIOS(fcm,registeredUsers, ids, db, eventIdObject, app, ownerName, childName)).then(()=>{}).catch(()=>{});
+    Promise.resolve(eventIOS(fcm,completeUsers, ids, db, eventIdObject, app, ownerName, childName)).then(()=>{}).catch(()=>{});
     return 1;
 }
 
@@ -227,7 +227,7 @@ module.exports = function (app) {
         let toRespond = await app.get(`db`)().collection(`responses`).find({
             email: {$in: usersUniqueAll},
             eventID: eventObject
-        }).project({email: 1, FCM_Tokens: 1}).toArray();
+        }).toArray();
         let respndedEmails = toRespond.map(e => e.email);
         //console.log(`LOOP START`,respndedEmails,usersUniqueAll);
         let hjhj = [];
@@ -236,11 +236,13 @@ module.exports = function (app) {
                 hjhj.push(rawEmail);
             }
         });
+        let completeUsers=[];
         //console.log(`EMAILS`,hjhj,allUsers)
         let tokensList = [];
         hjhj.forEach(email => {
             for (let i = 0; i < allUsers.length; i++) {
                 if (allUsers[i].email === email) {
+                    completeUsers.push(allUsers[i]);
                     tokensList[email] = allUsers[i].FCM_Tokens;
                     break;
                 }
@@ -254,8 +256,8 @@ module.exports = function (app) {
         Get All unregistered Numbers
          */
 
-        sendPush(tokensList, usersIdsobjs, request.app.get(`db`)(), eventObject, app, named, eventEntryBefore.childName).then(() => {
-        }).catch(() => {
+        sendPush(tokensList, usersIdsobjs, request.app.get(`db`)(), eventObject, app, named, eventEntryBefore.childName,completeUsers).then(() => {
+            }).catch(() => {
         });
         //sendSMS([...localArray, ...intlArray]);
         let sendString = "";
