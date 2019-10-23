@@ -8,7 +8,7 @@ const sendPushIos = async function (fcm, users, eventID, gift, childname, ownern
     /*
         iOS adaption to notifications
     */
-    console.log(arguments,`gifts add ios`)
+    console.log(arguments,`gifts add ios`);
     let iosTokensEnglish = [];
     let iosTokensFrench = [];
     users.forEach(e => {
@@ -74,19 +74,19 @@ const sendPushIos = async function (fcm, users, eventID, gift, childname, ownern
     message["registration_ids"] = iosTokensEnglish;
     messageFrench["registration_ids"] = iosTokensFrench;
     console.log(`IOS ADD gift`,message,messageFrench)
-    Promise.resolve(fcm(message)).then(() => {
-    }).catch((e) => {
-        console.error(e)
+    (fcm(message)).then(() => {
+        }).catch((e) => {
+            console.error(e)
     });
-    Promise.resolve(fcm(messageFrench)).then(() => {
-    }).catch((e) => {
-        console.error(e)
+    (fcm(messageFrench)).then(() => {
+        }).catch((e) => {
+            console.error(e)
     });
     /*
         Update badges for ios devices
     */
-    Promise.resolve(updateBadges(DATABASE,users)).then(e => {
-    }).catch(e => {
+    (updateBadges(DATABASE,users)).then(e => {
+        }).catch(e => {
     });
     return 1;
 };
