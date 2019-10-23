@@ -69,16 +69,22 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
     message["registration_ids"] = iosTokensEnglish;
     messageFrench["registration_ids"] = iosTokensFrench;
     console.log(messageFrench,message);
-    console.log(`sdlifhsodu`)
-    (FCM(messageFrench)).then((e)=>{
-        console.log(e)
+    console.log(`sdlifhsodu`);
+    console.log(`todebyg notifi`,FCM,messageFrench)
+    console.log(`todebyg notifi`,FCM,message)
+    FCM(messageFrench).then(e=>{
+        console.log(`inside sent`)
+        console.log(e);
     }).catch((e)=>{
+        console.log(`inside not sent`)
         console.error(e)
     });
     (FCM(messageFrench)).then((e)=>{
         console.log(e)
+        console.log(`inside sent`)
     }).catch((e)=>{
         console.error(e)
+        console.log(`inside not sent`)
     });
     /*
         Update badges for ios devices
