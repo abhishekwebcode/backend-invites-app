@@ -11,7 +11,7 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
     console.log(`ARGUMENTS adD EVENT IOS`,arguments);
     let iosTokensEnglish=[];
     let iosTokensFrench=[];
-    registeredUsers.forEach(e=>{
+    registeredUsers.forEach(e=>{                    
         try {
             if (e.FCM_IOS) {
                 if (e.language==="french") {

@@ -4,11 +4,9 @@ function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
 //const firebaseAdmin = require(`firebase-admin`);
-
 function isPlus(phone) {
     return phone.indexOf(`+`) !== -1;
 }
-
 function parsePhone(no, intlArray, localArray, prefix) {
     if (isPlus(no)) {
         intlArray.push(new PhoneNumber(no).getNumber());

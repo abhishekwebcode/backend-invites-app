@@ -36,6 +36,7 @@ app.set('wrap',asyncer);
 app.set(`FCM`,fcm);
 app.use(formidableMiddleware());
 function modifyResponseBody(req, res, next) {
+    console.log(`REQUEst`,req.fields,req.baseUrl);
     var oldSend = res.send;
     res.send = function (data) {
         // arguments[0] (or `data`) contains the response body
