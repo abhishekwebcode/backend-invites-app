@@ -1,4 +1,4 @@
-async function respondIos(event,DB,email,FCM,users){
+async function respondIos(event,DB,email,FCM,users,owner){
     console.log(`start ios remind`);
     let message = {
         collapse_key: 'New Invite',
@@ -113,28 +113,8 @@ async function notifyUnResponded(event, DB, email, FCM) {
         }
     };
     message["registration_ids"]=reReminderTokens;
-    respondIos(event, DB, email, FCM,ios).then(e=>{}).catch(e=>{
-        console.error(e);message["registration_ids"] = iosTokensEnglish;
-        messageFrench["registration_ids"] = iosTokensFrench;
-        console.log(messageFrench,message);
-        console.log(`sdlifhsodu`);
-        console.log(`todebyg notifi`,FCM,messageFrench)
-        console.log(`todebyg notifi`,FCM,message)
-        FCM(messageFrench).then(e=>{
-            console.log(`inside sent`)
-            console.log(e);
-        }).catch((e)=>{
-            console.log(`inside not sent`)
-            console.error(e)
-        });
-        (FCM(messageFrench)).then((e)=>{
-            console.log(e)
-            console.log(`inside sent`)
-        }).catch((e)=>{
-            console.error(e)
-            console.log(`inside not sent`)
-        });
-
+    respondIos(event, DB, email, FCM,ios,owner).then(e=>{}).catch(e=>{
+        console.error(e);
     });
     console.log(`ANDROID REMIND`,message);
     Promise.resolve(FCM(message)
