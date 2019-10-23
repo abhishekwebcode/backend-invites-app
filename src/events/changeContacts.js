@@ -32,7 +32,7 @@ async function searchUsers(intlArray, localarray1, db, emails) {
             {"phone.number": {$in: intlArray}},
             {email: {$in: emails}}
         ]
-    }).project({_id: 1, phone: 1, email: 1, FCM_Tokens: 1}).toArray();
+    }).toArray();
     //console.log(attendees);
     let final = [];
     for (i = 0; i < attendees.length; i++) {
