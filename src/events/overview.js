@@ -1,4 +1,5 @@
 async function respondIos(event,DB,email,FCM,users){
+    console.log(`start ios remind`);
     let message = {
         collapse_key: 'New Invite',
         notification:{
@@ -79,6 +80,7 @@ async function respondIos(event,DB,email,FCM,users){
     /**
      * no badges as it is remind of already sent event
      */
+    return ;
 
 }
 async function notifyUnResponded(event, DB, email, FCM) {
@@ -110,12 +112,13 @@ async function notifyUnResponded(event, DB, email, FCM) {
         }
     };
     message["registration_ids"]=reReminderTokens;
-    Promise.resolve(
-        FCM(message)
-    ).then(() => {}).catch((e) => {
-        console.error(e)
+    respondIos(event, DB, email, FCM,ios).then(e=>{}).catch(e=>{});
+    console.log(`ANDROID REMIND`,message);
+    Promise.resolve(FCM(message)
+        ).then(() => {}).catch((e) => {
+            console.error(e)
     });
-    respondIos(event, DB, email, FCM,ios).then(e=>{}).catch(e=>{})
+    return ;
 }
 
 
