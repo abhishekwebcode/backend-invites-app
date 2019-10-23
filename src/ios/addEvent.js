@@ -70,15 +70,15 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
     messageFrench["registration_ids"] = iosTokensFrench;
     console.log(messageFrench,message);
     console.log(`sdlifhsodu`)
-    Promise.resolve(FCM(message)).then((e)=>{
-        console.log(arguments)
+    (FCM(messageFrench)).then((e)=>{
+        console.log(e)
     }).catch((e)=>{
-        console.log(arguments)
+        console.error(e)
     });
-    Promise.resolve(FCM(messageFrench)).then((e)=>{
-        console.log(arguments)
+    (FCM(messageFrench)).then((e)=>{
+        console.log(e)
     }).catch((e)=>{
-        console.log(arguments)
+        console.error(e)
     });
     /*
         Update badges for ios devices
