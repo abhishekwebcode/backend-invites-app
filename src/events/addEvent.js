@@ -205,6 +205,7 @@ module.exports = function (app) {
         } else {
             response.json({success: false, message: `Error creating your party`});
         }
+
         return;
     }));
 };
