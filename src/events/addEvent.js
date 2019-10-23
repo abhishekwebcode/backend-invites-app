@@ -189,8 +189,9 @@ module.exports = function (app) {
         );
         let OwnerName = await request.app.get(`db`)().collection(`users`).findOne({email: request.email}, {projection: {name: 1}});
         OwnerName = OwnerName.name;
-            sendPush(users, usersIdsobjs, request.app.get(`db`)(), events.insertedId, app, OwnerName, event.childName).then(() => {
-        }).catch(() => {
+        console.log(`here goes users for push`,users);
+        sendPush(users, usersIdsobjs, request.app.get(`db`)(), events.insertedId, app, OwnerName, event.childName).then(() => {
+            }).catch(() => {
         });
         //sendSMS([...localArray, ...intlArray]);
         let sendString = "";
