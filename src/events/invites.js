@@ -76,7 +76,7 @@ module.exports = function (app) {
         let db1 = request.app.get(`db`)();
         let eventID = request.app.get(`id`)(request.fields.eventId);
         console.log(`remove invites info`);
-        removeInner(db1,request.meta,"badgesInvites",request.app.get(`id`));
+        removeInner(db1,request.meta,"badgesInvites",request.fields.eventId);
         let check1 = await db1.collection(`responses`).findOne({
             email: request.User.email,
             eventID,
