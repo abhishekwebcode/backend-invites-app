@@ -15,11 +15,16 @@ function reverseMap(map) {
     }
     return reverseMap;
 };
+const addBadge = require(`../badges/addBadge`);
+const badgesRemove = require(`../ios/badges/badgeRemove`);
+const removeInner = require(`../ios/badges/removeBadgeInnerEvents`);
 module.exports = function (app) {
     const asyncer = app.get(`wrap`);
     app.post(`/invites/list`, asyncer(async function (request, response) {
         //console.log(arguments);
+
         let db = request.app.get(`db`)();
+        badgesRemove(db,request.meta,"badgesMain.invites");
         //console.log(`inInviesliSt`);
         //console.log(db);
         let id = await db.collection(`users`).find({email: request.User.email}).limit(1).toArray();
@@ -70,6 +75,7 @@ module.exports = function (app) {
     app.post(`/invites/info`, asyncer(async function (request, response) {
         let db1 = request.app.get(`db`)();
         let eventID = request.app.get(`id`)(request.fields.eventId);
+        removeInner(db1,request.meta,"badgesInvites",request.app.get(`id`));
         let check1 = await db1.collection(`responses`).findOne({
             email: request.User.email,
             eventID,
@@ -191,6 +197,7 @@ module.exports = function (app) {
                     namesRefined: 1
                 }
             });
+
             let names = ownerEmail1.namesRefined;
             let reverse = reverseMap(names);
             let myPhone = userIdObj.phone.number;
@@ -198,6 +205,9 @@ module.exports = function (app) {
             let ownerEmail = ownerEmail1.created_by;
             let ownerTokens = await db.collection(`users`).findOne({email: ownerEmail});
             let ownerObject = ownerTokens;
+            addBadge.addInvitesBadge(
+                db,{_id:ownerObject._id},request.fields.eventId
+            ).then(()=>{}).catch(()=>{});
             ownerTokens = ownerTokens.FCM_Tokens;
             let message = {
                 collapse_key: 'New Invite',
@@ -326,6 +336,9 @@ module.exports = function (app) {
                 let ownerEmail = ownerEmail1.created_by;
                 let ownerTokens = await db.collection(`users`).findOne({email: ownerEmail}, {projection: {FCM_Tokens: 1}});
                 let ownerObject = ownerTokens;
+                addBadge.addInvitesBadge(
+                    db,{_id:ownerObject._id},request.fields.eventId
+                ).then(()=>{}).catch(()=>{});
                 ownerTokens = ownerTokens.FCM_Tokens;
                 let names = ownerEmail1.namesRefined;
                 let reverse = reverseMap(names);

@@ -1,3 +1,4 @@
+const addBadge = require(`../ios/badges/badgeRemove`);
 async function respondIos(event,DB,email,FCM,users,owner){
     console.log(`start ios remind`);
     let eventID = event._id;
@@ -89,6 +90,7 @@ async function notifyUnResponded(event, DB, email, FCM) {
     let eventID = event._id;
     let reReminderTokens = [];
     let ios=[];
+    let iosObjectIds = [];
     for (let i = 0; i < event.users.length; i++) {
         let currentUser = event.users[i];
         let currentUserObject = await DB.collection(`users`).findOne({_id: currentUser});
@@ -97,10 +99,12 @@ async function notifyUnResponded(event, DB, email, FCM) {
         if (response == null) {
             reReminderTokens.push(currentUserObject.FCM_Tokens[0]);
             if (currentUserObject.platform==="ios") {
+                iosObjectIds.push(currentUserObject.ObjectId);
                 ios.push(currentUserObject);
             }
         } else continue;
     }
+    addBadge.addEventBadges(DB,iosObjectIds,eventID).then(()=>{}).catch(()=>{});
     let owner = await DB.collection(`users`).findOne({email});
     let message = {
         collapse_key: 'New Invite',
@@ -180,6 +184,7 @@ module.exports = function (app) {
         }).catch((e) => {
             console.error(e)
         });
+
         let numbers = events.unRegisteredNumbersInternational;
         let sms_invite_link = request.app.get(`invite_link`);
         response.json({

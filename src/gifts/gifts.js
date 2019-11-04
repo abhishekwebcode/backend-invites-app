@@ -1,3 +1,5 @@
+const addBadge = require(`../badges/addBadge`);
+const sendPushiOS=require(`../ios/pushIosGift`);
 const sendPush = async function (fcm, tokens, eventID, gift, childname, ownername) {
     let payload = {
         collapse_key: 'New Invite',
@@ -20,7 +22,7 @@ const sendPush = async function (fcm, tokens, eventID, gift, childname, ownernam
     });
     return ;
 };
-const sendPushiOS=require(`../ios/pushIosGift`);
+
 function reverseMap(map) {
     let reverseMap={};
     for (let key in map) {
@@ -33,6 +35,10 @@ var sendPushToGiftInvitee = async function (fcm, db, existing) {
     let user = await db.collection(`users`).findOne({_id: existing.selected_by_id});
     let event = await db.collection(`events`).findOne({_id: existing.eventId});
     let organiser = await db.collection(`users`).findOne({email: event.created_by});
+    addBadge
+        .userNotifyGiftBadgeDeleted(request.app.get(`db`)(),{email:user.email},existing.eventId)
+        .then(()=>{})
+        .catch(()=>{});
     let payload = {
         collapse_key: 'New Invite',
         data: {
@@ -168,8 +174,8 @@ var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, link
 
 
     return ;
-}
-
+};
+const removeInner = require(`../ios/badges/removeBadgeInnerEvents`);
 module.exports = function (app) {
     const asyncer = app.get(`wrap`);
     app.post(`/gifts/check`,asyncer( async function (request, response) {
@@ -177,6 +183,7 @@ module.exports = function (app) {
         let userIdObj = email._id;
         let eventIdObject = request.app.get(`id`)(request.fields.eventId);
         let db = request.app.get(`db`)();
+        removeInner(db,request.meta,"badgesInvitesGifts",request.app.get(`id`));
         try {
             let directCheck = await db.collection(`responses`).findOne({
                 email: request.email,
@@ -209,6 +216,7 @@ module.exports = function (app) {
             sendPushToGiftInvitee(request.app.get(`FCM`), request.app.get(`db`)(), existing).then(()=>{}).catch(()=>{});
         }
         let delete2 = await request.app.get(`db`)().collection(`gifts`).remove({_id: giftId});
+
         response.json({
             success: delete2.result.n === 1
         });
@@ -228,6 +236,7 @@ module.exports = function (app) {
     }));
     app.post(`/gifts/list`,asyncer( async function (request, response) {
         let eventId = request.app.get(`id`)(request.fields.eventId);
+        removeInner(request.app.get(`db`)(),request.meta,"badgesGifts",request.app.get(`id`));
         let gifts = await app.get(`db`)().collection(`gifts`).find({
             created_by: request.email, eventId
         }).project({
@@ -245,6 +254,7 @@ module.exports = function (app) {
         let event_id_obj = request.app.get(`id`)(request.fields.eventId);
         let email = await app.get(`db`)().collection(`users`).findOne({email: request.email});
         let userIdObj = email._id;
+        removeInner(app.get(`db`)(),request.meta,"badgesInvitesGifts",request.app.get(`id`));
         /**
          * Get selected gifts if there are any
          */
@@ -306,6 +316,7 @@ module.exports = function (app) {
                 console.error(e, `ErRROR`);
             }
         });
+        addBadge.usersNotifyGiftBadgeAdd(app.get(`db`)(),tokenss,request.fields.eventId).then(()=>{}).catch(()=>{})
         sendPush(request.app.get(`FCM`), AllTokens, eventId, gift, childName, name).then(()=>{}).catch(()=>{});
         sendPushiOS(request.app.get(`FCM`), tokenss, eventId, gift, childName, name,app.get(`db`)()).then(()=>{}).catch(()=>{});
 
@@ -346,8 +357,6 @@ module.exports = function (app) {
                 $set: {selected: false, selected_by_id: false}
             });
             if (giftUnselect.ok === 1) {
-                response.json({success: true})
-                response.end();
                 let eventOwner = await db.collection(`events`).findOne({_id: eventId}, {
                     projection: {
                         created_by: 1,
@@ -363,6 +372,12 @@ module.exports = function (app) {
                 let user = await db.collection(`users`).findOne({email: emailOwner});
                 let tokens = user.FCM_Tokens;
                 sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, myalias).then(()=>{}).catch(()=>{},user);
+                addBadge
+                    .ownerNotifyGift(db,{email: emailOwner},request.fields.eventId)
+                    .then(()=>{})
+                    .catch(()=>{});
+                response.json({success: true});
+                response.end();
             } else {
                 response.json({success: false})
                 response.end();
@@ -412,6 +427,9 @@ module.exports = function (app) {
                 namesRefined:1
             }
         });
+
+
+
         let names = eventOwner.namesRefined;
         let newMap = reverseMap(names);
         let myalias = newMap[myPhone];
@@ -419,6 +437,10 @@ module.exports = function (app) {
         let childName = eventOwner.childName;
         let user = await db.collection(`users`).findOne({email: emailOwner});
         let tokens = user.FCM_Tokens;
+        addBadge
+            .ownerNotifyGift(db,{email: emailOwner},request.fields.eventId)
+            .then(()=>{})
+            .catch(()=>{});
         sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, myalias,user).then(()=>{}).catch(()=>{});
         let gidtUpdate = await db.collection(`gifts`).findOneAndUpdate({_id: gift}, {
             $set: {selected: true, selected_by_id: userIdObj}

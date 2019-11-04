@@ -1,12 +1,16 @@
 const PhoneNumber = require('awesome-phonenumber');
-const eventIOS=require('../ios/addEvent');
+const eventIOS = require('../ios/addEvent');
+const addBadge = require(`../badges/addBadge`);
+
 function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
+
 //const firebaseAdmin = require(`firebase-admin`);
 function isPlus(phone) {
     return phone.indexOf(`+`) !== -1;
 }
+
 function parsePhone(no, intlArray, localArray, prefix) {
     if (isPlus(no)) {
         intlArray.push(new PhoneNumber(no).getNumber());
@@ -35,14 +39,14 @@ async function searchUsers(intlArray, localarray1, db, emails) {
         phone: 1,
         email: 1,
         FCM_Tokens: 1,
-        FCM_IOS:1,
-        platform:1,
-        badgesMain:1,
-        badgesEvents:1,
-        badgesInvites:1,
-        badgesGifts:1,
-        badgesInvitesGifts:1,
-        language:1
+        FCM_IOS: 1,
+        platform: 1,
+        badgesMain: 1,
+        badgesEvents: 1,
+        badgesInvites: 1,
+        badgesGifts: 1,
+        badgesInvitesGifts: 1,
+        language: 1
     }).toArray();
     //console.log(attendees);
     let final = [];
@@ -99,11 +103,13 @@ async function sendPush(registeredUsers, ids, db, eventIdObject, app, OwnerName,
     let sends = [];
     for (let i = 0; i < allTokens.length; i++) {
         let token = allTokens[i];
-            temPtoken(token, eventIdObject, fcm, sends, OwnerName, childName).catch(() => {
+        temPtoken(token, eventIdObject, fcm, sends, OwnerName, childName).catch(() => {
         });
     }
     console.log(`nnow ios`);
-    Promise.resolve(eventIOS(fcm,registeredUsers, ids, db, eventIdObject, app, OwnerName, childName)).then(()=>{}).catch(()=>{});
+    Promise.resolve(eventIOS(fcm, registeredUsers, ids, db, eventIdObject, app, OwnerName, childName)).then(() => {
+    }).catch(() => {
+    });
     return 1;
 }
 
@@ -189,15 +195,17 @@ module.exports = function (app) {
         );
         let OwnerName = await request.app.get(`db`)().collection(`users`).findOne({email: request.email}, {projection: {name: 1}});
         OwnerName = OwnerName.name;
-        console.log(`here goes users for push`,users);
-        sendPush(users, usersIdsobjs, request.app.get(`db`)(), events.insertedId, app, OwnerName, event.childName).then(() => {
-            }).catch(() => {
+        let DB = request.app.get(`db`)();
+        console.log(`here goes users for push`, users);
+            sendPush(users, usersIdsobjs, DB, events.insertedId, app, OwnerName, event.childName).then(() => {
+        }).catch(() => {
         });
         //sendSMS([...localArray, ...intlArray]);
         let sendString = "";
         sendEmails(emails).then(() => {
             }).catch(() => {
-        })  ;
+        });
+        addBadge.addEventBadges(DB,users,events.insertedId).then(()=>{}).catch(()=>{});
         //console.log(events);
         let send_sms = intlArray.length > 0;
         if (events.insertedCount === 1) {
@@ -205,7 +213,6 @@ module.exports = function (app) {
         } else {
             response.json({success: false, message: `Error creating your party`});
         }
-
         return;
     }));
 };

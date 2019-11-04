@@ -4,7 +4,7 @@ const eventIOS=require('../ios/addEvent');
 function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
-
+const addBadge = require(`../badges/addBadge`);
 function isPlus(phone) {
     return phone.indexOf(`+`) !== -1;
 }
@@ -251,7 +251,7 @@ module.exports = function (app) {
 
         let userIdObj = await app.get(`db`)().collection(`users`).findOne({email: request.email}, {projection: {name: 1}});
         let named = userIdObj.name;
-
+        addBadge.addEventBadges(app.get(`db`)(),users,eventObject).then(()=>{}).catch(()=>{});
         /*
         Get All unregistered Numbers
          */

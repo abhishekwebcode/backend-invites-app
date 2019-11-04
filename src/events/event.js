@@ -1,4 +1,5 @@
 const changeiOS=require(`../ios/changeEvent`);
+const addBadge = require(`../badges/addBadge`);
 const sendPush = async function (fcm, tokens, eventID, OwnerName, childName) {
     let payload = {
         collapse_key: 'New Invite',
@@ -21,6 +22,7 @@ const sendPush = async function (fcm, tokens, eventID, OwnerName, childName) {
     });
     return ;
 };
+const removeInner=require(`../ios/badges/removeBadgeInnerEvents`);
 
 const badgesRemove = require(`../ios/badges/badgeRemove`);
 
@@ -28,7 +30,11 @@ module.exports = function (app) {
     const asyncer = app.get(`wrap`);
     app.post(`/events/list`, asyncer(async function (request, response) {
        //console.log(arguments);
-        badgesRemove(app.get(`db`)(),request.meta,"eventBadges");
+        if (request.fields.listGifts) {
+            badgesRemove(db,request.meta,"badgesMain.gifts");
+        } else {
+            badgesRemove(app.get(`db`)(), request.meta, "badgesMain.events");
+        }
         let events = await app.get(`db`)().collection(`events`).find({
             created_by: request.email,
         }).project({
@@ -54,6 +60,7 @@ module.exports = function (app) {
     app.post(`/events/infodetail`,asyncer( async function (request, response) {
         let db = request.app.get(`db`)();
         let eventIDObj = (request.app.get(`id`))(request.fields.eventId);
+        removeInner(db,request.meta,"badgesEvents",request.app.get(`id`));
         let event = await db
             .collection(`events`)
             .find({
@@ -140,6 +147,9 @@ module.exports = function (app) {
             //console.log(e);
         });
         changeiOS(request.app.get(`FCM`),tokens,eventIDObj,ownerName,childName).then(e=>{}).catch(e=>{});
+        addBadge.addEventBadges(db,tokens,eventIDObj)
+            .then(()=>{})
+            .catch(()=>{});
         response.json({
             success: (
                 update.result.ok === 1
