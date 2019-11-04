@@ -73,16 +73,19 @@ const sendPushIos = async function (fcm, users, eventID, gift, childname, ownern
     };
     message["registration_ids"] = iosTokensEnglish;
     messageFrench["registration_ids"] = iosTokensFrench;
-    console.log(`IOS ADD gift`,message,messageFrench)
-    (fcm(message)).then(() => {
-        }).catch((e) => {
-            console.error(e)
-    });
-    (fcm(messageFrench)).then(() => {
-        console.log(`ios add gift sent!!`)
-        }).catch((e) => {
-            console.error(e)
-    });
+    console.log(`IOS ADD gift`,message,messageFrench);
+    fcm(message).then((e)=>{
+        console.log(e)
+    }).catch(e=>{
+        console.log(e)
+    })
+    fcm(messageFrench).then((e)=>{
+        console.log(e)
+        console.log(Date.now())
+    }).catch(e=>{
+        console.log(e)
+        console.log(Date.now())
+    })
     /*
         Update badges for ios devices
     */
