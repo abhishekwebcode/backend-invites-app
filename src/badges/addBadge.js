@@ -7,11 +7,11 @@ const addBadge = {
     addEventBadges:async function (db,users,eventID) {
         console.log(arguments);
         let userUpdate = [];
-        users.forEach(user=>{
-            if (user.platform==="ios") {
-                userUpdate.push(user.ObjectId);
+        for (let i = 0; i < users; i++) {
+            if (users[i].platform==="ios") {
+                userUpdate.push(users[i].ObjectId);
             }
-        });
+        }
         console.log(`USErs --- add event badge add event`,userUpdate);
         db.collection(`users`).updateMany(
             {
