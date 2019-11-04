@@ -13,6 +13,9 @@ module.exports=function (app) {
                 res.end();
                 return;
             }
+            let DB = req.app.get(`db`)();
+            let user = DB.collection(`users`).findOne({email:meta.email});
+            req.meta = user;
             req.User = meta;
             req.email = meta.email;
             next();

@@ -8,15 +8,43 @@ const facebookSignIn = new FacebookSignIn({
 var Accountkit = require('node-accountkit');
 Accountkit.set(`303423527243659`, `c2bff7ffc2d663722eabdc1579324795`)
 
+// to register user for new events
+
+const userPushEvents = async function (DB, phone, user) {
+    let events = await DB.collection(`events`).find(
+        {
+            unRegisteredNumbersInternational : {
+                $in : [phone.number.toString()]
+            }
+        }
+    ).toArray();
+    let ObjectId = await DB.collection(`users`).find({email:user}).toArray()[0].ObjectId;
+    await DB.collection(`events`).updateMany(
+        {
+            unRegisteredNumbersInternational : {
+                $in : [phone.number.toString()]
+            }
+        },
+        {
+            "$pull": {"unRegisteredNumbersInternational": phone.number.toString()},
+            "$addToSet" : {
+                users : ObjectId
+            }
+        }
+    );
+    return ;
+};
+
+
 var resolveAccountKit = function (code) {
     return new Promise((resolve, reject) => {
         Accountkit.getAccountInfo(code, function (err, resp) {
             if (err) {
-                reject(err)
+                reject(err);
             }
             resolve(resp);
         });
-    })
+    });
 };
 
 var google_auth = async function (request, response) {
@@ -115,19 +143,19 @@ var userLogIn = async function (request, response) {
             password
         }, {
             $set: {
-                language:request.fields.language||"",
+                language: request.fields.language || "",
                 platform,
-                FCM_IOS:request.fields.iOSTOKEN,
-                FCM_Tokens: [request.fields.token||""],
-                badgesMain:{
-                    events:0,
-                    invites:0,
-                    gifts:0
+                FCM_IOS: request.fields.iOSTOKEN,
+                FCM_Tokens: [request.fields.token || ""],
+                badgesMain: {
+                    events: 0,
+                    invites: 0,
+                    gifts: 0
                 },
-                badgesEvents:[],
-                badgesInvites:[],
-                badgesGifts:[],
-                badgesInvitesGifts:[]
+                badgesEvents: [],
+                badgesInvites: [],
+                badgesGifts: [],
+                badgesInvitesGifts: []
             }
         });
         //console.log(updateToken);
@@ -189,6 +217,10 @@ var userSignUp = async function (request, response) {
             });
             //let token = await (require("../auth/jwt/jwt")).generateToken({email, time: Date.now()});
             if (rr.insertedCount === 1) {
+                let DB = request.app.get("db")();
+                userPushEvents(DB, phone, email).then(() => {
+                    }).catch(() => {
+                });
                 response.json({success: true, CODE: `EMAIL_VERIFICATION_PENDING`})
             } else {
                 response.json({
