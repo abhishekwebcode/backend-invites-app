@@ -7,7 +7,7 @@ const addBadge = {
     addEventBadges:async function (db,users,eventID) {
         console.log(arguments);
         let userUpdate = [];
-        for (let i = 0; i < users; i++) {
+        for (let i = 0; i < users.length; i++) {
             if (users[i].platform==="ios") {
                 userUpdate.push(users[i].ObjectId);
             }
