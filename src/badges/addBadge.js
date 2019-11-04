@@ -64,7 +64,7 @@ const addBadge = {
             })
     },
     usersNotifyGiftBadgeAdd:async function (db,users,eventString) {
-        let userUpdate = [];
+        let userUpdate = {};
         for (let i = 0; i < users[i].length; i++) {
             if (users[i].platform==="ios") {
                 userUpdate.push(users[i]._id);
