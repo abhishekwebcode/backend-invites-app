@@ -64,8 +64,8 @@ const addBadge = {
             })
     },
     usersNotifyGiftBadgeAdd:async function (db,users,eventString) {
-        let userUpdate = {};
-        for (let i = 0; i < users[i].length; i++) {
+        let userUpdate = [];
+        for (let i = 0; i < users.length; i++) {
             if (users[i].platform==="ios") {
                 userUpdate.push(users[i]._id);
             }
@@ -96,7 +96,9 @@ const addBadge = {
                 }
             }
         ).then(()=>{})
-            .catch(()=>{})
+            .catch((e)=>{
+                console.log(e,`add gift`)
+            })
     },
     ownerNotifyGift:async function (db,ownerIdentifier,eventIDReference) {
         db.collection(`users`).updateMany(
