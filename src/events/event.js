@@ -30,31 +30,36 @@ module.exports = function (app) {
     const asyncer = app.get(`wrap`);
     app.post(`/events/list`, asyncer(async function (request, response) {
        //console.log(arguments);
-        if (request.fields.listGifts) {
-            badgesRemove(db,request.meta,"badgesMain.gifts");
-        } else {
-            badgesRemove(app.get(`db`)(), request.meta, "badgesMain.events");
+        try {
+            if (request.fields.listGifts) {
+                badgesRemove(db, request.meta, "badgesMain.gifts");
+            } else {
+                badgesRemove(app.get(`db`)(), request.meta, "badgesMain.events");
+            }
+            let events = await app.get(`db`)().collection(`events`).find({
+                created_by: request.email,
+            }).project({
+                _id: 1,
+                date: 1,
+                childName: 1,
+                theme: 1
+            }).sort({date: 1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
+            //console.log(events);
+            let send = [];
+            events.forEach(item => {
+                send.push({
+                    id: item._id,
+                    name: item.childName,
+                    theme: item.theme,
+                    date: item.date.getTime()
+                })
+            });
+            response.json({success: true, events: send});
+            return;
+        } catch (e) {
+            console.log(`kirti error`,e);
+            return
         }
-        let events = await app.get(`db`)().collection(`events`).find({
-            created_by: request.email,
-        }).project({
-            _id: 1,
-            date: 1,
-            childName: 1,
-            theme: 1
-        }).sort({date: 1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
-       //console.log(events);
-        let send = [];
-        events.forEach(item => {
-            send.push({
-                id: item._id,
-                name: item.childName,
-                theme: item.theme,
-                date: item.date.getTime()
-            })
-        });
-        response.json({success: true, events: send});
-        return ;
     }));
 
     app.post(`/events/infodetail`,asyncer( async function (request, response) {
