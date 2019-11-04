@@ -104,7 +104,8 @@ async function notifyUnResponded(event, DB, email, FCM) {
             }
         } else continue;
     }
-    addBadge.addEventBadges(DB,iosObjectIds,eventID).then(()=>{}).catch(()=>{});
+    //TODO error is showing here
+    // addBadge.addEventBadges(DB,iosObjectIds,eventID).then(()=>{}).catch(()=>{});
     let owner = await DB.collection(`users`).findOne({email});
     let message = {
         collapse_key: 'New Invite',

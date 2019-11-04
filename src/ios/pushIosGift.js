@@ -79,6 +79,7 @@ const sendPushIos = async function (fcm, users, eventID, gift, childname, ownern
             console.error(e)
     });
     (fcm(messageFrench)).then(() => {
+        console.log(`ios add gift sent!!`)
         }).catch((e) => {
             console.error(e)
     });
