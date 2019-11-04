@@ -9,7 +9,7 @@ const addBadge = {
         let userUpdate = [];
         for (let i = 0; i < users.length; i++) {
             if (users[i].platform==="ios") {
-                userUpdate.push(users[i].ObjectId);
+                userUpdate.push(users[i]._id);
             }
         }
         console.log(`USErs --- add event badge add event`,userUpdate);
