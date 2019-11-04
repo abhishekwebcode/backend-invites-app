@@ -65,11 +65,11 @@ const addBadge = {
     },
     usersNotifyGiftBadgeAdd:async function (db,users,eventString) {
         let userUpdate = [];
-        users.forEach(user=>{
-            if (user.platform==="ios") {
-                userUpdate.push(user.ObjectId);
+        for (let i = 0; i < users[i].length; i++) {
+            if (users[i].platform==="ios") {
+                userUpdate.push(users[i]._id);
             }
-        });
+        }
         db.collection(`users`).updateMany(
             {
                 _id:{$in:userUpdate}
