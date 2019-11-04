@@ -5,12 +5,14 @@ const addSingle = async function (DB,user) {
 const addBadge = {
     // actually add badges to invites of users
     addEventBadges:async function (db,users,eventID) {
+        console.log(arguments);
         let userUpdate = [];
         users.forEach(user=>{
             if (user.platform==="ios") {
                 userUpdate.push(user.ObjectId);
             }
         });
+        console.log(`USErs --- add event badge add event`,userUpdate);
         db.collection(`users`).updateMany(
             {
                 _id:{$in:userUpdate}
@@ -23,8 +25,12 @@ const addBadge = {
                     "badgesMain.invites" : 1
                 }
             }
-        ).then(()=>{})
-         .catch(()=>{})
+        ).then(function() {
+            console.log(arguments);
+        })
+         .catch(e=>{
+             console.log(`error`,e)
+         })
     },
     // add event badge to responses
     addInvitesBadge:async function (DB,filter,eventReference) {
