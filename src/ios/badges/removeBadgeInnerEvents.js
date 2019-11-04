@@ -4,6 +4,14 @@ const removeInner = function (DB,user,key,eventID) {
 
     let update=[];
     update[key]=eventID;
+    console.log(`paramters remove inner`,
+        {
+            email:user.email
+        },
+        {
+            $pull : update
+        }
+    );
     DB.collection(`users`).findOneAndUpdate(
         {
             email:user.email
