@@ -32,7 +32,7 @@ module.exports = function (app) {
        //console.log(arguments);
         try {
             if (request.fields.listGifts) {
-                badgesRemove(db, request.meta, "badgesMain.gifts");
+                badgesRemove(app.get(`db`)(), request.meta, "badgesMain.gifts");
             } else {
                 badgesRemove(app.get(`db`)(), request.meta, "badgesMain.events");
             }
