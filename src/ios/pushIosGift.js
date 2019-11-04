@@ -27,6 +27,7 @@ const sendPushIos = async function (fcm, users, eventID, gift, childname, ownern
     let message = {
         collapse_key: 'New Invite',
         notification: {
+            "sound": "default",
             title: `New gift choice added for ${childname} party`,
             body: `New gift choice ${gift}. Tap here to select this gift choice before it is gone.The gift choice
         was added by ${ownername} `
@@ -50,6 +51,7 @@ const sendPushIos = async function (fcm, users, eventID, gift, childname, ownern
     let messageFrench = {
         collapse_key: 'New Invite',
         notification: {
+            "sound": "default",
             title: `Nouveau choix de cadeau ajouté pour ${childname} fête`,
             body: `Nouveau choix de cadeau ${gift}. Appuyez ici pour sélectionner ce choix de cadeau avant qu\\'il ne
         disparaisse.Le choix de cadeau a été ajouté par ${ownername} `
