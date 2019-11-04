@@ -28,7 +28,7 @@ module.exports = function (app) {
     const asyncer = app.get(`wrap`);
     app.post(`/events/list`, asyncer(async function (request, response) {
        //console.log(arguments);
-        badgesRemove(app.get(`db`)(),request.meta,"eventBadges")
+        badgesRemove(app.get(`db`)(),request.meta,"eventBadges");
         let events = await app.get(`db`)().collection(`events`).find({
             created_by: request.email,
         }).project({
