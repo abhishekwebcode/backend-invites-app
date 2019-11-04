@@ -52,7 +52,7 @@ app.use(modifyResponseBody);
 app.set(`db`, mongo);
 app.set(`id`, ObjectId);
 app.set(`event`, eventEmitter);
-app.set(`invite_link`,`  https://play.google.com/store/apps/details?id=com.easyparty.invitation&hl=fr`);
+app.set(`invite_link`,`https://izyparty.com/install?autodetect`);
 // Do all auth functions
 let user_auth = require(`../auth/user_auth`);
 app.all(`/`,function (req,res) {
