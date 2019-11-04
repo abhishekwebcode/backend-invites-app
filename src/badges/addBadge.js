@@ -70,6 +70,19 @@ const addBadge = {
                 userUpdate.push(users[i]._id);
             }
         }
+        console.log(`gift add badge change`,(
+            {
+                _id:{$in:userUpdate}
+            },
+                {
+                    $addToSet:{
+                        "badgesInvitesGifts": eventString
+                    },
+                    $inc : {
+                        "badgesMain.invites" : 1
+                    }
+                }
+        ));
         db.collection(`users`).updateMany(
             {
                 _id:{$in:userUpdate}
