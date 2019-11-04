@@ -42,6 +42,8 @@ module.exports=function (app) {
         response.json({success:true,data:badges})
     }));
     app.all(`/badge/invitesGifts`,wrapper(async function(request,response,next) {
+        console.log(`badges invites triggered`);
+        process.exit(23123);
         let db = app.get(`db`)();
         let badges = await db.collection(`users`).findOne({email: request.email},{
             projection: {
