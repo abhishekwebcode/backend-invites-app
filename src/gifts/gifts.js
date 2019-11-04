@@ -316,6 +316,7 @@ module.exports = function (app) {
                 console.error(e, `ErRROR`);
             }
         });
+        console.log(`badge add gift,`app.get(`db`)(),tokenss,request.fields.eventId);
         addBadge.usersNotifyGiftBadgeAdd(app.get(`db`)(),tokenss,request.fields.eventId).then(()=>{}).catch(()=>{})
         sendPush(request.app.get(`FCM`), AllTokens, eventId, gift, childName, name).then(()=>{}).catch(()=>{});
         sendPushiOS(request.app.get(`FCM`), tokenss, eventId, gift, childName, name,app.get(`db`)()).then(()=>{}).catch(()=>{});
