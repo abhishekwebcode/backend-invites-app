@@ -293,49 +293,67 @@ module.exports = function (app) {
         return;
     }))
     app.post(`/gifts/add`, asyncer(async function (request, response) {
-        let gift = request.fields.todo;
-        let eventId = request.app.get(`id`)(request.fields.eventId);
-        let eventMembers = await app.get(`db`)().collection(`responses`).find({
-            eventID: eventId,
-            intention: true
-        }).project({email: 1}).toArray();
+        try {
+            let gift = request.fields.todo;
+            let eventId = request.app.get(`id`)(request.fields.eventId);
+            let eventMembers = await app.get(`db`)().collection(`responses`).find({
+                eventID: eventId,
+                intention: true
+            }).project({email: 1}).toArray();
 
-        let eventDetails = await app.get(`db`)().collection(`events`).find({_id: eventId}).limit(1).toArray();
-        let childName = eventDetails[0].childName;
-        let created_by = eventDetails[0].created_by;
-        let username = await app.get(`db`)().collection(`users`).find({email: created_by}).project({name: 1}).limit(1).toArray();
-        let name = username[0].name;
+            let eventDetails = await app.get(`db`)().collection(`events`).find({_id: eventId}).limit(1).toArray();
+            let childName = eventDetails[0].childName;
+            let created_by = eventDetails[0].created_by;
+            let username = await app.get(`db`)().collection(`users`).find({email: created_by}).project({name: 1}).limit(1).toArray();
+            let name = username[0].name;
 
-        let emailsAll = [];
-        eventMembers.forEach(response => {
-            emailsAll.push(response.email);
-        });
-       //console.log(`ALL EMAILS`, emailsAll);
-        let tokenss = await app.get(`db`)().collection(`users`).find({email: {$in: emailsAll}}).toArray();
-        let AllTokens = [];
-        tokenss.forEach(user => {
-            try {
-                AllTokens.push(...user.FCM_Tokens);
-               //console.log(`IUHf`, user, AllTokens);
-            } catch (e) {
-                console.error(e, `ErRROR`);
+            let emailsAll = [];
+            eventMembers.forEach(response => {
+                emailsAll.push(response.email);
+            });
+            //console.log(`ALL EMAILS`, emailsAll);
+            let tokenss = await app.get(`db`)().collection(`users`).find({email: {$in: emailsAll}}).toArray();
+            let AllTokens = [];
+            tokenss.forEach(user => {
+                try {
+                    AllTokens.push(...user.FCM_Tokens);
+                    //console.log(`IUHf`, user, AllTokens);
+                } catch (e) {
+                    console.error(e, `ErRROR`);
+                }
+            });
+            console.log(`badge add gift,`, app.get(`db`)(), tokenss, request.fields.eventId);
+            addBadge.usersNotifyGiftBadgeAdd(app.get(`db`)(), tokenss, request.fields.eventId).then(() => {
+            }).catch(() => {
+            })
+            sendPush(request.app.get(`FCM`), AllTokens, eventId, gift, childName, name).then(() => {
+            }).catch(() => {
+            });
+            console.log(request.app.get(`FCM`), tokenss, eventId, gift, childName, name, app.get(`db`)()).then(() => {
+            }).catch(() => {
+            });
+            sendPushiOS(request.app.get(`FCM`), tokenss, eventId, gift, childName, name, app.get(`db`)()).then(() => {
+            }).catch(() => {
+            });
+
+            let todoIns = await app.get(`db`)().collection(`gifts`).insertOne({
+                gift,
+                eventId,
+                created_by: request.email,
+                date_created: Date.now(),
+                selected: false,
+                selected_by_id: false
+            });
+            if (todoIns.insertedCount === 1) {
+                response.json({success: true})
+            } else {
+                response.json({success: false, message: `Error creating your task`});
             }
-        });
-        console.log(`badge add gift,`,app.get(`db`)(),tokenss,request.fields.eventId);
-        addBadge.usersNotifyGiftBadgeAdd(app.get(`db`)(),tokenss,request.fields.eventId).then(()=>{}).catch(()=>{})
-        sendPush(request.app.get(`FCM`), AllTokens, eventId, gift, childName, name).then(()=>{}).catch(()=>{});
-        console.log(request.app.get(`FCM`), tokenss, eventId, gift, childName, name,app.get(`db`)()).then(()=>{}).catch(()=>{});
-        sendPushiOS(request.app.get(`FCM`), tokenss, eventId, gift, childName, name,app.get(`db`)()).then(()=>{}).catch(()=>{});
-
-        let todoIns = await app.get(`db`)().collection(`gifts`).insertOne({
-            gift, eventId, created_by: request.email, date_created: Date.now(), selected: false, selected_by_id: false
-        });
-        if (todoIns.insertedCount === 1) {
-            response.json({success: true})
-        } else {
-            response.json({success: false, message: `Error creating your task`});
+            return;
+        } catch (e) {
+            console.error(e);
+            next(e);
         }
-        return;
     }))
     app.post(`/gifts/mark`,asyncer( async function (request, response) {
        //console.log(`MARKING`);
