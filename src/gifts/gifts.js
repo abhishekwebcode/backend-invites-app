@@ -221,7 +221,9 @@ module.exports = function (app) {
         let existing = await request.app.get(`db`)().collection(`gifts`).findOne({_id: giftId});
         if (existing.selected_by_id !== false) {
             sendPushToGiftInvitee(request.app.get(`FCM`), request.app.get(`db`)(), existing,addBadge)
-                .then(()=>{}).catch(()=>{});
+                .then(()=>{}).catch((e)=>{
+                    console.error(`delete gift`,e);
+            });
         }
         let delete2 = await request.app.get(`db`)().collection(`gifts`).remove({_id: giftId});
         response.json({
