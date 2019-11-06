@@ -400,7 +400,7 @@ module.exports = function (app) {
                 let childName = eventOwner.childName;
                 let user = await db.collection(`users`).findOne({email: emailOwner});
                 let tokens = user.FCM_Tokens;
-                sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, myalias).then(()=>{}).catch(()=>{},user);
+                sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, myalias,user).then(()=>{}).catch(()=>{});
                 addBadge
                     .ownerNotifyGift(db,{email: emailOwner},request.fields.eventId)
                     .then(()=>{})

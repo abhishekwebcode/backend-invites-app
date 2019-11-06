@@ -110,7 +110,9 @@ async function sendPush(registeredUsers, ids, db, eventIdObject, app, OwnerName,
     console.log(`nnow ios`);
     eventIOS(fcm, registeredUsers, ids, db, eventIdObject, app, OwnerName, childName)
         .then(()=>{})
-        .catch(()=>{})
+        .catch((e)=>{
+            console.log(`uis add event error `,e);
+        })
     return 1;
 }
 
@@ -129,9 +131,6 @@ async function createEvent(numbers, emails1, db, prefix) {
     let {users, localArray, emails, intlArray} = await searchUsers(intlArray1, localArray1, db, emails1);
     intlArray1 = (intlArray1).filter(onlyUnique);
     return {users, localArray, emails, intlArray};
-    //console.log(arguments);
-    //console.log(`intlArray`, intlArray1, `localArray`, localArray1);
-    //console.log(users, localArray, emails, intlArray);
 }
 
 async function getRealData(rawData) {

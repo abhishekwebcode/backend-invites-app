@@ -72,6 +72,7 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
     messageFrench["registration_ids"] = iosTokensFrench;
     console.log(messageFrench,message);
     console.log(`sdlifhsodu`);
+    console.error(`starting`)
     console.log(`todebyg notifi`,FCM,messageFrench);
     console.log(`todebyg notifi`,FCM,message);
     FCM(messageFrench).then(e=>{
