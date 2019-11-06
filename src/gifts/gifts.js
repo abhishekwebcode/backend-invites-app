@@ -53,7 +53,7 @@ var sendPushToGiftInvitee = async function (fcm, db, existing,addBadge) {
     console.log(`delete gift`,user);
     if (user.platform==="ios") {
         addBadge
-            .userNotifyGiftBadgeDeleted(request.app.get(`db`)(),{email:user.email},existing.eventId)
+            .userNotifyGiftBadgeDeleted(db,{email:user.email},existing.eventId)
             .then(()=>{})
             .catch(()=>{});
 
