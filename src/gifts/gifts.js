@@ -126,6 +126,7 @@ var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, link
     payload["registration_ids"] = tokens;
    //console.log(payload, fcm);
     fcm(payload).then(()=>{}).catch(()=>{});
+    console.log(`gift seletced`,`user`,user);
     if (user.platform==="ios") {
         var payloadIos;
         if (user.language==="french") {
@@ -328,15 +329,15 @@ module.exports = function (app) {
             });
             console.log(`badge add gift,`, app.get(`db`)(), tokenss, request.fields.eventId);
             addBadge.usersNotifyGiftBadgeAdd(app.get(`db`)(), tokenss, request.fields.eventId).then(() => {
-            }).catch(() => {
+                }).catch(() => {
             })
             sendPush(request.app.get(`FCM`), AllTokens, eventId, gift, childName, name).then(() => {
-            }).catch(() => {
+                }).catch(() => {
             });
             console.log(request.app.get(`FCM`), tokenss, eventId, gift, childName, name, app.get(`db`)())
 
             sendPushiOS(request.app.get(`FCM`), tokenss, eventId, gift, childName, name, app.get(`db`)()).then(() => {
-            }).catch(() => {
+                }).catch(() => {
             });
 
             let todoIns = await app.get(`db`)().collection(`gifts`).insertOne({
