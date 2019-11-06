@@ -27,6 +27,7 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
     let message = {
         collapse_key: 'New Invite',
         notification:{
+            "sound": "default",
             title:`New invite for ${childName} party`,
             body:`You have been sent RSVP to a party by ${OwnerName}`
             /*
@@ -46,6 +47,7 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
         },
     };
     let messageFrench = {
+        "sound": "default",
         collapse_key: 'New Invite',
         notification:{
             title:`Nouvelle invitation pour ${childName} fête`,

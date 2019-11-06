@@ -60,6 +60,7 @@ var sendPushToGiftInvitee = async function (fcm, db, existing) {
                 to:user.FCM_IOS,
                 collapse_key: 'New Invite',
                 notification:{
+                    "sound": "default",
                     title:`Le cadeau que vous avez sélectionné ${existing.gift} a été supprimé par ${organiser.name}`,
                     body:`Appuyez ici pour sélectionner un nouveau cadeau pour une fête de ${event.childName}`
                     /*
@@ -93,6 +94,7 @@ var sendPushToGiftInvitee = async function (fcm, db, existing) {
                     organiser: organiser.name
                 },
                 notification:{
+                    "sound": "default",
                     title:`Your selected gift ${existing.gift} was deleted by ${organiser.name}`,
                     body:`Tap here to select a new gift for party of ${event.childName}`
                     /*
@@ -128,6 +130,7 @@ var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, link
                 to:user.FCM_IOS,
                 collapse_key: 'New Invite',
                 notification:{
+                    "sound": "default",
                     title:`Nouveau cadeau sélectionné pour ${childName} fête`,
                     body:`startAppuyez ici pour voir le cadeau sélectionné par ${linkedName}`
                     /*
@@ -159,6 +162,7 @@ var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, link
                     InviteeName: linkedName
                 },
                 notification:{
+                    "sound": "default",
                     title:`New gift selected for ${childName} party`,
                     body:`Tap here to view gift selected by ${linkedName}`
                     /*

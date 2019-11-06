@@ -7,6 +7,7 @@ These are the payloads , same are made for french for each one of them
 let message = {
     collapse_key: 'New Invite',
     notification:{
+        "sound": "default",
         title:`New invite for ${childName} party`,
         body:`You have been sent RSVP to a party by ${OwnerName}`
         /*
@@ -30,6 +31,7 @@ let message = {
 
 let payloadEnglish = {
     notification:{
+        "sound": "default",
         title:`Some changes were done for ${childName} party`,
         body:`Tap here to view changes made by ${ownerName}`
         /*

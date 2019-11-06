@@ -230,6 +230,7 @@ module.exports = function (app) {
                         to:ownerObject.FCM_IOS,
                         collapse_key: 'New Invite',
                         notification:{
+                            "sound": "default",
                             title:`nouvelle réponse pour le parti de ${ownerEmail1.childName}`,
                             body:`${myAlias}  a répondu à votre invitation`
                             /*
@@ -254,6 +255,7 @@ module.exports = function (app) {
                         to:ownerObject.FCM_IOS,
                         collapse_key: 'New Invite',
                         notification:{
+                            "sound": "default",
                             title:`New response for party of ${ownerEmail1.childName}`,
                             body:`${myAlias} has responded to your invitation`
                             /*
@@ -368,6 +370,7 @@ module.exports = function (app) {
                             to:ownerObject.FCM_IOS,
                             collapse_key: 'New Invite',
                             notification:{
+                                "sound": "default",
                                 title:`nouvelle réponse pour le parti de ${ownerEmail1.childName}`,
                                 body:`${myAlias}  a répondu à votre invitation`
                                 /*
@@ -392,6 +395,7 @@ module.exports = function (app) {
                             to:ownerObject.FCM_IOS,
                             collapse_key: 'New Invite',
                             notification:{
+                                "sound": "default",
                                 title:`New response for party of ${ownerEmail1.childName}`,
                                 body:`${myAlias} has responded to your invitation`
                                 /*

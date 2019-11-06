@@ -5,6 +5,7 @@ async function respondIos(event,DB,email,FCM,users,owner){
     let message = {
         collapse_key: 'New Invite',
         notification:{
+            "sound": "default",
             title:`New invite for ${event.childName} party`,
             body:`You have been sent RSVP to a party by ${owner.name}`
             /*
@@ -26,6 +27,7 @@ async function respondIos(event,DB,email,FCM,users,owner){
     let messageFrench = {
         collapse_key: 'New Invite',
         notification:{
+            "sound": "default",
             title:`Nouvelle invitation pour ${event.childName} fête`,
             body:`RSVP vous a envoyé à une fête par ${owner.name}`
             /*

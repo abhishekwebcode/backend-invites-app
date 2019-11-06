@@ -5,7 +5,7 @@ const facebookSignIn = new FacebookSignIn({
     clientId: '405278700287006',
     secret: '091015732c5ff74759b137843f3f17c9'
 });
-var Accountkit = require('node-accountkit');
+var Accountksit = require('node-accountkit');
 Accountkit.set(`303423527243659`, `c2bff7ffc2d663722eabdc1579324795`)
 
 // to register user for new events

@@ -24,6 +24,7 @@ const changeEvent=async function(FCM,tokens,eventIDObj,ownerName,childName) {
     });
     let payloadEnglish = {
         notification:{
+            "sound": "default",
             title:`Some changes were done for ${childName} party`,
             body:`Tap here to view changes made by ${ownerName}`
             /*
@@ -45,6 +46,7 @@ const changeEvent=async function(FCM,tokens,eventIDObj,ownerName,childName) {
     };
     let payloadFrench = {
         notification:{
+            "sound": "default",
             title:`Certains changements ont été effectués pour ${childName} fête`,
             body:`Appuyez ici pour voir les modifications apportées par ${ownerName}`
             /*
