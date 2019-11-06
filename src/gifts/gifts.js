@@ -30,16 +30,12 @@ function reverseMap(map) {
     }
     return reverseMap;
 };
-var sendPushToGiftInvitee = async function (fcm, db, existing) {
+var sendPushToGiftInvitee = async function (fcm, db, existing,addBadge) {
     console.log(`DELETE GIFT`,arguments);
    //console.log(arguments, `DELETE GIFT`);
     let user = await db.collection(`users`).findOne({_id: existing.selected_by_id});
     let event = await db.collection(`events`).findOne({_id: existing.eventId});
     let organiser = await db.collection(`users`).findOne({email: event.created_by});
-    addBadge
-        .userNotifyGiftBadgeDeleted(request.app.get(`db`)(),{email:user.email},existing.eventId)
-        .then(()=>{})
-        .catch(()=>{});
     let payload = {
         collapse_key: 'New Invite',
         data: {
@@ -56,6 +52,11 @@ var sendPushToGiftInvitee = async function (fcm, db, existing) {
     fcm(payload).then(()=>{}).catch(()=>{});
     console.log(`delete gift`,user);
     if (user.platform==="ios") {
+        addBadge
+            .userNotifyGiftBadgeDeleted(request.app.get(`db`)(),{email:user.email},existing.eventId)
+            .then(()=>{})
+            .catch(()=>{});
+
         var payloadIos;
         if (user.language==="french") {
             payloadIos = {
@@ -219,7 +220,8 @@ module.exports = function (app) {
         let giftId = request.app.get(`id`)(id);
         let existing = await request.app.get(`db`)().collection(`gifts`).findOne({_id: giftId});
         if (existing.selected_by_id !== false) {
-            sendPushToGiftInvitee(request.app.get(`FCM`), request.app.get(`db`)(), existing).then(()=>{}).catch(()=>{});
+            sendPushToGiftInvitee(request.app.get(`FCM`), request.app.get(`db`)(), existing,addBadge)
+                .then(()=>{}).catch(()=>{});
         }
         let delete2 = await request.app.get(`db`)().collection(`gifts`).remove({_id: giftId});
         response.json({
