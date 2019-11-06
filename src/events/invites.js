@@ -338,7 +338,7 @@ module.exports = function (app) {
                     }
                 });
                 let ownerEmail = ownerEmail1.created_by;
-                let ownerTokens = await db.collection(`users`).findOne({email: ownerEmail}, {projection: {FCM_Tokens: 1}});
+                let ownerTokens = await db.collection(`users`).findOne({email: ownerEmail});
                 let ownerObject = ownerTokens;
                 addBadge.addInvitesBadge(
                     db,{_id:ownerObject._id},request.fields.eventId
