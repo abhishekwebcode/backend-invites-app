@@ -79,9 +79,9 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
         console.log(`french add event not sent`,messageFrench,e,FCM);
     });
     FCM(message).then(e=>{
-        console.log(`french add event send`,messageFrench,e,FCM);
+        console.log(`english add event send`,messageFrench,e,FCM);
     }).catch((e)=>{
-        console.log(`french add event not sent`,messageFrench,e,FCM);
+        console.log(`english add event not sent`,messageFrench,e,FCM);
     });
     /*
         Update badges for ios devices
