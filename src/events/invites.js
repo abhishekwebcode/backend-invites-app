@@ -365,8 +365,8 @@ module.exports = function (app) {
                 console.log(Date.now());
 
                 var payload;
+                console.log(`he is ios user testing`,ownerObject);
                 if (ownerObject.platform==="ios") {
-                    console.log(`he is ios user testing`,ownerObject);
                     if (ownerObject.language==="french") {
                         payload = {
                             to:ownerObject.FCM_IOS,
