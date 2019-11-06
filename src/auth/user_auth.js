@@ -128,7 +128,7 @@ var googleSignIn = async function (request, response, existing_one) {
 };
 var userLogIn = async function (request, response) {
     let phoneNumber = request.fields.number;
-    if (phoneNumber.charAt(0)==="0") phoneNumber=phoneNumber.slice(1);
+    if (phoneNumber.charAt(3)==0) phoneNumber = `+33`+phoneNumber.slice(4);
     let password = request.fields.password;
     let res = await request.app.get('db')().collection('users').find({
         "phone.number": phoneNumber,
