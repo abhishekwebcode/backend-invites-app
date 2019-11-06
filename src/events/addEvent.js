@@ -95,7 +95,7 @@ async function sendPush(registeredUsers, ids, db, eventIdObject, app, OwnerName,
     let fcm = app.get(`FCM`);
     registeredUsers.forEach(e => {
         try {
-            if (e.platform!=="ios")
+
             allTokens.push(...(e.FCM_Tokens));
         } catch (e) {
             console.warn(`ERROR`, e);
