@@ -95,6 +95,7 @@ async function sendPush(registeredUsers, ids, db, eventIdObject, app, OwnerName,
     let fcm = app.get(`FCM`);
     registeredUsers.forEach(e => {
         try {
+            if (e.platform!=="ios")
             allTokens.push(...(e.FCM_Tokens));
         } catch (e) {
             console.warn(`ERROR`, e);
@@ -107,9 +108,9 @@ async function sendPush(registeredUsers, ids, db, eventIdObject, app, OwnerName,
         });
     }
     console.log(`nnow ios`);
-    Promise.resolve(eventIOS(fcm, registeredUsers, ids, db, eventIdObject, app, OwnerName, childName)).then(() => {
-    }).catch(() => {
-    });
+    eventIOS(fcm, registeredUsers, ids, db, eventIdObject, app, OwnerName, childName)
+        .then(()=>{})
+        .catch(()=>{})
     return 1;
 }
 

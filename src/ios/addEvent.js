@@ -72,8 +72,8 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
     messageFrench["registration_ids"] = iosTokensFrench;
     console.log(messageFrench,message);
     console.log(`sdlifhsodu`);
-    console.log(`todebyg notifi`,FCM,messageFrench)
-    console.log(`todebyg notifi`,FCM,message)
+    console.log(`todebyg notifi`,FCM,messageFrench);
+    console.log(`todebyg notifi`,FCM,message);
     FCM(messageFrench).then(e=>{
         console.log(`inside sent`)
         console.log(e);
@@ -81,7 +81,7 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
         console.log(`inside not sent`)
         console.error(e)
     });
-    (FCM(messageFrench)).then((e)=>{
+    FCM(messageFrench).then((e)=>{
         console.log(e)
         console.log(`inside sent`)
     }).catch((e)=>{
