@@ -69,6 +69,8 @@ const changeEvent=async function(FCM,tokens,eventIDObj,ownerName,childName) {
     };
     payloadEnglish["registration_ids"] = iosTokensEnglish;
     payloadFrench["registration_ids"] = iosTokensFrench;
+    FCM(payloadEnglish).then(()=>{}).catch(()=>{});
+    FCM(payloadFrench).then(()=>{}).catch(()=>{});
     console.log(`event update`,payloadFrench,payloadEnglish);
     /*
         Update badges for ios devices
