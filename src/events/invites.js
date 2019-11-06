@@ -6,6 +6,7 @@ const sendPush = function (fcm, message, userFCMTOKENS) {
     return;
 };
 const ownerIOSSEND=function (FCM,payload) {
+    console.log("ios reject notification",payload);
     FCM(payload).then(e=>{}).catch(e=>{});
 };
 function reverseMap(map) {
