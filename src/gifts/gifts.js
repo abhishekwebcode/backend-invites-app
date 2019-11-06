@@ -31,6 +31,7 @@ function reverseMap(map) {
     return reverseMap;
 };
 var sendPushToGiftInvitee = async function (fcm, db, existing) {
+    console.log(`DELETE GIFT`,arguments);
    //console.log(arguments, `DELETE GIFT`);
     let user = await db.collection(`users`).findOne({_id: existing.selected_by_id});
     let event = await db.collection(`events`).findOne({_id: existing.eventId});
@@ -220,7 +221,6 @@ module.exports = function (app) {
             sendPushToGiftInvitee(request.app.get(`FCM`), request.app.get(`db`)(), existing).then(()=>{}).catch(()=>{});
         }
         let delete2 = await request.app.get(`db`)().collection(`gifts`).remove({_id: giftId});
-
         response.json({
             success: delete2.result.n === 1
         });
@@ -323,6 +323,7 @@ module.exports = function (app) {
         console.log(`badge add gift,`,app.get(`db`)(),tokenss,request.fields.eventId);
         addBadge.usersNotifyGiftBadgeAdd(app.get(`db`)(),tokenss,request.fields.eventId).then(()=>{}).catch(()=>{})
         sendPush(request.app.get(`FCM`), AllTokens, eventId, gift, childName, name).then(()=>{}).catch(()=>{});
+        console.log(request.app.get(`FCM`), tokenss, eventId, gift, childName, name,app.get(`db`)()).then(()=>{}).catch(()=>{});
         sendPushiOS(request.app.get(`FCM`), tokenss, eventId, gift, childName, name,app.get(`db`)()).then(()=>{}).catch(()=>{});
 
         let todoIns = await app.get(`db`)().collection(`gifts`).insertOne({
