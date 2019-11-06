@@ -5,6 +5,7 @@ const updateBadges=async function(DB,users) {
     });
 };
 const changeEvent=async function(FCM,tokens,eventIDObj,ownerName,childName) {
+    console.log(arguments)
     /*
         iOS adaption to notifications
     */
@@ -68,6 +69,7 @@ const changeEvent=async function(FCM,tokens,eventIDObj,ownerName,childName) {
     };
     payloadEnglish["registration_ids"] = iosTokensEnglish;
     payloadFrench["registration_ids"] = iosTokensFrench;
+    console.log(`event update`,payloadFrench,payloadEnglish);
     /*
         Update badges for ios devices
     */
