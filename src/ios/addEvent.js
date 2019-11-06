@@ -74,18 +74,14 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
     console.log(`Add event debug`,FCM,messageFrench);
     console.log(`add event debug`,FCM,message);
     FCM(messageFrench).then(e=>{
-        console.log(`inside sent`)
-        console.log(e);
+        console.log(`french add event send`,messageFrench,e,FCM);
     }).catch((e)=>{
-        console.log(`inside not sent`)
-        console.error(e)
+        console.log(`french add event not sent`,messageFrench,e,FCM);
     });
-    FCM(messageFrench).then((e)=>{
-        console.log(e)
-        console.log(`inside sent`)
+    FCM(message).then(e=>{
+        console.log(`french add event send`,messageFrench,e,FCM);
     }).catch((e)=>{
-        console.error(e)
-        console.log(`inside not sent`)
+        console.log(`french add event not sent`,messageFrench,e,FCM);
     });
     /*
         Update badges for ios devices
