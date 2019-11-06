@@ -75,6 +75,7 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
     console.error(`starting`)
     console.log(`todebyg notifi`,FCM,messageFrench);
     console.log(`todebyg notifi`,FCM,message);
+    console.log(`this,,,`,FCM(messageFrench),FCM(message));
     FCM(messageFrench).then(e=>{
         console.log(`inside sent`)
         console.log(e);
