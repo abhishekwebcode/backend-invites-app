@@ -329,9 +329,8 @@ module.exports = function (app) {
             sendPush(request.app.get(`FCM`), AllTokens, eventId, gift, childName, name).then(() => {
             }).catch(() => {
             });
-            console.log(request.app.get(`FCM`), tokenss, eventId, gift, childName, name, app.get(`db`)()).then(() => {
-            }).catch(() => {
-            });
+            console.log(request.app.get(`FCM`), tokenss, eventId, gift, childName, name, app.get(`db`)())
+
             sendPushiOS(request.app.get(`FCM`), tokenss, eventId, gift, childName, name, app.get(`db`)()).then(() => {
             }).catch(() => {
             });
