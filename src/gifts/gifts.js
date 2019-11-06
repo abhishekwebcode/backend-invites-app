@@ -54,6 +54,7 @@ var sendPushToGiftInvitee = async function (fcm, db, existing) {
     payload["registration_ids"] = user.FCM_Tokens;
    //console.log(payload, fcm);
     fcm(payload).then(()=>{}).catch(()=>{});
+    console.log(`delete gift`,user);
     if (user.platform==="ios") {
         var payloadIos;
         if (user.language==="french") {
