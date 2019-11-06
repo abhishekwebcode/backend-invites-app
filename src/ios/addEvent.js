@@ -11,7 +11,7 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
     console.log(`ARGUMENTS adD EVENT IOS`,arguments);
     let iosTokensEnglish=[];
     let iosTokensFrench=[];
-    registeredUsers.forEach(e=>{                    
+    registeredUsers.forEach(e=>{
         try {
             if (e.FCM_IOS) {
                 if (e.language==="french") {
@@ -71,11 +71,8 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
     message["registration_ids"] = iosTokensEnglish;
     messageFrench["registration_ids"] = iosTokensFrench;
     console.log(messageFrench,message);
-    console.log(`sdlifhsodu`);
-    console.error(`starting`)
-    console.log(`todebyg notifi`,FCM,messageFrench);
-    console.log(`todebyg notifi`,FCM,message);
-    console.log(`this,,,`,FCM(messageFrench),FCM(message));
+    console.log(`Add event debug`,FCM,messageFrench);
+    console.log(`add event debug`,FCM,message);
     FCM(messageFrench).then(e=>{
         console.log(`inside sent`)
         console.log(e);
