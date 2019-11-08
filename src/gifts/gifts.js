@@ -191,7 +191,7 @@ module.exports = function (app) {
         let userIdObj = email._id;
         let eventIdObject = request.app.get(`id`)(request.fields.eventId);
         let db = request.app.get(`db`)();
-        removeInner(db,request.meta,"badgesInvitesGifts",request.app.get(`id`));
+        removeInner(db,request.meta,"badgesInvitesGifts",request.fields.eventId);
         try {
             let directCheck = await db.collection(`responses`).findOne({
                 email: request.email,
