@@ -34,6 +34,7 @@ const addBadge = {
     },
     // add event badge to responses
     addInvitesBadge:async function (DB,filter,eventReference) {
+        console.log(`invites badge invoke`,arguments)
         db.collection(`users`).updateMany(
             filter,
             {

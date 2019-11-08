@@ -10,7 +10,6 @@ const sendPush = async function (fcm, tokens, eventID, OwnerName, childName) {
             OwnerName: OwnerName,
             Action: `INVITE`,
             childname: childName
-
         }
     };
     payload["registration_ids"] = tokens;

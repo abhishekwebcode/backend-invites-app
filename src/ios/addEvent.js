@@ -4,6 +4,7 @@ const updateBadges=async function(DB,users) {
 
     });
 };
+
 const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, app, OwnerName, childName) {
     /*
         iOS adaption to notifications
