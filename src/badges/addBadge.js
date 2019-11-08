@@ -51,6 +51,7 @@ const addBadge = {
             })
     },
     userNotifyGiftBadgeDeleted:async function (db,inviterIdentifier,eventIDReference) {
+        console.log(arguments,`delete gift remove badge`)
         db.collection(`users`).updateMany(
             inviterIdentifier,
             {
