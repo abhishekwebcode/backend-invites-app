@@ -246,7 +246,7 @@ module.exports = function (app) {
     }));
     app.post(`/gifts/list`,asyncer( async function (request, response) {
         let eventId = request.app.get(`id`)(request.fields.eventId);
-        removeInner(request.app.get(`db`)(),request.meta,"badgesGifts",request.app.get(`id`));
+        removeInner(request.app.get(`db`)(),request.meta,"badgesGifts",request.fields.eventId);
         let gifts = await app.get(`db`)().collection(`gifts`).find({
             created_by: request.email, eventId
         }).project({
