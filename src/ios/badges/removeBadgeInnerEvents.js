@@ -4,6 +4,7 @@ const removeInner = function (DB,user,key,eventID) {
     let update={};
     update[key]=eventID;
     console.log(`paramters remove inner`,
+        DB,
         {
             email:user.email
         },
@@ -19,9 +20,11 @@ const removeInner = function (DB,user,key,eventID) {
             $pull : update
         }
     )
-        .then(
-            ()=>{}
-        )
-        .catch(()=>{});
+        .then((e)=>{
+            console.log(`remove inner`,e)
+        })
+        .catch((e)=>{
+            console.log(`remove inner`,e)
+        });
 };
 module.exports=removeInner;

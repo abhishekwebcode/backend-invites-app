@@ -1,5 +1,4 @@
 const badgeRemove = function (DB,user,key) {
-    console.trace(`badges remove`);
     console.log(arguments);
     let update = {};
     update[key] = 0;

@@ -45,8 +45,10 @@ const addBadge = {
                     "badgesMain.events" : 1
                 }
             }
-        ).then(()=>{})
-            .catch(()=>{})
+        ).then((e)=>{console.log(e)})
+            .catch((e)=>{
+                console.log(e)
+            })
     },
     userNotifyGiftBadgeDeleted:async function (db,inviterIdentifier,eventIDReference) {
         db.collection(`users`).updateMany(
