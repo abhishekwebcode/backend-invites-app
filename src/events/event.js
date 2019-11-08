@@ -64,7 +64,7 @@ module.exports = function (app) {
     app.post(`/events/infodetail`,asyncer( async function (request, response) {
         let db = request.app.get(`db`)();
         let eventIDObj = (request.app.get(`id`))(request.fields.eventId);
-        removeInner(db,request.meta,"badgesEvents",request.app.get(`id`));
+
         let event = await db
             .collection(`events`)
             .find({
