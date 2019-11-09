@@ -146,7 +146,8 @@ module.exports = function (app) {
             }).project({
                 users: 1,
                 date: 1,
-                timeStart: 1
+                timeStart: 1,
+                datetext:1
             }).toArray();
             let users = events[0].users;
             let totalInvited = users.length;

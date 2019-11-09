@@ -38,7 +38,7 @@ module.exports = function (app) {
                 ]
             }
         }).project({
-            _id: 1, childName: 1, date: 1, guestSee: 1
+            _id: 1, childName: 1, date: 1, guestSee: 1,datetext:1
         }).sort({date: 1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
         for (i = 0; i < invites.length; i++) {
             try {
@@ -118,7 +118,8 @@ module.exports = function (app) {
             district: 1,
             otherAddress: 1,
             theme: 1,
-            created_by: 1
+            created_by: 1,
+            datetext:1
         }).toArray();
         if (eventINFO.length === 0) {
             response.json({success: false, message: "Invite does not exist"});

@@ -41,7 +41,8 @@ module.exports = function (app) {
                 _id: 1,
                 date: 1,
                 childName: 1,
-                theme: 1
+                theme: 1,
+                datetext:1
             }).sort({date: 1}).skip(parseInt(request.fields.offset)).limit(10).toArray();
             //console.log(events);
             let send = [];
@@ -50,7 +51,8 @@ module.exports = function (app) {
                     id: item._id,
                     name: item.childName,
                     theme: item.theme,
-                    date: item.date.getTime()
+                    date: item.date.getTime(),
+                    datetext:item.datetext
                 })
             });
             response.json({success: true, events: send});
@@ -86,7 +88,8 @@ module.exports = function (app) {
                 created_by: 1,
                 guestSee: 1,
                 latitude: 1,
-                longitude: 1
+                longitude: 1,
+                datetext:1
             })
             .limit(1)
             .toArray();
