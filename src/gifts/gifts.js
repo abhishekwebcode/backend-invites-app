@@ -266,7 +266,7 @@ module.exports = function (app) {
         let event_id_obj = request.app.get(`id`)(request.fields.eventId);
         let email = await app.get(`db`)().collection(`users`).findOne({email: request.email});
         let userIdObj = email._id;
-        removeInner(app.get(`db`)(),request.meta,"badgesInvitesGifts",request.app.get(`id`));
+        removeInner(app.get(`db`)(),request.meta,"badgesInvitesGifts",request.fields.eventId);
         /**
          * Get selected gifts if there are any
          */
