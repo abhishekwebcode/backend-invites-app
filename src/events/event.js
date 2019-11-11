@@ -51,7 +51,8 @@ module.exports = function (app) {
                     id: item._id,
                     name: item.childName,
                     theme: item.theme,
-                    date: item.date.getTime(),
+                    // to account for difference in time
+                    date: item.date.getTime()-(86400000),
                     datetext:item.datetext
                 })
             });
