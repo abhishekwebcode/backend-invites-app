@@ -175,7 +175,11 @@ module.exports = function (app) {
         remove(request.User.phone.number, intlArray);
         let usersIdsobjs = [];
         users.forEach(e => usersIdsobjs.push(e._id));
-        event["date"] = new Date(parseInt(event["date"]));
+
+        let theDate = new Date(parseInt(event["date"]));
+        theDate.setDate(theDate.getDate() + 1);
+        event["date"] = theDate;
+
         event["isSpecialTheme"] = (event["isSpecialTheme"] === "true");
         event["guestSee"] = (event["guestSee"] === "true");
         //console.log(event);

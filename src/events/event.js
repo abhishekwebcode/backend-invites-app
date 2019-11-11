@@ -111,7 +111,6 @@ module.exports = function (app) {
         let event = fields;
         let theDate = new Date(parseInt(event["date"]));
         theDate.setDate(theDate.getDate() + 1);
-
         event["date"] = theDate;
         event["isSpecialTheme"] = (event["isSpecialTheme"] === "true");
         event["guestSee"] = (event["guestSee"] === "true");
