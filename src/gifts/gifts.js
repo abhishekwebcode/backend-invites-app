@@ -108,6 +108,7 @@ var sendPushToGiftInvitee = async function (fcm, db, existing,addBadge) {
                 "mutable_content": true
             };
         }
+        console.log(`GIFT DELETED , `,payloadIos,fcm);
         fcm(payloadIos).then(()=>{}).catch(()=>{});
     }
     return ;
