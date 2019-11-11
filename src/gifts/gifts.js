@@ -177,6 +177,7 @@ var sendPushGiftSelected = async function (fcm, tokens, eventID, childName, link
                 "mutable_content": true
             };
         }
+        console.log(`gift selected payload`,fcm,payloadIos);
         fcm(payloadIos).then(()=>{}).catch(()=>{});
     }
 
