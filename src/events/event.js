@@ -109,7 +109,10 @@ module.exports = function (app) {
         let fields = request.fields;
         delete fields.eventId;
         let event = fields;
-        event["date"] = new Date(parseInt(event["date"]));
+        let theDate = new Date(parseInt(event["date"]));
+        theDate.setDate(theDate.getDate() + 1);
+
+        event["date"] = theDate;
         event["isSpecialTheme"] = (event["isSpecialTheme"] === "true");
         event["guestSee"] = (event["guestSee"] === "true");
         let update = await db.collection(`events`).update({_id: eventIDObj}, {$set: event}, {});
