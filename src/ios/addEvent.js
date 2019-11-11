@@ -50,9 +50,9 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
         },
     };
     let messageFrench = {
-        "sound": "default",
         collapse_key: 'New Invite',
         notification:{
+            "sound": "default",
             title:`Nouvelle invitation pour ${childName} fête`,
             body:`RSVP vous a envoyé à une fête par ${OwnerName}`
             /*
