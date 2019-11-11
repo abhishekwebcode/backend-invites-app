@@ -51,7 +51,7 @@ module.exports = function (app) {
                     id: item._id,
                     name: item.childName,
                     theme: item.theme,
-                    date: item.date,
+                    date: item.date.getTime(),
                     datetext:item.datetext
                 })
             });
