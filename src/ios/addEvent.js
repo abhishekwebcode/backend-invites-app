@@ -25,6 +25,8 @@ const sendPushIos=async function(FCM,registeredUsers, ids, db, eventIdObject, ap
             console.error(e)
         }
     });
+
+
     let message = {
         collapse_key: 'New Invite',
         notification:{
