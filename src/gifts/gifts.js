@@ -333,12 +333,12 @@ module.exports = function (app) {
             addBadge.usersNotifyGiftBadgeAdd(app.get(`db`)(), tokenss, request.fields.eventId).then(() => {
                 }).catch(() => {
             })
-            sendPush(request.app.get(`FCM`), AllTokens, eventId, gift, childName, name).then(() => {
+            sendPush(request.app.get(`FCM`), AllTokens, request.fields.eventId, gift, childName, name).then(() => {
                 }).catch(() => {
             });
-            console.log(request.app.get(`FCM`), tokenss, eventId, gift, childName, name, app.get(`db`)())
+            console.log(request.app.get(`FCM`), tokenss, request.fields.eventId, gift, childName, name, app.get(`db`)())
 
-            sendPushiOS(request.app.get(`FCM`), tokenss, eventId, gift, childName, name, app.get(`db`)()).then(() => {
+            sendPushiOS(request.app.get(`FCM`), tokenss, request.fields.eventId, gift, childName, name, app.get(`db`)()).then(() => {
                 }).catch(() => {
             });
 
@@ -402,7 +402,7 @@ module.exports = function (app) {
                 let childName = eventOwner.childName;
                 let user = await db.collection(`users`).findOne({email: emailOwner});
                 let tokens = user.FCM_Tokens;
-                sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, myalias,user).then(()=>{}).catch(()=>{});
+                sendPushGiftSelected(request.app.get(`FCM`), tokens, request.fields.eventId, childName, myalias,user).then(()=>{}).catch(()=>{});
                 addBadge
                     .ownerNotifyGift(db,{email: emailOwner},request.fields.eventId)
                     .then(()=>{})
@@ -472,7 +472,7 @@ module.exports = function (app) {
             .ownerNotifyGift(db,{email: emailOwner},request.fields.eventId)
             .then(()=>{})
             .catch(()=>{});
-        sendPushGiftSelected(request.app.get(`FCM`), tokens, eventId, childName, myalias,user).then(()=>{}).catch(()=>{});
+        sendPushGiftSelected(request.app.get(`FCM`), tokens, request.fields.eventId, childName, myalias,user).then(()=>{}).catch(()=>{});
         let gidtUpdate = await db.collection(`gifts`).findOneAndUpdate({_id: gift}, {
             $set: {selected: true, selected_by_id: userIdObj}
         });
